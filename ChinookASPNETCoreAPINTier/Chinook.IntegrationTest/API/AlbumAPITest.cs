@@ -14,7 +14,9 @@ namespace Chinook.IntegrationTest.API
 
         public AlbumApiTest()
         {
-            var server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            var server = new TestServer(new WebHostBuilder()
+                .UseEnvironment("Development")
+                .UseStartup<Startup>());
             _client = server.CreateClient();
         }
 
@@ -29,6 +31,7 @@ namespace Chinook.IntegrationTest.API
             var response = await _client.SendAsync(request);
 
             // Assert
+            response.EnsureSuccessStatusCode();
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -43,6 +46,7 @@ namespace Chinook.IntegrationTest.API
             var response = await _client.SendAsync(request);
 
             // Assert
+            response.EnsureSuccessStatusCode();
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }

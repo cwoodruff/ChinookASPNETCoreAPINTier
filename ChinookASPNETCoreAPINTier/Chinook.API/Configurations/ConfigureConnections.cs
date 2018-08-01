@@ -9,7 +9,8 @@ namespace Chinook.API.Configurations
     {
         public static IServiceCollection AddConnectionProvider(this IServiceCollection services, IConfiguration configuration)
         {
-            var connection = configuration.GetConnectionString("ChinookDb");
+            var connection = configuration.GetConnectionString("ChinookDb") ??
+                             "Server=.;Database=Chinook;Trusted_Connection=True;";
             services.AddDbContext<ChinookContext>(options => options.UseSqlServer(connection));
 
             return services;
