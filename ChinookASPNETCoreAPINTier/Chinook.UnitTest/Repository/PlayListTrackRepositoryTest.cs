@@ -1,18 +1,22 @@
-﻿using Chinook.MockData.Repositories;
+﻿using System;
+using Chinook.MockData.Repositories;
 using System.Threading.Tasks;
+using Chinook.Domain.Entities;
+using JetBrains.dotMemoryUnit;
 using Xunit;
 
 namespace Chinook.UnitTest.Repository
 {
     public class PlayListTrackRepositoryTest
     {
-        private readonly AlbumRepository _repo;
+        private readonly PlaylistTrackRepository _repo;
 
         public PlayListTrackRepositoryTest()
         {
-            _repo = new AlbumRepository();
+            _repo = new PlaylistTrackRepository();
         }
 
+        [DotMemoryUnit(FailIfRunWithoutSupport = false)]
         [Fact]
         public async Task PlayListTrackGetAllAsync()
         {
@@ -20,7 +24,21 @@ namespace Chinook.UnitTest.Repository
             var playListTracks = await _repo.GetAllAsync();
 
             // Assert
-            Assert.Equal(1, playListTracks.Count);
+            Assert.Single(playListTracks);
+        }
+        
+        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] { typeof(PlaylistTrack) })]
+        [Fact]
+        public async Task DotMemoryUnitTest()
+        {
+            var repo = new PlaylistTrackRepository();
+
+            await repo.GetAllAsync();
+
+            dotMemory.Check(memory =>
+                Assert.Equal(1, memory.GetObjects(where => where.Type.Is<PlaylistTrack>()).ObjectsCount));
+
+            GC.KeepAlive(repo); // prevent objects from GC if this is implied by test logic
         }
     }
 }
