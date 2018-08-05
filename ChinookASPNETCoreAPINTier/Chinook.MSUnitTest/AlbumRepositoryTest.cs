@@ -39,7 +39,7 @@ namespace Chinook.MSUnitTest
             var album = await _repo.GetByIdAsync(1);
 
             // Assert
-            Assert.AreEqual(1, album.AlbumId);
+            Assert.AreEqual(number, album.AlbumId);
         }
 
         [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] {typeof(Album)})]
