@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+
 namespace Chinook.Data.Repositories
 {
     public class PlaylistRepository : IPlaylistRepository
@@ -36,7 +37,8 @@ namespace Chinook.Data.Repositories
             return await _context.Playlist.FindAsync(id);
         }
 
-        public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             IList<Track> list = new List<Track>();
             var playlistTracks = _context.PlaylistTrack.Where(p => p.PlaylistId == id);
@@ -45,6 +47,7 @@ namespace Chinook.Data.Repositories
                 var track = await _context.Track.FindAsync(playlistTrack.TrackId);
                 list.Add(track);
             }
+
             return list.ToList();
         }
 

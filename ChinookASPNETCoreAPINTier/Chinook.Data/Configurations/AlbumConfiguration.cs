@@ -9,7 +9,7 @@ namespace Chinook.Data.Configurations
         public AlbumConfiguration(EntityTypeBuilder<Album> entity)
         {
             entity.HasIndex(e => e.ArtistId)
-                    .HasName("IFK_Artist_Album");
+                .HasName("IFK_Artist_Album");
 
             entity.Property(e => e.Title)
                 .IsRequired()

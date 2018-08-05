@@ -17,7 +17,7 @@ namespace Chinook.Domain.Entities
         public string Fax { get; set; }
         public string Email { get; set; }
         public int? SupportRepId { get; set; }
-        
+
         public ICollection<Invoice> Invoices { get; set; } = new HashSet<Invoice>();
         public Employee SupportRep { get; set; }
     }

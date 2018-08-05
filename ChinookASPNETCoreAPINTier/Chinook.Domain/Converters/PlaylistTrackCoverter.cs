@@ -15,7 +15,7 @@ namespace Chinook.Domain.Converters
 
             return playlistTrackViewModel;
         }
-        
+
         public static List<PlaylistTrackViewModel> ConvertList(IEnumerable<PlaylistTrack> playlistTracks)
         {
             return playlistTracks.Select(p =>

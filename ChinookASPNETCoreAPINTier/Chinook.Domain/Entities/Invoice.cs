@@ -14,7 +14,7 @@ namespace Chinook.Domain.Entities
         public string BillingCountry { get; set; }
         public string BillingPostalCode { get; set; }
         public decimal Total { get; set; }
-        
+
         public ICollection<InvoiceLine> InvoiceLines { get; set; } = new HashSet<InvoiceLine>();
         public Customer Customer { get; set; }
     }

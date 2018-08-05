@@ -9,7 +9,7 @@ namespace Chinook.Data.Configurations
         public InvoiceLineConfiguration(EntityTypeBuilder<InvoiceLine> entity)
         {
             entity.HasIndex(e => e.InvoiceId)
-                    .HasName("IFK_Invoice_InvoiceLine");
+                .HasName("IFK_Invoice_InvoiceLine");
 
             entity.HasIndex(e => e.TrackId)
                 .HasName("IFK_ProductItem_InvoiceLine");

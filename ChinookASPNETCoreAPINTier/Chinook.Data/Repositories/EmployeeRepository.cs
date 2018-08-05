@@ -68,7 +68,8 @@ namespace Chinook.Data.Repositories
             return await _context.Employee.FindAsync(id);
         }
 
-        public async Task<List<Employee>> GetDirectReportsAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Employee>> GetDirectReportsAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             return await _context.Employee.Where(e => e.ReportsTo == id).ToListAsync(ct);
         }

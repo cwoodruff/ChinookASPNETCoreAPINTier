@@ -8,8 +8,6 @@ using Chinook.Domain.Repositories;
 
 namespace Chinook.Data.Repositories
 {
-
-
     /// <summary>
     /// The invoice repository.
     /// </summary>

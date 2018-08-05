@@ -9,7 +9,7 @@ namespace Chinook.Data.Configurations
         public CustomerConfiguration(EntityTypeBuilder<Customer> entity)
         {
             entity.HasIndex(e => e.SupportRepId)
-                    .HasName("IFK_Employee_Customer");
+                .HasName("IFK_Employee_Customer");
 
             entity.Property(e => e.Address).HasMaxLength(70);
 

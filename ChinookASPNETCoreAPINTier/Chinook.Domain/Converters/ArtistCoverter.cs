@@ -14,7 +14,7 @@ namespace Chinook.Domain.Converters
             artistViewModel.Name = artist.Name;
             return artistViewModel;
         }
-        
+
         public static List<ArtistViewModel> ConvertList(IEnumerable<Artist> artists)
         {
             return artists.Select(a =>

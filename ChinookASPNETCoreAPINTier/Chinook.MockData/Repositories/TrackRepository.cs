@@ -11,7 +11,6 @@ namespace Chinook.MockData.Repositories
     {
         public void Dispose()
         {
-            
         }
 
         public async Task<List<Track>> GetAllAsync(CancellationToken ct = default(CancellationToken))

@@ -13,7 +13,7 @@ namespace Chinook.Domain.Entities
         public int Milliseconds { get; set; }
         public int Bytes { get; set; }
         public decimal UnitPrice { get; set; }
-        
+
         public ICollection<InvoiceLine> InvoiceLines { get; set; } = new HashSet<InvoiceLine>();
         public ICollection<PlaylistTrack> PlaylistTracks { get; set; } = new HashSet<PlaylistTrack>();
         public Album Album { get; set; }

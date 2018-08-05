@@ -45,6 +45,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetAlbumByIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -63,6 +64,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetAlbumByArtistIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -73,7 +75,8 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(AlbumViewModel))]
-        public async Task<IActionResult> Post([FromBody]AlbumViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Post([FromBody] AlbumViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -90,7 +93,8 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(AlbumViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody]AlbumViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Put(int id, [FromBody] AlbumViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -100,9 +104,10 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 var errors = JsonConvert.SerializeObject(ModelState.Values
-                .SelectMany(state => state.Errors)
-                .Select(error => error.ErrorMessage));
+                    .SelectMany(state => state.Errors)
+                    .Select(error => error.ErrorMessage));
                 Debug.WriteLine(errors);
 
                 if (await _chinookSupervisor.UpdateAlbumAsync(input, ct))
@@ -111,7 +116,6 @@ namespace Chinook.API.Controllers
                 }
 
                 return StatusCode(500);
-
             }
             catch (Exception ex)
             {
@@ -136,7 +140,6 @@ namespace Chinook.API.Controllers
                 }
 
                 return StatusCode(500);
-
             }
             catch (Exception ex)
             {

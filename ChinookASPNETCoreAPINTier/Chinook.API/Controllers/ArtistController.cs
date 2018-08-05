@@ -45,6 +45,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetArtistByIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -55,13 +56,14 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(ArtistViewModel))]
-        public async Task<IActionResult> Post([FromBody]ArtistViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Post([FromBody] ArtistViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
                 if (input == null)
                     return BadRequest();
-                
+
                 return StatusCode(201, await _chinookSupervisor.AddArtistAsync(input, ct));
             }
             catch (Exception ex)
@@ -72,7 +74,8 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(ArtistViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody]ArtistViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Put(int id, [FromBody] ArtistViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -82,9 +85,10 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 var errors = JsonConvert.SerializeObject(ModelState.Values
-                .SelectMany(state => state.Errors)
-                .Select(error => error.ErrorMessage));
+                    .SelectMany(state => state.Errors)
+                    .Select(error => error.ErrorMessage));
                 Debug.WriteLine(errors);
 
                 if (await _chinookSupervisor.UpdateArtistAsync(input, ct))

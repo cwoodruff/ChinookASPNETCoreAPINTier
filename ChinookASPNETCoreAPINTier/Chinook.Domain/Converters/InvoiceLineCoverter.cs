@@ -18,7 +18,7 @@ namespace Chinook.Domain.Converters
 
             return invoiceLineViewModel;
         }
-        
+
         public static List<InvoiceLineViewModel> ConvertList(IEnumerable<InvoiceLine> invoiceLines)
         {
             return invoiceLines.Select(i =>

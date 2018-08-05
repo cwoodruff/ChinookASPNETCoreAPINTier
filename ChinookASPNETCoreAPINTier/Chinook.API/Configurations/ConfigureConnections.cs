@@ -7,7 +7,8 @@ namespace Chinook.API.Configurations
 {
     public static class ConfigureConnections
     {
-        public static IServiceCollection AddConnectionProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddConnectionProvider(this IServiceCollection services,
+            IConfiguration configuration)
         {
             var connection = configuration.GetConnectionString("ChinookDb") ??
                              "Server=.;Database=Chinook;Trusted_Connection=True;";

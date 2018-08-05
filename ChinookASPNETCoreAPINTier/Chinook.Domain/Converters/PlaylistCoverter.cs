@@ -14,7 +14,7 @@ namespace Chinook.Domain.Converters
             playlistViewModel.Name = playlist.Name;
             return playlistViewModel;
         }
-        
+
         public static List<PlaylistViewModel> ConvertList(IEnumerable<Playlist> playlists)
         {
             return playlists.Select(p =>

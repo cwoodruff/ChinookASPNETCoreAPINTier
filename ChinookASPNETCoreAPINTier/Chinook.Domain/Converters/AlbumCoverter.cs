@@ -16,7 +16,7 @@ namespace Chinook.Domain.Converters
 
             return albumViewModel;
         }
-        
+
         public static List<AlbumViewModel> ConvertList(IEnumerable<Album> albums)
         {
             return albums.Select(a =>

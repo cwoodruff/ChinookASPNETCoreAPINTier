@@ -21,7 +21,7 @@ namespace Chinook.IntegrationTest.API
                 });
             }
         }
-        
+
         [Fact]
         public async Task should_get_single_album()
         {

@@ -4,7 +4,8 @@ namespace Chinook.MockData.Extensions
 {
     public static class Pagination
     {
-        public static void AddPagination(this HttpResponse response, int currentPage, int itemsPerPage, int totalItems, int totalPages)
+        public static void AddPagination(this HttpResponse response, int currentPage, int itemsPerPage, int totalItems,
+            int totalPages)
         {
             var paginationHeader = new PaginationHeader(currentPage, itemsPerPage, totalItems, totalPages);
 

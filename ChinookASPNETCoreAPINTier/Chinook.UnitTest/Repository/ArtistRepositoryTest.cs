@@ -5,8 +5,10 @@ using Chinook.Domain.Entities;
 using JetBrains.dotMemoryUnit;
 using Xunit;
 
-[assembly:JetBrains.dotMemoryUnit.SuppressXUnitOutputException]
-[assembly:JetBrains.dotMemoryUnit.EnableDotMemoryUnitSupport]
+[assembly: SuppressXUnitOutputException]
+[assembly: EnableDotMemoryUnitSupport]
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 namespace Chinook.UnitTest.Repository
 {
     public class ArtistRepositoryTest
@@ -17,7 +19,7 @@ namespace Chinook.UnitTest.Repository
         {
             _repo = new ArtistRepository();
         }
-        
+
         [DotMemoryUnitAttribute(FailIfRunWithoutSupport = false)]
         [Fact]
         public async Task ArtistGetAllAsync()
@@ -28,8 +30,8 @@ namespace Chinook.UnitTest.Repository
             // Assert
             Assert.Single(artists);
         }
-        
-        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] { typeof(Artist) })]
+
+        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] {typeof(Artist)})]
         [Fact]
         public async Task DotMemoryUnitTest()
         {

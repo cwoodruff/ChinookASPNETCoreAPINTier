@@ -45,6 +45,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetGenreByIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -55,7 +56,8 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(GenreViewModel))]
-        public async Task<IActionResult> Post([FromBody]GenreViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Post([FromBody] GenreViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -72,7 +74,8 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(GenreViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody]GenreViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Put(int id, [FromBody] GenreViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -82,9 +85,10 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 var errors = JsonConvert.SerializeObject(ModelState.Values
-                .SelectMany(state => state.Errors)
-                .Select(error => error.ErrorMessage));
+                    .SelectMany(state => state.Errors)
+                    .Select(error => error.ErrorMessage));
                 Debug.WriteLine(errors);
 
                 if (await _chinookSupervisor.UpdateGenreAsync(input, ct))

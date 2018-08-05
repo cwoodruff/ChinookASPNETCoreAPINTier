@@ -26,8 +26,8 @@ namespace Chinook.UnitTest.Repository
             // Assert
             Assert.Single(playLists);
         }
-        
-        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] { typeof(Playlist) })]
+
+        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] {typeof(Playlist)})]
         [Fact]
         public async Task DotMemoryUnitTest()
         {

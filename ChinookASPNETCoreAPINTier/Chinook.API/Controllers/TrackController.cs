@@ -45,6 +45,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetTrackByIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -63,6 +64,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetTrackByAlbumIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -81,6 +83,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetTrackByMediaTypeIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -99,6 +102,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetTrackByGenreIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -109,13 +113,14 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(TrackViewModel))]
-        public async Task<IActionResult> Post([FromBody]TrackViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Post([FromBody] TrackViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
                 if (input == null)
                     return BadRequest();
-                
+
                 return StatusCode(201, await _chinookSupervisor.AddTrackAsync(input, ct));
             }
             catch (Exception ex)
@@ -126,7 +131,8 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(TrackViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody]TrackViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Put(int id, [FromBody] TrackViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -136,9 +142,10 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 var errors = JsonConvert.SerializeObject(ModelState.Values
-                .SelectMany(state => state.Errors)
-                .Select(error => error.ErrorMessage));
+                    .SelectMany(state => state.Errors)
+                    .Select(error => error.ErrorMessage));
                 Debug.WriteLine(errors);
 
                 if (await _chinookSupervisor.UpdateTrackAsync(input, ct))

@@ -54,10 +54,7 @@ namespace Chinook.API
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(s =>
-            {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1 docs");
-            });
+            app.UseSwaggerUI(s => { s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1 docs"); });
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Chinook.Domain.Converters
 
             return genreViewModel;
         }
-        
+
         public static List<GenreViewModel> ConvertList(IEnumerable<Genre> genres)
         {
             return genres.Select(g =>

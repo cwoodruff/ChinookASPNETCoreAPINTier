@@ -26,7 +26,7 @@ namespace Chinook.Domain.Converters
 
             return customerViewModel;
         }
-        
+
         public static IEnumerable<CustomerViewModel> ConvertList(IEnumerable<Customer> customers)
         {
             return customers.Select(c =>

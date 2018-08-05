@@ -9,7 +9,7 @@ namespace Chinook.Data.Configurations
         public TrackConfiguration(EntityTypeBuilder<Track> entity)
         {
             entity.HasIndex(e => e.AlbumId)
-                    .HasName("IFK_Album_Track");
+                .HasName("IFK_Album_Track");
 
             entity.HasIndex(e => e.GenreId)
                 .HasName("IFK_Genre_Track");

@@ -28,7 +28,7 @@ namespace Chinook.Domain.Converters
 
             return employeeViewModel;
         }
-        
+
         public static List<EmployeeViewModel> ConvertList(IEnumerable<Employee> employees)
         {
             return employees.Select(e =>

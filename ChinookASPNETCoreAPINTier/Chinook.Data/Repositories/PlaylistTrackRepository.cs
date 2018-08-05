@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+
 namespace Chinook.Data.Repositories
 {
     public class PlaylistTrackRepository : IPlaylistTrackRepository
@@ -32,24 +33,28 @@ namespace Chinook.Data.Repositories
             return await _context.PlaylistTrack.ToListAsync(ct);
         }
 
-        public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             return await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
         }
 
-        public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             return await _context.PlaylistTrack.Where(a => a.TrackId == id).ToListAsync(ct);
         }
 
-        public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack, CancellationToken ct = default(CancellationToken))
+        public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack,
+            CancellationToken ct = default(CancellationToken))
         {
             _context.PlaylistTrack.Add(newPlaylistTrack);
             await _context.SaveChangesAsync(ct);
             return newPlaylistTrack;
         }
 
-        public async Task<bool> UpdateAsync(PlaylistTrack playlistTrack, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(PlaylistTrack playlistTrack,
+            CancellationToken ct = default(CancellationToken))
         {
             if (!await PlaylistTrackExists(playlistTrack.PlaylistId, ct))
                 return false;

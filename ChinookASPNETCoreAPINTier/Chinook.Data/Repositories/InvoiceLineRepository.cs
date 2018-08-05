@@ -37,7 +37,8 @@ namespace Chinook.Data.Repositories
             return await _context.InvoiceLine.FindAsync(id);
         }
 
-        public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,
+            CancellationToken ct = default(CancellationToken))
         {
             _context.InvoiceLine.Add(newInvoiceLine);
             await _context.SaveChangesAsync(ct);
@@ -63,12 +64,14 @@ namespace Chinook.Data.Repositories
             return true;
         }
 
-        public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             return await _context.InvoiceLine.Where(a => a.InvoiceId == id).ToListAsync(ct);
         }
 
-        public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             return await _context.InvoiceLine.Where(a => a.TrackId == id).ToListAsync(ct);
         }

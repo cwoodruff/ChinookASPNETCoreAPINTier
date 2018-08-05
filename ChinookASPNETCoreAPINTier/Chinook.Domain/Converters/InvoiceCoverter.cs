@@ -22,7 +22,7 @@ namespace Chinook.Domain.Converters
 
             return invoiceViewModel;
         }
-        
+
         public static List<InvoiceViewModel> ConvertList(IEnumerable<Invoice> invoices)
         {
             return invoices.Select(i =>

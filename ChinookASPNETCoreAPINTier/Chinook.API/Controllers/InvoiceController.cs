@@ -45,6 +45,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetInvoiceByIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -63,6 +64,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetInvoiceByCustomerIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -73,7 +75,8 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(InvoiceViewModel))]
-        public async Task<IActionResult> Post([FromBody]InvoiceViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Post([FromBody] InvoiceViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -90,7 +93,8 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(InvoiceViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody]InvoiceViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Put(int id, [FromBody] InvoiceViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -100,9 +104,10 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 var errors = JsonConvert.SerializeObject(ModelState.Values
-                .SelectMany(state => state.Errors)
-                .Select(error => error.ErrorMessage));
+                    .SelectMany(state => state.Errors)
+                    .Select(error => error.ErrorMessage));
                 Debug.WriteLine(errors);
 
                 if (await _chinookSupervisor.UpdateInvoiceAsync(input, ct))

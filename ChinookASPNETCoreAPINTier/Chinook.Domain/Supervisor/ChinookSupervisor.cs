@@ -33,7 +33,7 @@ namespace Chinook.Domain.Supervisor
             IMediaTypeRepository mediaTypeRepository,
             IPlaylistRepository playlistRepository,
             ITrackRepository trackRepository
-            )
+        )
         {
             _albumRepository = albumRepository;
             _artistRepository = artistRepository;
@@ -55,8 +55,8 @@ namespace Chinook.Domain.Supervisor
                 album.Artist = await GetArtistByIdAsync(album.ArtistId, ct);
                 album.Tracks = await GetTrackByAlbumIdAsync(album.AlbumId, ct);
                 album.ArtistName = album.Artist.Name;
-
             }
+
             return albums.ToList();
         }
 
@@ -69,13 +69,15 @@ namespace Chinook.Domain.Supervisor
             return albumViewModel;
         }
 
-        public async Task<List<AlbumViewModel>> GetAlbumByArtistIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<AlbumViewModel>> GetAlbumByArtistIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var albums = await _albumRepository.GetByArtistIdAsync(id, ct);
             return AlbumCoverter.ConvertList(albums).ToList();
         }
 
-        public async Task<AlbumViewModel> AddAlbumAsync(AlbumViewModel newAlbumViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<AlbumViewModel> AddAlbumAsync(AlbumViewModel newAlbumViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var album = new Album
             {
@@ -88,7 +90,8 @@ namespace Chinook.Domain.Supervisor
             return newAlbumViewModel;
         }
 
-        public async Task<bool> UpdateAlbumAsync(AlbumViewModel albumViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAlbumAsync(AlbumViewModel albumViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var album = await _albumRepository.GetByIdAsync(albumViewModel.AlbumId, ct);
 
@@ -96,9 +99,8 @@ namespace Chinook.Domain.Supervisor
             album.AlbumId = albumViewModel.AlbumId;
             album.Title = albumViewModel.Title;
             album.ArtistId = albumViewModel.ArtistId;
-                
-            return await _albumRepository.UpdateAsync(album, ct);
 
+            return await _albumRepository.UpdateAsync(album, ct);
         }
 
         public async Task<bool> DeleteAlbumAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -113,6 +115,7 @@ namespace Chinook.Domain.Supervisor
             {
                 artist.Albums = await GetAlbumByArtistIdAsync(artist.ArtistId, ct);
             }
+
             return artists.ToList();
         }
 
@@ -123,11 +126,12 @@ namespace Chinook.Domain.Supervisor
             return artistViewModel;
         }
 
-        public async Task<ArtistViewModel> AddArtistAsync(ArtistViewModel newArtistViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<ArtistViewModel> AddArtistAsync(ArtistViewModel newArtistViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var artist = new Artist
             {
-               Name = newArtistViewModel.Name
+                Name = newArtistViewModel.Name
             };
 
             artist = await _artistRepository.AddAsync(artist, ct);
@@ -135,16 +139,16 @@ namespace Chinook.Domain.Supervisor
             return newArtistViewModel;
         }
 
-        public async Task<bool> UpdateArtistAsync(ArtistViewModel artistViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateArtistAsync(ArtistViewModel artistViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var artist = await _artistRepository.GetByIdAsync(artistViewModel.ArtistId, ct);
 
             if (artist == null) return false;
             artist.ArtistId = artistViewModel.ArtistId;
             artist.Name = artistViewModel.Name;
-                
-            return await _artistRepository.UpdateAsync(artist, ct);
 
+            return await _artistRepository.UpdateAsync(artist, ct);
         }
 
         public async Task<bool> DeleteArtistAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -152,7 +156,8 @@ namespace Chinook.Domain.Supervisor
             return await _artistRepository.DeleteAsync(id, ct);
         }
 
-        public async Task<List<CustomerViewModel>> GetAllCustomerAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<CustomerViewModel>> GetAllCustomerAsync(
+            CancellationToken ct = default(CancellationToken))
         {
             var customers = CustomerCoverter.ConvertList(await _customerRepository.GetAllAsync(ct)).ToList();
             foreach (var customer in customers)
@@ -161,25 +166,31 @@ namespace Chinook.Domain.Supervisor
                 customer.SupportRep = await GetEmployeeByIdAsync(customer.SupportRepId.GetValueOrDefault(), ct);
                 customer.SupportRepName = $"{customer.SupportRep.LastName}, {customer.SupportRep.FirstName}";
             }
+
             return customers.ToList();
         }
 
-        public async Task<CustomerViewModel> GetCustomerByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<CustomerViewModel> GetCustomerByIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var customerViewModel = CustomerCoverter.Convert(await _customerRepository.GetByIdAsync(id, ct));
             customerViewModel.Invoices = await GetInvoiceByCustomerIdAsync(customerViewModel.CustomerId, ct);
-            customerViewModel.SupportRep = await GetEmployeeByIdAsync(customerViewModel.SupportRepId.GetValueOrDefault(), ct);
-            customerViewModel.SupportRepName = $"{customerViewModel.SupportRep.LastName}, {customerViewModel.SupportRep.FirstName}";
+            customerViewModel.SupportRep =
+                await GetEmployeeByIdAsync(customerViewModel.SupportRepId.GetValueOrDefault(), ct);
+            customerViewModel.SupportRepName =
+                $"{customerViewModel.SupportRep.LastName}, {customerViewModel.SupportRep.FirstName}";
             return customerViewModel;
         }
 
-        public async Task<List<CustomerViewModel>> GetCustomerBySupportRepIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<CustomerViewModel>> GetCustomerBySupportRepIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var customers = await _customerRepository.GetBySupportRepIdAsync(id, ct);
             return CustomerCoverter.ConvertList(customers).ToList();
         }
 
-        public async Task<CustomerViewModel> AddCustomerAsync(CustomerViewModel newCustomerViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<CustomerViewModel> AddCustomerAsync(CustomerViewModel newCustomerViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var customer = new Customer
             {
@@ -202,7 +213,8 @@ namespace Chinook.Domain.Supervisor
             return newCustomerViewModel;
         }
 
-        public async Task<bool> UpdateCustomerAsync(CustomerViewModel customerViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateCustomerAsync(CustomerViewModel customerViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var customer = await _customerRepository.GetByIdAsync(customerViewModel.CustomerId, ct);
 
@@ -219,9 +231,8 @@ namespace Chinook.Domain.Supervisor
             customer.Fax = customerViewModel.Fax;
             customer.Email = customerViewModel.Email;
             customer.SupportRepId = customerViewModel.SupportRepId;
-                
-            return await _customerRepository.UpdateAsync(customer, ct);
 
+            return await _customerRepository.UpdateAsync(customer, ct);
         }
 
         public async Task<bool> DeleteCustomerAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -229,16 +240,22 @@ namespace Chinook.Domain.Supervisor
             return await _customerRepository.DeleteAsync(id, ct);
         }
 
-        public async Task<List<EmployeeViewModel>> GetAllEmployeeAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<EmployeeViewModel>> GetAllEmployeeAsync(
+            CancellationToken ct = default(CancellationToken))
         {
             var employees = EmployeeCoverter.ConvertList(await _employeeRepository.GetAllAsync(ct));
             foreach (var employee in employees)
             {
                 employee.Customers = await GetCustomerBySupportRepIdAsync(employee.EmployeeId, ct);
                 employee.DirectReports = await GetEmployeeDirectReportsAsync(employee.EmployeeId, ct);
-                employee.Manager = employee.ReportsTo.HasValue ? await GetEmployeeReportsToAsync(employee.ReportsTo.GetValueOrDefault(), ct) : null;
-                employee.ReportsToName = employee.ReportsTo.HasValue ? $"{employee.Manager.LastName}, {employee.Manager.FirstName}" : string.Empty;
+                employee.Manager = employee.ReportsTo.HasValue
+                    ? await GetEmployeeReportsToAsync(employee.ReportsTo.GetValueOrDefault(), ct)
+                    : null;
+                employee.ReportsToName = employee.ReportsTo.HasValue
+                    ? $"{employee.Manager.LastName}, {employee.Manager.FirstName}"
+                    : string.Empty;
             }
+
             return employees.ToList();
         }
 
@@ -248,8 +265,12 @@ namespace Chinook.Domain.Supervisor
             var employeeViewModel = EmployeeCoverter.Convert(await _employeeRepository.GetByIdAsync(id, ct));
             employeeViewModel.Customers = await GetCustomerBySupportRepIdAsync(employeeViewModel.EmployeeId, ct);
             employeeViewModel.DirectReports = await GetEmployeeDirectReportsAsync(employeeViewModel.EmployeeId, ct);
-            employeeViewModel.Manager = employeeViewModel.ReportsTo.HasValue ? await GetEmployeeReportsToAsync(employeeViewModel.ReportsTo.GetValueOrDefault(), ct) : null;
-            employeeViewModel.ReportsToName = employeeViewModel.ReportsTo.HasValue ? $"{employeeViewModel.Manager.LastName}, {employeeViewModel.Manager.FirstName}" : string.Empty;
+            employeeViewModel.Manager = employeeViewModel.ReportsTo.HasValue
+                ? await GetEmployeeReportsToAsync(employeeViewModel.ReportsTo.GetValueOrDefault(), ct)
+                : null;
+            employeeViewModel.ReportsToName = employeeViewModel.ReportsTo.HasValue
+                ? $"{employeeViewModel.Manager.LastName}, {employeeViewModel.Manager.FirstName}"
+                : string.Empty;
             return employeeViewModel;
         }
 
@@ -260,7 +281,8 @@ namespace Chinook.Domain.Supervisor
             return EmployeeCoverter.Convert(employee);
         }
 
-        public async Task<EmployeeViewModel> AddEmployeeAsync(EmployeeViewModel newEmployeeViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<EmployeeViewModel> AddEmployeeAsync(EmployeeViewModel newEmployeeViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var employee = new Employee
             {
@@ -285,7 +307,8 @@ namespace Chinook.Domain.Supervisor
             return newEmployeeViewModel;
         }
 
-        public async Task<bool> UpdateEmployeeAsync(EmployeeViewModel employeeViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateEmployeeAsync(EmployeeViewModel employeeViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var employee = await _employeeRepository.GetByIdAsync(employeeViewModel.EmployeeId, ct);
 
@@ -305,9 +328,8 @@ namespace Chinook.Domain.Supervisor
             employee.Phone = employeeViewModel.Phone;
             employee.Fax = employeeViewModel.Fax;
             employee.Email = employeeViewModel.Email;
-                
-            return await _employeeRepository.UpdateAsync(employee, ct);
 
+            return await _employeeRepository.UpdateAsync(employee, ct);
         }
 
         public async Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -315,13 +337,15 @@ namespace Chinook.Domain.Supervisor
             return await _employeeRepository.DeleteAsync(id, ct);
         }
 
-        public async Task<List<EmployeeViewModel>> GetEmployeeDirectReportsAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<EmployeeViewModel>> GetEmployeeDirectReportsAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);
             return EmployeeCoverter.ConvertList(employees).ToList();
         }
 
-        public async Task<List<EmployeeViewModel>> GetDirectReportsAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<EmployeeViewModel>> GetDirectReportsAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);
             return EmployeeCoverter.ConvertList(employees).ToList();
@@ -334,6 +358,7 @@ namespace Chinook.Domain.Supervisor
             {
                 genre.Tracks = await GetTrackByGenreIdAsync(genre.GenreId, ct);
             }
+
             return genres.ToList();
         }
 
@@ -344,7 +369,8 @@ namespace Chinook.Domain.Supervisor
             return genreViewModel;
         }
 
-        public async Task<GenreViewModel> AddGenreAsync(GenreViewModel newGenreViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<GenreViewModel> AddGenreAsync(GenreViewModel newGenreViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var genre = new Genre
             {
@@ -356,16 +382,16 @@ namespace Chinook.Domain.Supervisor
             return newGenreViewModel;
         }
 
-        public async Task<bool> UpdateGenreAsync(GenreViewModel genreViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateGenreAsync(GenreViewModel genreViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var genre = await _genreRepository.GetByIdAsync(genreViewModel.GenreId, ct);
 
             if (genre == null) return false;
             genre.GenreId = genreViewModel.GenreId;
             genre.Name = genreViewModel.Name;
-                
-            return await _genreRepository.UpdateAsync(genre, ct);
 
+            return await _genreRepository.UpdateAsync(genre, ct);
         }
 
         public async Task<bool> DeleteGenreAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -373,7 +399,8 @@ namespace Chinook.Domain.Supervisor
             return await _genreRepository.DeleteAsync(id, ct);
         }
 
-        public async Task<List<InvoiceLineViewModel>> GetAllInvoiceLineAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLineViewModel>> GetAllInvoiceLineAsync(
+            CancellationToken ct = default(CancellationToken))
         {
             var invoiceLines = InvoiceLineCoverter.ConvertList(await _invoiceLineRepository.GetAllAsync(ct));
             /*foreach (var invoiceLine in invoiceLines)
@@ -385,7 +412,8 @@ namespace Chinook.Domain.Supervisor
             return invoiceLines.ToList();
         }
 
-        public async Task<InvoiceLineViewModel> GetInvoiceLineByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLineViewModel> GetInvoiceLineByIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoiceLineViewModel = InvoiceLineCoverter.Convert(await _invoiceLineRepository.GetByIdAsync(id, ct));
             invoiceLineViewModel.Track = await GetTrackByIdAsync(invoiceLineViewModel.TrackId, ct);
@@ -394,19 +422,22 @@ namespace Chinook.Domain.Supervisor
             return invoiceLineViewModel;
         }
 
-        public async Task<List<InvoiceLineViewModel>> GetInvoiceLineByInvoiceIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLineViewModel>> GetInvoiceLineByInvoiceIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoiceLines = await _invoiceLineRepository.GetByInvoiceIdAsync(id, ct);
             return InvoiceLineCoverter.ConvertList(invoiceLines).ToList();
         }
 
-        public async Task<List<InvoiceLineViewModel>> GetInvoiceLineByTrackIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLineViewModel>> GetInvoiceLineByTrackIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoiceLines = await _invoiceLineRepository.GetByTrackIdAsync(id, ct);
             return InvoiceLineCoverter.ConvertList(invoiceLines).ToList();
         }
 
-        public async Task<InvoiceLineViewModel> AddInvoiceLineAsync(InvoiceLineViewModel newInvoiceLineViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLineViewModel> AddInvoiceLineAsync(InvoiceLineViewModel newInvoiceLineViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoiceLine = new InvoiceLine
             {
@@ -421,7 +452,8 @@ namespace Chinook.Domain.Supervisor
             return newInvoiceLineViewModel;
         }
 
-        public async Task<bool> UpdateInvoiceLineAsync(InvoiceLineViewModel invoiceLineViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateInvoiceLineAsync(InvoiceLineViewModel invoiceLineViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoiceLine = await _invoiceLineRepository.GetByIdAsync(invoiceLineViewModel.InvoiceId, ct);
 
@@ -431,9 +463,8 @@ namespace Chinook.Domain.Supervisor
             invoiceLine.TrackId = invoiceLineViewModel.TrackId;
             invoiceLine.UnitPrice = invoiceLineViewModel.UnitPrice;
             invoiceLine.Quantity = invoiceLineViewModel.Quantity;
-                
-            return await _invoiceLineRepository.UpdateAsync(invoiceLine, ct);
 
+            return await _invoiceLineRepository.UpdateAsync(invoiceLine, ct);
         }
 
         public async Task<bool> DeleteInvoiceLineAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -450,25 +481,30 @@ namespace Chinook.Domain.Supervisor
                 invoice.InvoiceLines = await GetInvoiceLineByInvoiceIdAsync(invoice.InvoiceId, ct);
                 invoice.CustomerName = $"{invoice.Customer.LastName}, {invoice.Customer.FirstName}";
             }
+
             return invoices.ToList();
         }
 
-        public async Task<InvoiceViewModel> GetInvoiceByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceViewModel> GetInvoiceByIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoiceViewModel = InvoiceCoverter.Convert(await _invoiceRepository.GetByIdAsync(id, ct));
             invoiceViewModel.Customer = await GetCustomerByIdAsync(invoiceViewModel.CustomerId, ct);
             invoiceViewModel.InvoiceLines = await GetInvoiceLineByInvoiceIdAsync(invoiceViewModel.InvoiceId, ct);
-            invoiceViewModel.CustomerName = $"{invoiceViewModel.Customer.LastName}, {invoiceViewModel.Customer.FirstName}";
+            invoiceViewModel.CustomerName =
+                $"{invoiceViewModel.Customer.LastName}, {invoiceViewModel.Customer.FirstName}";
             return invoiceViewModel;
         }
 
-        public async Task<List<InvoiceViewModel>> GetInvoiceByCustomerIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceViewModel>> GetInvoiceByCustomerIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoices = await _invoiceRepository.GetByCustomerIdAsync(id, ct);
             return InvoiceCoverter.ConvertList(invoices).ToList();
         }
 
-        public async Task<InvoiceViewModel> AddInvoiceAsync(InvoiceViewModel newInvoiceViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceViewModel> AddInvoiceAsync(InvoiceViewModel newInvoiceViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoice = new Invoice
             {
@@ -487,7 +523,8 @@ namespace Chinook.Domain.Supervisor
             return newInvoiceViewModel;
         }
 
-        public async Task<bool> UpdateInvoiceAsync(InvoiceViewModel invoiceViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateInvoiceAsync(InvoiceViewModel invoiceViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var invoice = await _invoiceRepository.GetByIdAsync(invoiceViewModel.InvoiceId, ct);
 
@@ -501,9 +538,8 @@ namespace Chinook.Domain.Supervisor
             invoice.BillingCountry = invoiceViewModel.BillingCountry;
             invoice.BillingPostalCode = invoiceViewModel.BillingPostalCode;
             invoice.Total = invoiceViewModel.Total;
-                
-            return await _invoiceRepository.UpdateAsync(invoice, ct);
 
+            return await _invoiceRepository.UpdateAsync(invoice, ct);
         }
 
         public async Task<bool> DeleteInvoiceAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -511,24 +547,28 @@ namespace Chinook.Domain.Supervisor
             return await _invoiceRepository.DeleteAsync(id, ct);
         }
 
-        public async Task<List<MediaTypeViewModel>> GetAllMediaTypeAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<MediaTypeViewModel>> GetAllMediaTypeAsync(
+            CancellationToken ct = default(CancellationToken))
         {
             var mediaTypes = MediaTypeCoverter.ConvertList(await _mediaTypeRepository.GetAllAsync(ct));
             foreach (var mediaType in mediaTypes)
             {
                 mediaType.Tracks = await GetTrackByMediaTypeIdAsync(mediaType.MediaTypeId, ct);
             }
+
             return mediaTypes.ToList();
         }
 
-        public async Task<MediaTypeViewModel> GetMediaTypeByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<MediaTypeViewModel> GetMediaTypeByIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var mediaTypeViewModel = MediaTypeCoverter.Convert(await _mediaTypeRepository.GetByIdAsync(id, ct));
             mediaTypeViewModel.Tracks = await GetTrackByMediaTypeIdAsync(mediaTypeViewModel.MediaTypeId, ct);
             return mediaTypeViewModel;
         }
 
-        public async Task<MediaTypeViewModel> AddMediaTypeAsync(MediaTypeViewModel newMediaTypeViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<MediaTypeViewModel> AddMediaTypeAsync(MediaTypeViewModel newMediaTypeViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var mediaType = new MediaType
             {
@@ -540,16 +580,16 @@ namespace Chinook.Domain.Supervisor
             return newMediaTypeViewModel;
         }
 
-        public async Task<bool> UpdateMediaTypeAsync(MediaTypeViewModel mediaTypeViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateMediaTypeAsync(MediaTypeViewModel mediaTypeViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
-            var  mediaType = await _mediaTypeRepository.GetByIdAsync( mediaTypeViewModel.MediaTypeId, ct);
+            var mediaType = await _mediaTypeRepository.GetByIdAsync(mediaTypeViewModel.MediaTypeId, ct);
 
             if (mediaType == null) return false;
             mediaType.MediaTypeId = mediaTypeViewModel.MediaTypeId;
             mediaType.Name = mediaTypeViewModel.Name;
-                
-            return await _mediaTypeRepository.UpdateAsync( mediaType, ct);
 
+            return await _mediaTypeRepository.UpdateAsync(mediaType, ct);
         }
 
         public async Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -557,24 +597,28 @@ namespace Chinook.Domain.Supervisor
             return await _mediaTypeRepository.DeleteAsync(id, ct);
         }
 
-        public async Task<List<PlaylistViewModel>> GetAllPlaylistAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<PlaylistViewModel>> GetAllPlaylistAsync(
+            CancellationToken ct = default(CancellationToken))
         {
             var playlists = PlaylistCoverter.ConvertList(await _playlistRepository.GetAllAsync(ct));
             foreach (var playlist in playlists)
             {
                 playlist.Tracks = await GetTrackByPlaylistIdIdAsync(playlist.PlaylistId, ct);
             }
+
             return playlists.ToList();
         }
 
-        public async Task<PlaylistViewModel> GetPlaylistByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<PlaylistViewModel> GetPlaylistByIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var playlistViewModel = PlaylistCoverter.Convert(await _playlistRepository.GetByIdAsync(id, ct));
             playlistViewModel.Tracks = await GetTrackByPlaylistIdIdAsync(playlistViewModel.PlaylistId, ct);
             return playlistViewModel;
         }
 
-        public async Task<PlaylistViewModel> AddPlaylistAsync(PlaylistViewModel newPlaylistViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<PlaylistViewModel> AddPlaylistAsync(PlaylistViewModel newPlaylistViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var playlist = new Playlist
             {
@@ -586,16 +630,16 @@ namespace Chinook.Domain.Supervisor
             return newPlaylistViewModel;
         }
 
-        public async Task<bool> UpdatePlaylistAsync(PlaylistViewModel playlistViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdatePlaylistAsync(PlaylistViewModel playlistViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var playlist = await _playlistRepository.GetByIdAsync(playlistViewModel.PlaylistId, ct);
 
             if (playlist == null) return false;
             playlist.PlaylistId = playlistViewModel.PlaylistId;
             playlist.Name = playlistViewModel.Name;
-                
-            return await _playlistRepository.UpdateAsync(playlist, ct);
 
+            return await _playlistRepository.UpdateAsync(playlist, ct);
         }
 
         public async Task<bool> DeletePlaylistAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -630,31 +674,36 @@ namespace Chinook.Domain.Supervisor
             return trackViewModel;
         }
 
-        public async Task<List<TrackViewModel>> GetTrackByAlbumIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<TrackViewModel>> GetTrackByAlbumIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var tracks = await _trackRepository.GetByAlbumIdAsync(id, ct);
             return TrackCoverter.ConvertList(tracks).ToList();
         }
 
-        public async Task<List<TrackViewModel>> GetTrackByGenreIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<TrackViewModel>> GetTrackByGenreIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var tracks = await _trackRepository.GetByGenreIdAsync(id, ct);
             return TrackCoverter.ConvertList(tracks).ToList();
         }
 
-        public async Task<List<TrackViewModel>> GetTrackByMediaTypeIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<TrackViewModel>> GetTrackByMediaTypeIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var tracks = await _trackRepository.GetByMediaTypeIdAsync(id, ct);
             return TrackCoverter.ConvertList(tracks).ToList();
         }
-        
-        public async Task<List<TrackViewModel>> GetTrackByPlaylistIdIdAsync(int id, CancellationToken ct = default(CancellationToken))
+
+        public async Task<List<TrackViewModel>> GetTrackByPlaylistIdIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             var tracks = await _playlistRepository.GetTrackByPlaylistIdAsync(id, ct);
             return TrackCoverter.ConvertList(tracks).ToList();
         }
 
-        public async Task<TrackViewModel> AddTrackAsync(TrackViewModel newTrackViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<TrackViewModel> AddTrackAsync(TrackViewModel newTrackViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var track = new Track
             {
@@ -674,7 +723,8 @@ namespace Chinook.Domain.Supervisor
             return newTrackViewModel;
         }
 
-        public async Task<bool> UpdateTrackAsync(TrackViewModel trackViewModel, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateTrackAsync(TrackViewModel trackViewModel,
+            CancellationToken ct = default(CancellationToken))
         {
             var track = await _trackRepository.GetByIdAsync(trackViewModel.TrackId, ct);
 
@@ -688,9 +738,8 @@ namespace Chinook.Domain.Supervisor
             track.Milliseconds = trackViewModel.Milliseconds;
             track.Bytes = trackViewModel.Bytes;
             track.UnitPrice = trackViewModel.UnitPrice;
-                
-            return await _trackRepository.UpdateAsync(track, ct);
 
+            return await _trackRepository.UpdateAsync(track, ct);
         }
 
         public async Task<bool> DeleteTrackAsync(int id, CancellationToken ct = default(CancellationToken))

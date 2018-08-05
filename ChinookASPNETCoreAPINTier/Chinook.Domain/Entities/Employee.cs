@@ -20,7 +20,7 @@ namespace Chinook.Domain.Entities
         public string Phone { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
-        
+
         public ICollection<Customer> Customers { get; set; } = new HashSet<Customer>();
         public Employee Manager { get; set; }
         public ICollection<Employee> DirectReports { get; set; } = new HashSet<Employee>();

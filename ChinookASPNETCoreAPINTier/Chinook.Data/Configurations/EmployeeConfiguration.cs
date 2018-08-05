@@ -9,7 +9,7 @@ namespace Chinook.Data.Configurations
         public EmployeeConfiguration(EntityTypeBuilder<Employee> entity)
         {
             entity.HasIndex(e => e.ReportsTo)
-                    .HasName("IFK_Employee_ReportsTo");
+                .HasName("IFK_Employee_ReportsTo");
 
             entity.Property(e => e.Address).HasMaxLength(70);
 

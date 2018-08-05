@@ -8,8 +8,8 @@ namespace Chinook.MockData.Configurations
     {
         public PlaylistTrackConfiguration(EntityTypeBuilder<PlaylistTrack> entity)
         {
-            entity.HasKey(e => new { e.PlaylistId, e.TrackId })
-                    .HasName("PK__Playlist__A4A6282E25869641");
+            entity.HasKey(e => new {e.PlaylistId, e.TrackId})
+                .HasName("PK__Playlist__A4A6282E25869641");
 
             entity.HasIndex(e => e.PlaylistId)
                 .HasName("IPK_PlaylistTrack");

@@ -4,13 +4,13 @@ using System.Threading;
 using System.Collections.Generic;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+
 namespace Chinook.MockData.Repositories
 {
     public class InvoiceRepository : IInvoiceRepository
     {
         public void Dispose()
         {
-            
         }
 
         public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default(CancellationToken))

@@ -26,8 +26,8 @@ namespace Chinook.UnitTest.Repository
             // Assert
             Assert.Single(employees);
         }
-        
-        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] { typeof(Employee) })]
+
+        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] {typeof(Employee)})]
         [Fact]
         public async Task DotMemoryUnitTest()
         {

@@ -9,7 +9,7 @@ namespace Chinook.MockData.Configurations
         public InvoiceConfiguration(EntityTypeBuilder<Invoice> entity)
         {
             entity.HasIndex(e => e.CustomerId)
-                    .HasName("IFK_Customer_Invoice");
+                .HasName("IFK_Customer_Invoice");
 
             entity.Property(e => e.BillingAddress).HasMaxLength(70);
 

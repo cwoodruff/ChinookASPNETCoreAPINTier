@@ -4,13 +4,13 @@ using System.Threading;
 using System.Collections.Generic;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+
 namespace Chinook.MockData.Repositories
 {
     public class PlaylistRepository : IPlaylistRepository
     {
         public void Dispose()
         {
-            
         }
 
         public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default(CancellationToken))
@@ -40,7 +40,8 @@ namespace Chinook.MockData.Repositories
             return newPlaylist;
         }
 
-        public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             IList<Track> list = new List<Track>();
             var track = new Track

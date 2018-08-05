@@ -11,18 +11,17 @@ namespace Chinook.MockData.Repositories
     {
         public void Dispose()
         {
-            
         }
 
         public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
             IList<Customer> list = new List<Customer>();
 
-                var customer = new Customer
-                {
-                    CustomerId = 1
-                };
-                list.Add(customer);
+            var customer = new Customer
+            {
+                CustomerId = 1
+            };
+            list.Add(customer);
 
             return list.ToList();
         }
@@ -51,14 +50,15 @@ namespace Chinook.MockData.Repositories
             return true;
         }
 
-        public async Task<List<Customer>> GetBySupportRepIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Customer>> GetBySupportRepIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             IList<Customer> list = new List<Customer>();
-                var customer = new Customer
-                {
-                    CustomerId = id
-                };
-                list.Add(customer);
+            var customer = new Customer
+            {
+                CustomerId = id
+            };
+            list.Add(customer);
             return list.ToList();
         }
     }

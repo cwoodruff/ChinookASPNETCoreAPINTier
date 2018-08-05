@@ -21,7 +21,7 @@ namespace Chinook.Domain.Converters
             trackViewModel.UnitPrice = track.UnitPrice;
             return trackViewModel;
         }
-        
+
         public static List<TrackViewModel> ConvertList(IEnumerable<Track> albums)
         {
             return albums.Select(t =>

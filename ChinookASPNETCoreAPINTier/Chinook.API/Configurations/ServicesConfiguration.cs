@@ -30,7 +30,7 @@ namespace Chinook.API.Configurations
 
             return services;
         }
-        
+
         public static IServiceCollection AddMiddleware(this IServiceCollection services)
         {
             services.AddMvc().AddJsonOptions(options =>
@@ -48,10 +48,7 @@ namespace Chinook.API.Configurations
             corsBuilder.AllowAnyMethod();
             corsBuilder.AllowAnyOrigin();
             corsBuilder.AllowCredentials();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", corsBuilder.Build());
-            });
+            services.AddCors(options => { options.AddPolicy("AllowAll", corsBuilder.Build()); });
 
             return services;
         }

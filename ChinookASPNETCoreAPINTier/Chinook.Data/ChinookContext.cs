@@ -22,7 +22,6 @@ namespace Chinook.Data
 
         public ChinookContext(DbContextOptions<ChinookContext> options) : base(options)
         {
-            
         }
 
         public ChinookContext(string dbName)

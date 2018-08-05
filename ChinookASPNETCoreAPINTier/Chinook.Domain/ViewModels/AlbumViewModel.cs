@@ -11,6 +11,5 @@ namespace Chinook.Domain.ViewModels
 
         public ArtistViewModel Artist { get; set; }
         public IList<TrackViewModel> Tracks { get; set; }
-
     }
 }

@@ -45,6 +45,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetEmployeeByIdAsync(id, ct));
             }
             catch (Exception ex)
@@ -63,6 +64,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetEmployeeReportsToAsync(id, ct));
             }
             catch (Exception ex)
@@ -80,6 +82,7 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(await _chinookSupervisor.GetDirectReportsAsync(id, ct));
             }
             catch (Exception ex)
@@ -90,7 +93,8 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(EmployeeViewModel))]
-        public async Task<IActionResult> Post([FromBody]EmployeeViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Post([FromBody] EmployeeViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -107,7 +111,8 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(EmployeeViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody]EmployeeViewModel input, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Put(int id, [FromBody] EmployeeViewModel input,
+            CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -117,9 +122,10 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
+
                 var errors = JsonConvert.SerializeObject(ModelState.Values
-                .SelectMany(state => state.Errors)
-                .Select(error => error.ErrorMessage));
+                    .SelectMany(state => state.Errors)
+                    .Select(error => error.ErrorMessage));
                 Debug.WriteLine(errors);
 
                 if (await _chinookSupervisor.UpdateEmployeeAsync(input, ct))

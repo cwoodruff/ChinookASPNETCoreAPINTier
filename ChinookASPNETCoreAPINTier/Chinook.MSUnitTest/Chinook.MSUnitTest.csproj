@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+        <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+        <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Chinook.Data\Chinook.Data.csproj" />
+      <ProjectReference Include="..\Chinook.MockData\Chinook.MockData.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="dotMemory.Unit, Version=111.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325">
+        <HintPath>..\..\..\..\Users\cwood\.nuget\packages\jetbrains.dotmemoryunit\3.0.20171219.105559\lib\netstandard2.0\dotMemory.Unit.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

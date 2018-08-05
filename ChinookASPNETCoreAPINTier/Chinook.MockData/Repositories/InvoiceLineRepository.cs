@@ -11,7 +11,6 @@ namespace Chinook.MockData.Repositories
     {
         public void Dispose()
         {
-            
         }
 
         public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default(CancellationToken))
@@ -34,7 +33,8 @@ namespace Chinook.MockData.Repositories
             return invoiceLine;
         }
 
-        public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,
+            CancellationToken ct = default(CancellationToken))
         {
             return newInvoiceLine;
         }
@@ -49,7 +49,8 @@ namespace Chinook.MockData.Repositories
             return true;
         }
 
-        public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             IList<InvoiceLine> list = new List<InvoiceLine>();
             var newisd = new InvoiceLine
@@ -60,7 +61,8 @@ namespace Chinook.MockData.Repositories
             return list.ToList();
         }
 
-        public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id,
+            CancellationToken ct = default(CancellationToken))
         {
             IList<InvoiceLine> list = new List<InvoiceLine>();
             var newisd = new InvoiceLine

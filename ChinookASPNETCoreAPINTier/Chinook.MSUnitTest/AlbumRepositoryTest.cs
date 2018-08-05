@@ -1,12 +1,13 @@
-﻿using System;
-using Chinook.MockData.Repositories;
+using System;
 using System.Threading.Tasks;
 using Chinook.Domain.Entities;
+using Chinook.MockData.Repositories;
 using JetBrains.dotMemoryUnit;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Chinook.UnitTest.Repository
+namespace Chinook.MSUnitTest
 {
+    [TestClass]
     public class AlbumRepositoryTest
     {
         private readonly AlbumRepository _repo;
@@ -17,20 +18,18 @@ namespace Chinook.UnitTest.Repository
         }
 
         [DotMemoryUnit(FailIfRunWithoutSupport = false)]
-        [Fact]
+        [TestMethod]
         public async Task AlbumGetAllAsync()
         {
-            // Arrange
-
             // Act
             var albums = await _repo.GetAllAsync();
 
             // Assert
-            Assert.Single(albums);
+            Assert.AreEqual(1, albums.Count);
         }
 
-        [DotMemoryUnit(FailIfRunWithoutSupport = false)]
-        [Fact]
+        [DotMemoryUnitAttribute(FailIfRunWithoutSupport = false)]
+        [TestMethod]
         public async Task AlbumGetOneAsync()
         {
             // Arrange
@@ -40,11 +39,11 @@ namespace Chinook.UnitTest.Repository
             var album = await _repo.GetByIdAsync(1);
 
             // Assert
-            Assert.Equal(number, album.AlbumId);
+            Assert.AreEqual(1, album.AlbumId);
         }
 
         [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] {typeof(Album)})]
-        [Fact]
+        [TestMethod]
         public async Task DotMemoryUnitTest()
         {
             var repo = new AlbumRepository();
@@ -52,7 +51,7 @@ namespace Chinook.UnitTest.Repository
             await repo.GetAllAsync();
 
             dotMemory.Check(memory =>
-                Assert.Equal(1, memory.GetObjects(where => where.Type.Is<Album>()).ObjectsCount));
+                Assert.AreEqual(1, memory.GetObjects(where => where.Type.Is<Album>()).ObjectsCount));
 
             GC.KeepAlive(repo); // prevent objects from GC if this is implied by test logic
         }

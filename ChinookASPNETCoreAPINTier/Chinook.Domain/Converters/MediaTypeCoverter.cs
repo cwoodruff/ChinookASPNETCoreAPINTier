@@ -14,7 +14,7 @@ namespace Chinook.Domain.Converters
             mediaTypeViewModel.Name = mediaType.Name;
             return mediaTypeViewModel;
         }
-        
+
         public static List<MediaTypeViewModel> ConvertList(IEnumerable<MediaType> mediaTypes)
         {
             return mediaTypes.Select(m =>
