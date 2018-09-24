@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetCustomerByIdAsync(id, ct) == null)
+                var customer = await _chinookSupervisor.GetCustomerByIdAsync(id, ct);
+                if ( customer == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetCustomerByIdAsync(id, ct));
+                else
+                {
+                    return Ok(customer);
+                }
             }
             catch (Exception ex)
             {
@@ -60,12 +63,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetEmployeeByIdAsync(id, ct) == null)
+                var rep = await _chinookSupervisor.GetEmployeeByIdAsync(id, ct);
+                if ( rep == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetCustomerBySupportRepIdAsync(id, ct));
+                else
+                {
+                    return Ok(rep);
+                }  
             }
             catch (Exception ex)
             {

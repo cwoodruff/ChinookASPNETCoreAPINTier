@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetTrackByIdAsync(id, ct) == null)
+                var track = await _chinookSupervisor.GetTrackByIdAsync(id, ct);
+                if ( track == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetTrackByIdAsync(id, ct));
+                else
+                {
+                    return Ok(track);
+                } 
             }
             catch (Exception ex)
             {
@@ -60,12 +63,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetAlbumByIdAsync(id, ct) == null)
+                var album = await _chinookSupervisor.GetAlbumByIdAsync(id, ct);
+                if ( album == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetTrackByAlbumIdAsync(id, ct));
+                else
+                {
+                    return Ok(album);
+                } 
             }
             catch (Exception ex)
             {
@@ -79,12 +85,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetMediaTypeByIdAsync(id, ct) == null)
+                var mediaType = await _chinookSupervisor.GetMediaTypeByIdAsync(id, ct);
+                if ( mediaType == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetTrackByMediaTypeIdAsync(id, ct));
+                else
+                {
+                    return Ok(mediaType);
+                }
             }
             catch (Exception ex)
             {
@@ -98,12 +107,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetGenreByIdAsync(id, ct) == null)
+                var genre = await _chinookSupervisor.GetGenreByIdAsync(id, ct);
+                if (genre == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetTrackByGenreIdAsync(id, ct));
+                else
+                {
+                    return Ok(genre);
+                } 
             }
             catch (Exception ex)
             {

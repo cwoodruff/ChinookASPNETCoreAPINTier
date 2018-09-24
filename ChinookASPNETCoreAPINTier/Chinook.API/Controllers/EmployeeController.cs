@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetEmployeeByIdAsync(id, ct) == null)
+                var employee = await _chinookSupervisor.GetEmployeeByIdAsync(id, ct);
+                if ( employee == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetEmployeeByIdAsync(id, ct));
+                else
+                {
+                    return Ok(employee);
+                }
             }
             catch (Exception ex)
             {
@@ -60,12 +63,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetEmployeeByIdAsync(id, ct) == null)
+                var employee = await _chinookSupervisor.GetEmployeeByIdAsync(id, ct);
+                if ( employee == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetEmployeeReportsToAsync(id, ct));
+                else
+                {
+                    return Ok(employee);
+                }
             }
             catch (Exception ex)
             {
@@ -78,12 +84,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetEmployeeByIdAsync(id, ct) == null)
+                var employee = await _chinookSupervisor.GetEmployeeByIdAsync(id, ct);
+                if ( employee == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetDirectReportsAsync(id, ct));
+                else
+                {
+                    return Ok(employee);
+                }
             }
             catch (Exception ex)
             {

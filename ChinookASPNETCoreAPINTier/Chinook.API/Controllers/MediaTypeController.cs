@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetMediaTypeByIdAsync(id, ct) == null)
+                var mediaType = await _chinookSupervisor.GetMediaTypeByIdAsync(id, ct);
+                if ( mediaType == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetMediaTypeByIdAsync(id, ct));
+                else
+                {
+                    return Ok(mediaType);
+                } 
             }
             catch (Exception ex)
             {

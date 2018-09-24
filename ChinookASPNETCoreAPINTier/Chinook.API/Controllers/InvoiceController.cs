@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetInvoiceByIdAsync(id, ct) == null)
+                var invoice = await _chinookSupervisor.GetInvoiceByIdAsync(id, ct);
+                if ( invoice == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetInvoiceByIdAsync(id, ct));
+                else
+                {
+                    return Ok(invoice);
+                }   
             }
             catch (Exception ex)
             {
