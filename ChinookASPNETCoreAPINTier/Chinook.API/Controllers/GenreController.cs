@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetGenreByIdAsync(id, ct) == null)
+                var genre = await _chinookSupervisor.GetGenreByIdAsync(id, ct);
+                if ( genre == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetGenreByIdAsync(id, ct));
+                else
+                {
+                    return Ok(genre);
+                }  
             }
             catch (Exception ex)
             {

@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetAlbumByIdAsync(id, ct) == null)
+                var album = await _chinookSupervisor.GetAlbumByIdAsync(id, ct);
+                if (album == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetAlbumByIdAsync(id, ct));
+                else
+                {
+                    return Ok(album);
+                }
             }
             catch (Exception ex)
             {
@@ -60,12 +63,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetArtistByIdAsync(id, ct) == null)
+                var artist = await _chinookSupervisor.GetArtistByIdAsync(id, ct);
+                if ( artist == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetAlbumByArtistIdAsync(id, ct));
+                else
+                {
+                    return Ok(await _chinookSupervisor.GetAlbumByArtistIdAsync(id, ct));
+                }
             }
             catch (Exception ex)
             {

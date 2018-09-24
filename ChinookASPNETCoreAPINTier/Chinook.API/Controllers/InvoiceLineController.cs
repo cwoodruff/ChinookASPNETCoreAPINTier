@@ -41,12 +41,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetInvoiceLineByIdAsync(id, ct) == null)
+                var invoiceLine = await _chinookSupervisor.GetInvoiceLineByIdAsync(id, ct);
+                if ( invoiceLine == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetInvoiceLineByIdAsync(id, ct));
+                else
+                {
+                    return Ok(invoiceLine);
+                }
             }
             catch (Exception ex)
             {
@@ -60,12 +63,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetInvoiceByIdAsync(id, ct) == null)
+                var invoice = await _chinookSupervisor.GetInvoiceByIdAsync(id, ct);
+                if ( invoice == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetInvoiceLineByInvoiceIdAsync(id, ct));
+                else
+                {
+                    return Ok(invoice);
+                } 
             }
             catch (Exception ex)
             {
@@ -79,12 +85,15 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                if (await _chinookSupervisor.GetTrackByIdAsync(id, ct) == null)
+                var track = await _chinookSupervisor.GetTrackByIdAsync(id, ct);
+                if (track == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(await _chinookSupervisor.GetInvoiceLineByTrackIdAsync(id, ct));
+                else
+                {
+                    return Ok(track);
+                } 
             }
             catch (Exception ex)
             {
