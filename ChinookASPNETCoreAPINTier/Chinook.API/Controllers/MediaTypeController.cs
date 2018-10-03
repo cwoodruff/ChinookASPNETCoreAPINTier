@@ -12,6 +12,7 @@ using Chinook.Domain.ViewModels;
 namespace Chinook.API.Controllers
 {
     [Route("api/[controller]")]
+    [ResponseCache(Duration = 604800)] // cache for a week
     public class MediaTypeController : Controller
     {
         private readonly IChinookSupervisor _chinookSupervisor;
@@ -23,6 +24,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<MediaTypeViewModel>))]
+        [ResponseCache(Duration = 604800)] // cache for a week
         public async Task<IActionResult> Get(CancellationToken ct = default(CancellationToken))
         {
             try
