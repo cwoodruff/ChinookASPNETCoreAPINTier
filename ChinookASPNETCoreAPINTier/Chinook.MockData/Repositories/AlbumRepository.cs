@@ -21,7 +21,7 @@ namespace Chinook.MockData.Repositories
             {
                 AlbumId = 1,
                 ArtistId = 1,
-                Title = "Hellow World"
+                Title = "Hello World"
             };
             list.Add(album);
 
