@@ -34,13 +34,13 @@ namespace Chinook.UnitTest.Repository
         public async Task AlbumGetOneAsync()
         {
             // Arrange
-            var number = 1;
+            var id = 1;
 
             // Act
-            var album = await _repo.GetByIdAsync(1);
+            var album = await _repo.GetByIdAsync(id);
 
             // Assert
-            Assert.Equal(number, album.AlbumId);
+            Assert.Equal(id, album.AlbumId);
         }
 
         [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] {typeof(Album)})]
