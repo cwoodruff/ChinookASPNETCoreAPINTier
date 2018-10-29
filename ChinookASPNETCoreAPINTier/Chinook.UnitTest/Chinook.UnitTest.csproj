@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeFrameworkVersion>2.1.5</RuntimeFrameworkVersion>
     <IsPackable>false</IsPackable>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -13,5 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Chinook.Domain\Chinook.Domain.csproj" />
     <ProjectReference Include="..\Chinook.MockData\Chinook.MockData.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.1.5" />
   </ItemGroup>
 </Project>

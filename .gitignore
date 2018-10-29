@@ -328,3 +328,10 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+ChinookASPNETCoreAPINTier/.DS_Store
+ChinookASPNETCoreAPINTier/Chinook.API/.DS_Store
+ChinookASPNETCoreAPINTier/Chinook.Data/.DS_Store
+ChinookASPNETCoreAPINTier/Chinook.Domain/.DS_Store
+ChinookASPNETCoreAPINTier/Chinook.MockData/.DS_Store
+ChinookASPNETCoreAPINTier/Chinook.MSUnitTest/.DS_Store
+.DS_Store
