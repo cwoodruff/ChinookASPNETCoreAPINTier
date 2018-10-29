@@ -38,7 +38,4 @@
   <ItemGroup>
     <None Remove="Supervisor\**" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="Microsoft.NETCore.App" Version="2.1.5" />
-  </ItemGroup>
 </Project>
