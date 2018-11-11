@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <RuntimeFrameworkVersion>2.1.5</RuntimeFrameworkVersion>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="1.50.5" />
+      <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Chinook.Domain\Chinook.Domain.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Configurations" />
+      <Folder Include="Repositories" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Update="Microsoft.NETCore.App" Version="2.1.5" />
+    </ItemGroup>
+</Project>
