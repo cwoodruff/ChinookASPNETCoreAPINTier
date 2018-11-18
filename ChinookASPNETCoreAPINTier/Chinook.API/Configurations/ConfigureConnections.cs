@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Chinook.DataEFCoreCmpldQry;
+using Chinook.DataEFCore;
 using Chinook.Domain.DbInfo;
 
 namespace Chinook.API.Configurations

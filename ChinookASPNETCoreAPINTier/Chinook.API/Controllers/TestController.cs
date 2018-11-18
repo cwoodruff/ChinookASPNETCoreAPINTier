@@ -22,7 +22,7 @@ namespace Chinook.API.Controllers
         {
             try
             {
-                return Ok(_appSettings.TestValue1);
+                return Ok(_appSettings.TestValue);
             }
             catch (Exception ex)
             {
