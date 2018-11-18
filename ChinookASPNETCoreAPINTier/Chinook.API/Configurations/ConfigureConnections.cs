@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Chinook.Data;
+using Chinook.DataEFCoreCmpldQry;
+using Chinook.Domain.DbInfo;
 
 namespace Chinook.API.Configurations
 {
@@ -12,7 +13,9 @@ namespace Chinook.API.Configurations
         {
             var connection = configuration.GetConnectionString("ChinookDb") ??
                              "Server=.;Database=Chinook;Trusted_Connection=True;";
-            services.AddDbContext<ChinookContext>(options => options.UseSqlServer(connection));
+            services.AddDbContextPool<ChinookContext>(options => options.UseSqlServer(connection));
+
+            services.AddSingleton<IDbInfo>(new DbInfo(connection));
 
             return services;
         }

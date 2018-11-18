@@ -11,7 +11,7 @@ namespace Chinook.UnitTest.Supervisor
 
         public AlbumSupervisorTest(ChinookSupervisor super)
         {
-            _super = super;
+            _super = new ChinookSupervisor();
         }
 
         [DotMemoryUnit(FailIfRunWithoutSupport = false)]

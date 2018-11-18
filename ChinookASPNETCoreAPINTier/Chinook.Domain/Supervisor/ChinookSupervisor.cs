@@ -23,6 +23,10 @@ namespace Chinook.Domain.Supervisor
         private readonly IPlaylistRepository _playlistRepository;
         private readonly ITrackRepository _trackRepository;
 
+        public ChinookSupervisor()
+        {
+        }
+
         public ChinookSupervisor(IAlbumRepository albumRepository,
             IArtistRepository artistRepository,
             ICustomerRepository customerRepository,

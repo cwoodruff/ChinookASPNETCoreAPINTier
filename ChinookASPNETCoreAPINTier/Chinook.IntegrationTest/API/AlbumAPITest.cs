@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
+using Chinook.API;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.AspNetCore.Hosting;
-using Chinook.API;
 
 namespace Chinook.IntegrationTest.API
 {
