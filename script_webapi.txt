@@ -1,0 +1,13 @@
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.EntityFrameworkCore.SqlServer.Design
+
+Scaffold-DbContext "Server=.;Database=Chinook;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+"ConnectionStrings": {
+    "ChinookDb": "Server=.;Database=Chinook;Trusted_Connection=True;"
+  },
+  
+var connection = Configuration.GetConnectionString("ChinookDb");
+            services.AddDbContext<ChinookContext>(options => options.UseSqlServer(connection));
+			
