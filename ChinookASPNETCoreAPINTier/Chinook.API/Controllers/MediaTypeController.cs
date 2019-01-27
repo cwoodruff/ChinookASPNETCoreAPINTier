@@ -25,7 +25,7 @@ namespace Chinook.API.Controllers
         [HttpGet]
         [Produces(typeof(List<MediaTypeViewModel>))]
         [ResponseCache(Duration = 604800)] // cache for a week
-        public async Task<IActionResult> Get(CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(CancellationToken ct = default)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(MediaTypeViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -48,10 +48,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(mediaType);
-                } 
+
+                return Ok(mediaType);
             }
             catch (Exception ex)
             {
@@ -62,7 +60,7 @@ namespace Chinook.API.Controllers
         [HttpPost]
         [Produces(typeof(MediaTypeViewModel))]
         public async Task<IActionResult> Post([FromBody] MediaTypeViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -80,7 +78,7 @@ namespace Chinook.API.Controllers
         [HttpPut("{id}")]
         [Produces(typeof(MediaTypeViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody] MediaTypeViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -111,7 +109,7 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [Produces(typeof(void))]
-        public async Task<ActionResult> Delete(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult> Delete(int id, CancellationToken ct = default)
         {
             try
             {

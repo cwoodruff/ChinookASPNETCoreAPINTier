@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(InvoiceLineViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -46,10 +46,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(invoiceLine);
-                }
+
+                return Ok(invoiceLine);
             }
             catch (Exception ex)
             {
@@ -59,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("invoice/{id}")]
         [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<IActionResult> GetByInvoiceId(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> GetByInvoiceId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -68,10 +66,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(invoice);
-                } 
+
+                return Ok(invoice);
             }
             catch (Exception ex)
             {
@@ -81,7 +77,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("track/{id}")]
         [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<IActionResult> GetByArtistId(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> GetByArtistId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -90,10 +86,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(track);
-                } 
+
+                return Ok(track);
             }
             catch (Exception ex)
             {
@@ -104,7 +98,7 @@ namespace Chinook.API.Controllers
         [HttpPost]
         [Produces(typeof(InvoiceLineViewModel))]
         public async Task<IActionResult> Post([FromBody] InvoiceLineViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -122,7 +116,7 @@ namespace Chinook.API.Controllers
         [HttpPut("{id}")]
         [Produces(typeof(InvoiceLineViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody] InvoiceLineViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -153,7 +147,7 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [Produces(typeof(void))]
-        public async Task<ActionResult> Delete(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult> Delete(int id, CancellationToken ct = default)
         {
             try
             {

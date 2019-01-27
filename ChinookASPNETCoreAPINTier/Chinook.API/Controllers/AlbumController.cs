@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<AlbumViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(AlbumViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -46,10 +46,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(album);
-                }
+
+                return Ok(album);
             }
             catch (Exception ex)
             {
@@ -59,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("artist/{id}")]
         [Produces(typeof(List<AlbumViewModel>))]
-        public async Task<IActionResult> GetByArtistId(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> GetByArtistId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -68,10 +66,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(await _chinookSupervisor.GetAlbumByArtistIdAsync(id, ct));
-                }
+
+                return Ok(await _chinookSupervisor.GetAlbumByArtistIdAsync(id, ct));
             }
             catch (Exception ex)
             {
@@ -82,7 +78,7 @@ namespace Chinook.API.Controllers
         [HttpPost]
         [Produces(typeof(AlbumViewModel))]
         public async Task<IActionResult> Post([FromBody] AlbumViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -100,7 +96,7 @@ namespace Chinook.API.Controllers
         [HttpPut("{id}")]
         [Produces(typeof(AlbumViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody] AlbumViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -131,7 +127,7 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [Produces(typeof(void))]
-        public async Task<ActionResult> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult> DeleteAsync(int id, CancellationToken ct = default)
         {
             try
             {

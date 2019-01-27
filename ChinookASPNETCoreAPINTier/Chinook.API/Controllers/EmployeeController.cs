@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<EmployeeViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(EmployeeViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -46,10 +46,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(employee);
-                }
+
+                return Ok(employee);
             }
             catch (Exception ex)
             {
@@ -59,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("reportsto/{id}")]
         [Produces(typeof(List<EmployeeViewModel>))]
-        public async Task<IActionResult> GetReportsTo(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> GetReportsTo(int id, CancellationToken ct = default)
         {
             try
             {
@@ -68,10 +66,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(employee);
-                }
+
+                return Ok(employee);
             }
             catch (Exception ex)
             {
@@ -80,7 +76,7 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("directreports/{id}")]
-        public async Task<IActionResult> GetDirectReports(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> GetDirectReports(int id, CancellationToken ct = default)
         {
             try
             {
@@ -89,10 +85,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(employee);
-                }
+
+                return Ok(employee);
             }
             catch (Exception ex)
             {
@@ -103,7 +97,7 @@ namespace Chinook.API.Controllers
         [HttpPost]
         [Produces(typeof(EmployeeViewModel))]
         public async Task<IActionResult> Post([FromBody] EmployeeViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -121,7 +115,7 @@ namespace Chinook.API.Controllers
         [HttpPut("{id}")]
         [Produces(typeof(EmployeeViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody] EmployeeViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -152,7 +146,7 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [Produces(typeof(void))]
-        public async Task<ActionResult> Delete(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult> Delete(int id, CancellationToken ct = default)
         {
             try
             {

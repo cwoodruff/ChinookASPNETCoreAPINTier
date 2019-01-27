@@ -50,8 +50,6 @@ namespace Chinook.DataEFCore.Repositories
             if (!await AlbumExists(album.AlbumId, ct))
                 return false;
             _context.Album.Update(album);
-
-            _context.Update(album);
             await _context.SaveChangesAsync(ct);
             return true;
         }

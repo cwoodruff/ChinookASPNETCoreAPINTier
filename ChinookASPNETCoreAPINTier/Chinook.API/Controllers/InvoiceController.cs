@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<InvoiceViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(InvoiceViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -46,10 +46,8 @@ namespace Chinook.API.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    return Ok(invoice);
-                }   
+
+                return Ok(invoice);
             }
             catch (Exception ex)
             {
@@ -59,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("customer/{id}")]
         [Produces(typeof(List<InvoiceViewModel>))]
-        public async Task<IActionResult> GetByCustomerId(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<IActionResult> GetByCustomerId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -79,7 +77,7 @@ namespace Chinook.API.Controllers
         [HttpPost]
         [Produces(typeof(InvoiceViewModel))]
         public async Task<IActionResult> Post([FromBody] InvoiceViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -97,7 +95,7 @@ namespace Chinook.API.Controllers
         [HttpPut("{id}")]
         [Produces(typeof(InvoiceViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody] InvoiceViewModel input,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             try
             {
@@ -128,7 +126,7 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [Produces(typeof(void))]
-        public async Task<ActionResult> Delete(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult> Delete(int id, CancellationToken ct = default)
         {
             try
             {
