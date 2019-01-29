@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
@@ -10,6 +12,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class MediaTypeRepository : IMediaTypeRepository
     {
         private readonly ChinookContext _context;
+        
+        
 
         public MediaTypeRepository(ChinookContext context)
         {
@@ -28,12 +32,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.MediaType.ToListAsync(ct);
+            return await _context.GetAllMediaTypesAsync();
         }
 
         public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.MediaType.FindAsync(id);
+            return await _context.GetMediaTypeAsync(id);
         }
 
         public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken))

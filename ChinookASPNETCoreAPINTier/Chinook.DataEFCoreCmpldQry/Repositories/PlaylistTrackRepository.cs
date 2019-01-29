@@ -12,6 +12,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class PlaylistTrackRepository : IPlaylistTrackRepository
     {
         private readonly ChinookContext _context;
+        
+        
 
         public PlaylistTrackRepository(ChinookContext context)
         {
@@ -30,19 +32,19 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.PlaylistTrack.ToListAsync(ct);
+            return await _context.GetAllPlaylistTracksAsync();
         }
 
         public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
-            return await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
+            return await _context.GetPlaylistTrackByPlaylistId(id);
         }
 
         public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
-            return await _context.PlaylistTrack.Where(a => a.TrackId == id).ToListAsync(ct);
+            return await _context.GetPlaylistTracksByTrackIdAsync(id);
         }
 
         public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack,

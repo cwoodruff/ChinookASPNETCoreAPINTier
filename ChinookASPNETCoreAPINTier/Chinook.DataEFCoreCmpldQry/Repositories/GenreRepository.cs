@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
@@ -12,6 +13,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class GenreRepository : IGenreRepository
     {
         private readonly ChinookContext _context;
+        
+        
         
         private IMemoryCache _cache;
 
@@ -34,7 +37,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Genre.ToListAsync(ct);
+            return await _context.GetAllGenresAsync();
         }
 
         public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
@@ -45,16 +48,13 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             {
                 return cachedGenre;
             }
-            else
-            {
 
-                var dbGenre = await _context.Genre.FindAsync(id);
+            var dbGenre = await _context.GetGenreAsync(id);
 
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(dbGenre.GenreId, dbGenre, cacheEntryOptions);
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+            _cache.Set(dbGenre.GenreId, dbGenre, cacheEntryOptions);
 
-                return dbGenre;
-            }
+            return dbGenre;
         }
 
         public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))

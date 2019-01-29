@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class TrackRepository : ITrackRepository
     {
         private readonly ChinookContext _context;
+        
+        
 
         public TrackRepository(ChinookContext context)
         {
@@ -29,12 +32,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Track>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Track.ToListAsync(ct);
+            return await _context.GetAllTracksAsync();
         }
 
         public async Task<Track> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Track.FindAsync(id);
+            return await _context.GetTrackAsync(id);
         }
 
         public async Task<Track> AddAsync(Track newTrack, CancellationToken ct = default(CancellationToken))
@@ -65,17 +68,17 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Track.Where(a => a.AlbumId == id).ToListAsync(ct);
+            return await _context.GetTracksByAlbumIdAsync(id);
         }
 
         public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Track.Where(a => a.GenreId == id).ToListAsync(ct);
+            return await _context.GetTracksByGenreIdAsync(id);
         }
 
         public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Track.Where(a => a.MediaTypeId == id).ToListAsync(ct);
+            return await _context.GetTracksByMediaTypeIdAsync(id);
         }
     }
 }

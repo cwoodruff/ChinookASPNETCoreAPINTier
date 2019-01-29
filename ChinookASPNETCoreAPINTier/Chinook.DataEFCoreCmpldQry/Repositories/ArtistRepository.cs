@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
@@ -10,6 +12,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class ArtistRepository : IArtistRepository
     {
         private readonly ChinookContext _context;
+        
+        
 
         public ArtistRepository(ChinookContext context)
         {
@@ -28,12 +32,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Artist>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Artist.ToListAsync(ct);
+            return await _context.GetAllArtistsAsync();
         }
 
         public async Task<Artist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Artist.FindAsync(id);
+            return await _context.GetArtistAsync(id);
         }
 
         public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken))

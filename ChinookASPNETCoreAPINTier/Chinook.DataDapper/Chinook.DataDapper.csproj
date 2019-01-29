@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
-        <RuntimeFrameworkVersion>2.1.6</RuntimeFrameworkVersion>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <ItemGroup>
@@ -14,9 +13,6 @@
     <ItemGroup>
       <Folder Include="Configurations" />
       <Folder Include="Repositories" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Update="Microsoft.NETCore.App" Version="2.1.6" />
     </ItemGroup>
     <ItemGroup>
       <Reference Include="Microsoft.EntityFrameworkCore, Version=2.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">

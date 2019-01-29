@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
 
@@ -12,18 +9,6 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class AlbumRepository : IAlbumRepository
     {
         private readonly ChinookContext _context;
-        
-        private static readonly Func<ChinookContext, CancellationToken, Task<List<Album>>> QueryGetAllAlbums =
-            EF.CompileAsyncQuery((ChinookContext db, CancellationToken ct) =>
-                db.Album.ToList());
-        
-        private static readonly Func<ChinookContext, CancellationToken, int, Task<Album>> QueryGetAlbum =
-            EF.CompileAsyncQuery((ChinookContext db, CancellationToken ct, int id) =>
-                db.Album.Find(id));
-
-        private static readonly Func<ChinookContext, CancellationToken, int, Task<List<Album>>> QueryGetAlbumsByArtistId =
-            EF.CompileAsyncQuery((ChinookContext db, CancellationToken ct, int id) =>
-                db.Album.Where(a => a.ArtistId == id).ToList());
 
         public AlbumRepository(ChinookContext context)
         {
@@ -42,12 +27,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Album>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await QueryGetAllAlbums(_context, ct);
+            return await _context.GetAllAlbumsAsync();
         }
 
         public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await QueryGetAlbum(_context, ct, id);
+            return await _context.GetAlbumAsync(id);
         }
 
         public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default(CancellationToken))
@@ -80,7 +65,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await QueryGetAlbumsByArtistId(_context, ct, id);
+            return await _context.GetAlbumsByArtistIdAsync(id);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly ChinookContext _context;
+        
+        
 
         public EmployeeRepository(ChinookContext context)
         {
@@ -29,12 +32,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Employee.ToListAsync(ct);
+            return await _context.GetAllEmployeesAsync();
         }
 
         public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Employee.FindAsync(id);
+            return await _context.GetEmployeeAsync(id);
         }
 
         public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default(CancellationToken))
@@ -65,13 +68,13 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Employee.FindAsync(id);
+            return await _context.GetEmployeeGetReportsToAsync(id);
         }
 
         public async Task<List<Employee>> GetDirectReportsAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Employee.Where(e => e.ReportsTo == id).ToListAsync(ct);
+            return await _context.GetEmployeeDirectReportsAsync(id);
         }
     }
 }

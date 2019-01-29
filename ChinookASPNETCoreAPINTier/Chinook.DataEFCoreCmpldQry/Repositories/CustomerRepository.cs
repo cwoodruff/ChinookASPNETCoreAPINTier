@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class CustomerRepository : ICustomerRepository
     {
         private readonly ChinookContext _context;
+        
+        
 
         public CustomerRepository(ChinookContext context)
         {
@@ -29,12 +32,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Customer.ToListAsync(ct);
+            return await _context.GetAllCustomersAsync();
         }
 
         public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Customer.FindAsync(id);
+            return await _context.GetCustomerAsync(id);
         }
 
         public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default(CancellationToken))
@@ -66,7 +69,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
         public async Task<List<Customer>> GetBySupportRepIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Customer.Where(a => a.SupportRepId == id).ToListAsync(ct);
+            return await _context.GetCustomerBySupportRepIdAsync(id);
         }
     }
 }

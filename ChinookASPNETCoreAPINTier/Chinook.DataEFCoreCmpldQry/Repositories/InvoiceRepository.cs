@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,10 +14,9 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     /// </summary>
     public class InvoiceRepository : IInvoiceRepository
     {
-        /// <summary>
-        /// The _context.
-        /// </summary>
         private readonly ChinookContext _context;
+        
+        
 
         public InvoiceRepository(ChinookContext context)
         {
@@ -35,12 +35,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Invoice.ToListAsync(ct);
+            return await _context.GetAllInvoicesAsync();
         }
 
         public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Invoice.FindAsync(id);
+            return await _context.GetInvoiceAsync(id);
         }
 
         public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default(CancellationToken))
@@ -71,7 +71,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Invoice.Where(a => a.InvoiceId == id).ToListAsync(ct);
+            return await _context.GetInvoicesByCustomerIdAsync(id);
         }
     }
 }

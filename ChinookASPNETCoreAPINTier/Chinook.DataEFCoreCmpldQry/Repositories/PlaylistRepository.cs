@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class PlaylistRepository : IPlaylistRepository
     {
         private readonly ChinookContext _context;
+        
+        
 
         public PlaylistRepository(ChinookContext context)
         {
@@ -29,12 +32,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Playlist.ToListAsync(ct);
+            return await _context.GetAllPlaylistsAsync();
         }
 
         public async Task<Playlist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.Playlist.FindAsync(id);
+            return await _context.GetPlaylistAsync(id);
         }
 
         public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id,
