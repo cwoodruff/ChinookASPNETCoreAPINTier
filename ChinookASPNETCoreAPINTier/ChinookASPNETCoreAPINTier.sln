@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.DataDapper", "Chino
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.DataEFCoreCmpldQry", "Chinook.DataEFCoreCmpldQry\Chinook.DataEFCoreCmpldQry.csproj", "{5CC524EE-9A39-4097-807D-A3E3D637FEDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.UnitTest.DataDapper", "Chinook.UnitTest.DataDapper\Chinook.UnitTest.DataDapper.csproj", "{2AD507E8-FC43-4C82-90A1-0C335BA47B8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{5CC524EE-9A39-4097-807D-A3E3D637FEDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CC524EE-9A39-4097-807D-A3E3D637FEDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CC524EE-9A39-4097-807D-A3E3D637FEDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AD507E8-FC43-4C82-90A1-0C335BA47B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AD507E8-FC43-4C82-90A1-0C335BA47B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AD507E8-FC43-4C82-90A1-0C335BA47B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AD507E8-FC43-4C82-90A1-0C335BA47B8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

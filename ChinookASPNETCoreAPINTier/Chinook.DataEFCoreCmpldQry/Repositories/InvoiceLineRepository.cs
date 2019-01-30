@@ -37,7 +37,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.GetInvoiceLineAsync(id);
+            return _context.GetInvoiceLineAsync(id).Result.First();
         }
 
         public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,

@@ -37,7 +37,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.GetEmployeeAsync(id);
+            return _context.GetEmployeeAsync(id).Result.First();
         }
 
         public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default(CancellationToken))
@@ -68,7 +68,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.GetEmployeeGetReportsToAsync(id);
+            return _context.GetEmployeeGetReportsToAsync(id).Result.First();
         }
 
         public async Task<List<Employee>> GetDirectReportsAsync(int id,

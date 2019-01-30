@@ -37,7 +37,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<Artist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.GetArtistAsync(id);
+            return _context.GetArtistAsync(id).Result.First();
         }
 
         public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken))

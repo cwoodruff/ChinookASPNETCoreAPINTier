@@ -49,7 +49,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
                 return cachedGenre;
             }
 
-            var dbGenre = await _context.GetGenreAsync(id);
+            var dbGenre = _context.GetGenreAsync(id).Result.First();
 
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
             _cache.Set(dbGenre.GenreId, dbGenre, cacheEntryOptions);

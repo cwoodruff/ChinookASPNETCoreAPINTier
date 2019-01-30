@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
 
@@ -32,7 +33,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return await _context.GetAlbumAsync(id);
+            return _context.GetAlbumAsync(id).Result.First();
         }
 
         public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default(CancellationToken))

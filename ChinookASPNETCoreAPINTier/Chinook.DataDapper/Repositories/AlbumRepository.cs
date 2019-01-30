@@ -9,28 +9,29 @@ using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Dapper;
+using Dapper.Contrib.Extensions;
 
 namespace Chinook.DataDapper.Repositories
 {
     public class AlbumRepository : IAlbumRepository
     {
-        private DbInfo _dbInfo;
+        private readonly DbInfo _dbInfo;
 
         public AlbumRepository(DbInfo dbInfo)
         {
             _dbInfo = dbInfo;
         }
-        
-        public IDbConnection Connection => new SqlConnection(_dbInfo.ConnectionStrings);
+
+        private IDbConnection Connection => new SqlConnection(_dbInfo.ConnectionStrings);
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
         
         private async Task<bool> AlbumExists(int id, CancellationToken ct = default)
         {
-            return await GetByIdAsync(id) != null;
+            return await GetByIdAsync(id, ct) != null;
         }
 
         public async Task<List<Album>> GetAllAsync(CancellationToken ct = default)
@@ -38,41 +39,35 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return cn.Query<Album>("Select * From Album").ToList();
+                return Connection.QueryAsync<Album>("Select * From Album").Result.ToList();
             }
         }
 
         public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default)
         {
-            using (IDbConnection cn = Connection)
+            using (var cn = Connection)
             {
                 cn.Open();
-                return cn.Query<Album>("Select * From Album WHERE Id = @Id", new { id }).SingleOrDefault();
+                return cn.QueryFirstOrDefaultAsync<Album>("Select * From Album WHERE Id = @Id", new {id}).Result;
             }
         }
 
         public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default)
         {
-            using (IDbConnection cn = Connection)
+            using (var cn = Connection)
             {
                 cn.Open();
-                return cn.Query<Album>("Select * From Album WHERE ArtistId = @Id", new { id }).ToList();
+                return cn.QueryAsync<Album>("Select * From Album WHERE ArtistId = @Id", new { id }).Result.ToList();
             }
         }
 
         public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default)
         {
-            using (IDbConnection cn = Connection)
+            using (var cn = Connection)
             {
-                var parameters = new
-                {
-                    newAlbum.Title,
-                    newAlbum.ArtistId
-                };
-
                 cn.Open();
-                newAlbum.AlbumId = cn.Query<int>(
-                    "INSERT INTO Album(Title,ArtistId) VALUES (@Title, @ArtistId)", parameters).FirstOrDefault();
+
+                newAlbum.AlbumId = cn.InsertAsync(new Album {Title = newAlbum.Title, ArtistId = newAlbum.ArtistId}).Result;
             }
 
             return newAlbum;
@@ -82,22 +77,14 @@ namespace Chinook.DataDapper.Repositories
         {
             if (!await AlbumExists(album.AlbumId, ct))
                 return false;
-            
+
             try
             {
-                using (IDbConnection cn = Connection)
+                using (var cn = Connection)
                 {
-                    var parameters = new
-                    {
-                        album.Title,
-                        album.ArtistId,
-                        album.AlbumId
-                    };
-    
                     cn.Open();
-                    cn.Execute("UPDATE Album SET Title=@Title, ArtistId=@ArtistId WHERE AlbumId=@AlbumId", parameters);
+                    return cn.UpdateAsync(album).Result;
                 }
-            return true;
             }
             catch(Exception ex)
             {
@@ -109,12 +96,11 @@ namespace Chinook.DataDapper.Repositories
         {
             try
             {
-                using (IDbConnection cn = Connection)
+                using (var cn = Connection)
                 {
                     cn.Open();
-                    cn.Execute("DELETE FROM Album WHERE AlbumId = @Id", new { id });
-                }
-                return true;
+                    return cn.DeleteAsync(new Album {AlbumId = id}).Result;
+                }  
             }
             catch(Exception ex)
             {
