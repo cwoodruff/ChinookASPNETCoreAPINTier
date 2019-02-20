@@ -1,0 +1,4 @@
+GET http://localhost:52460/api/Album
+Accept: application/json
+
+###

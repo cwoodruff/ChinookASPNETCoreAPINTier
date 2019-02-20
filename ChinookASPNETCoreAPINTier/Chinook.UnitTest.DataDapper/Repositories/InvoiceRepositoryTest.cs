@@ -1,0 +1,44 @@
+﻿using System;
+using System.Threading.Tasks;
+using Chinook.Domain.Entities;
+using Chinook.MockData.Dapper.Repositories;
+using JetBrains.dotMemoryUnit;
+using Xunit;
+
+namespace Chinook.UnitTest.DataDapper.Repositories
+{
+    public class InvoiceRepositoryTest
+    {
+        private readonly InvoiceRepository _repo;
+
+        public InvoiceRepositoryTest()
+        {
+            _repo = new InvoiceRepository();
+        }
+
+        [DotMemoryUnit(FailIfRunWithoutSupport = false)]
+        [Fact]
+        public async Task InvoiceGetAllAsync()
+        {
+            // Act
+            var invoices = await _repo.GetAllAsync();
+
+            // Assert
+            Assert.Single(invoices);
+        }
+
+        [AssertTraffic(AllocatedSizeInBytes = 1000, Types = new[] {typeof(Invoice)})]
+        [Fact]
+        public async Task DotMemoryUnitTest()
+        {
+            var repo = new InvoiceRepository();
+
+            await repo.GetAllAsync();
+
+            dotMemory.Check(memory =>
+                Assert.Equal(1, memory.GetObjects(where => where.Type.Is<Invoice>()).ObjectsCount));
+
+            GC.KeepAlive(repo); // prevent objects from GC if this is implied by test logic
+        }
+    }
+}

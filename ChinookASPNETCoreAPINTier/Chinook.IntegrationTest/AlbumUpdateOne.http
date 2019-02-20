@@ -1,0 +1,12 @@
+PUT http://localhost:52460/api/Album/6
+Content-Type: application/json
+
+{
+  "albumId": 348,
+  "title": "The Greatest Album!!!",
+  "artistId": 1,
+  "artist": null,
+  "tracks": null
+}
+
+###

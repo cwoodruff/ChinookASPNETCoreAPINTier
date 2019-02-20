@@ -2,6 +2,7 @@
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Supervisor;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Chinook.API.Configurations
@@ -50,6 +51,18 @@ namespace Chinook.API.Configurations
                     .AllowAnyOrigin()
                     .AllowCredentials()
                     .Build());
-            });
+            }
+        );
+        
+        public static IServiceCollection AddLogging(this IServiceCollection services)
+        {
+            services.AddLogging(builder => builder
+                .AddConsole()
+                .AddFilter(level => level >= LogLevel.Information)
+            );
+            var loggerFactory = services.BuildServiceProvider().GetService<ILoggerFactory>();
+
+            return services;
+        }
     }
 }
