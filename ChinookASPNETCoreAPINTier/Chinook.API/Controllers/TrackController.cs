@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<TrackViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<TrackViewModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(TrackViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
+        public async Task<ActionResult<TrackViewModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("album/{id}")]
         [Produces(typeof(List<TrackViewModel>))]
-        public async Task<IActionResult> GetByAlbumId(int id, CancellationToken ct = default)
+        public async Task<ActionResult<TrackViewModel>> GetByAlbumId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("mediatype/{id}")]
         [Produces(typeof(List<TrackViewModel>))]
-        public async Task<IActionResult> GetByMediaTypeId(int id, CancellationToken ct = default)
+        public async Task<ActionResult<TrackViewModel>> GetByMediaTypeId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("genre/{id}")]
         [Produces(typeof(List<TrackViewModel>))]
-        public async Task<IActionResult> GetByGenreId(int id, CancellationToken ct = default)
+        public async Task<ActionResult<TrackViewModel>> GetByGenreId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(TrackViewModel))]
-        public async Task<IActionResult> Post([FromBody] TrackViewModel input,
+        public async Task<ActionResult<TrackViewModel>> Post([FromBody] TrackViewModel input,
             CancellationToken ct = default)
         {
             try
@@ -135,7 +135,7 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(TrackViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody] TrackViewModel input,
+        public async Task<ActionResult<TrackViewModel>> Put(int id, [FromBody] TrackViewModel input,
             CancellationToken ct = default)
         {
             try

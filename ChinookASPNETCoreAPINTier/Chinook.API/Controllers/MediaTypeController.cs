@@ -25,7 +25,7 @@ namespace Chinook.API.Controllers
         [HttpGet]
         [Produces(typeof(List<MediaTypeViewModel>))]
         [ResponseCache(Duration = 604800)] // cache for a week
-        public async Task<IActionResult> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<MediaTypeViewModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(MediaTypeViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
+        public async Task<ActionResult<MediaTypeViewModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(MediaTypeViewModel))]
-        public async Task<IActionResult> Post([FromBody] MediaTypeViewModel input,
+        public async Task<ActionResult<MediaTypeViewModel>> Post([FromBody] MediaTypeViewModel input,
             CancellationToken ct = default)
         {
             try
@@ -77,7 +77,7 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(MediaTypeViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody] MediaTypeViewModel input,
+        public async Task<ActionResult<MediaTypeViewModel>> Put(int id, [FromBody] MediaTypeViewModel input,
             CancellationToken ct = default)
         {
             try

@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<InvoiceViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<InvoiceViewModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(InvoiceViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
+        public async Task<ActionResult<InvoiceViewModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("customer/{id}")]
         [Produces(typeof(List<InvoiceViewModel>))]
-        public async Task<IActionResult> GetByCustomerId(int id, CancellationToken ct = default)
+        public async Task<ActionResult<InvoiceViewModel>> GetByCustomerId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(InvoiceViewModel))]
-        public async Task<IActionResult> Post([FromBody] InvoiceViewModel input,
+        public async Task<ActionResult<InvoiceViewModel>> Post([FromBody] InvoiceViewModel input,
             CancellationToken ct = default)
         {
             try
@@ -94,7 +94,7 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(InvoiceViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody] InvoiceViewModel input,
+        public async Task<ActionResult<InvoiceViewModel>> Put(int id, [FromBody] InvoiceViewModel input,
             CancellationToken ct = default)
         {
             try

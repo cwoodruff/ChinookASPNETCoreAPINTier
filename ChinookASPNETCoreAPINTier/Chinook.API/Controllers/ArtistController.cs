@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<ArtistViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<ArtistViewModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(ArtistViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
+        public async Task<ActionResult<ArtistViewModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(ArtistViewModel))]
-        public async Task<IActionResult> Post([FromBody] ArtistViewModel input,
+        public async Task<ActionResult<ArtistViewModel>> Post([FromBody] ArtistViewModel input,
             CancellationToken ct = default)
         {
             try
@@ -75,7 +75,7 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(ArtistViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody] ArtistViewModel input,
+        public async Task<ActionResult<ArtistViewModel>> Put(int id, [FromBody] ArtistViewModel input,
             CancellationToken ct = default)
         {
             try

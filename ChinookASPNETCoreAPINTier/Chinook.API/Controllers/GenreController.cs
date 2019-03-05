@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<GenreViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<GenreViewModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(GenreViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
+        public async Task<ActionResult<GenreViewModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(GenreViewModel))]
-        public async Task<IActionResult> Post([FromBody] GenreViewModel input,
+        public async Task<ActionResult<GenreViewModel>> Post([FromBody] GenreViewModel input,
             CancellationToken ct = default)
         {
             try
@@ -75,7 +75,7 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(GenreViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody] GenreViewModel input,
+        public async Task<ActionResult<GenreViewModel>> Put(int id, [FromBody] GenreViewModel input,
             CancellationToken ct = default)
         {
             try

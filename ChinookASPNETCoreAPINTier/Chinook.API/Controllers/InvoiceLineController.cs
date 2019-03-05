@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<InvoiceLineViewModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(InvoiceLineViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
+        public async Task<ActionResult<InvoiceLineViewModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("invoice/{id}")]
         [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<IActionResult> GetByInvoiceId(int id, CancellationToken ct = default)
+        public async Task<ActionResult<InvoiceLineViewModel>> GetByInvoiceId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("track/{id}")]
         [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<IActionResult> GetByArtistId(int id, CancellationToken ct = default)
+        public async Task<ActionResult<InvoiceLineViewModel>> GetByArtistId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(InvoiceLineViewModel))]
-        public async Task<IActionResult> Post([FromBody] InvoiceLineViewModel input,
+        public async Task<ActionResult<InvoiceLineViewModel>> Post([FromBody] InvoiceLineViewModel input,
             CancellationToken ct = default)
         {
             try
@@ -115,7 +115,7 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(InvoiceLineViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody] InvoiceLineViewModel input,
+        public async Task<ActionResult<InvoiceLineViewModel>> Put(int id, [FromBody] InvoiceLineViewModel input,
             CancellationToken ct = default)
         {
             try

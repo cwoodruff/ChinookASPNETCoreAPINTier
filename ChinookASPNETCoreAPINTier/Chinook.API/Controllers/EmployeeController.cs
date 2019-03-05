@@ -23,7 +23,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [Produces(typeof(List<EmployeeViewModel>))]
-        public async Task<IActionResult> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<EmployeeViewModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(EmployeeViewModel))]
-        public async Task<IActionResult> Get(int id, CancellationToken ct = default)
+        public async Task<ActionResult<EmployeeViewModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Chinook.API.Controllers
 
         [HttpGet("reportsto/{id}")]
         [Produces(typeof(List<EmployeeViewModel>))]
-        public async Task<IActionResult> GetReportsTo(int id, CancellationToken ct = default)
+        public async Task<ActionResult<List<EmployeeViewModel>>> GetReportsTo(int id, CancellationToken ct = default)
         {
             try
             {
@@ -76,7 +76,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("directreports/{id}")]
-        public async Task<IActionResult> GetDirectReports(int id, CancellationToken ct = default)
+        [Produces(typeof(EmployeeViewModel))]
+        public async Task<ActionResult<EmployeeViewModel>> GetDirectReports(int id, CancellationToken ct = default)
         {
             try
             {
@@ -96,7 +97,7 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [Produces(typeof(EmployeeViewModel))]
-        public async Task<IActionResult> Post([FromBody] EmployeeViewModel input,
+        public async Task<ActionResult<EmployeeViewModel>> Post([FromBody] EmployeeViewModel input,
             CancellationToken ct = default)
         {
             try
@@ -114,7 +115,7 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [Produces(typeof(EmployeeViewModel))]
-        public async Task<IActionResult> Put(int id, [FromBody] EmployeeViewModel input,
+        public async Task<ActionResult<EmployeeViewModel>> Put(int id, [FromBody] EmployeeViewModel input,
             CancellationToken ct = default)
         {
             try
