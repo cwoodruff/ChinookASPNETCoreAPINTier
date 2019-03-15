@@ -18,12 +18,12 @@ namespace Chinook.API.Configurations
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 connection = configuration.GetConnectionString("ChinookDbWindows") ??
-                                 "Server=.;Database=Chinook;Trusted_Connection=True;";
+                                 "Server=.;Database=Chinook;Trusted_Connection=True;Application Name=ChinookASPNETCoreAPINTier";
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 connection = configuration.GetConnectionString("ChinookDbDocker") ??
-                                 "Server=localhost,1433;Database=Chinook;User=sa;Password=Pa55w0rd;Trusted_Connection=False;";
+                                 "Server=localhost,1433;Database=Chinook;User=sa;Password=Pa55w0rd;Trusted_Connection=False;Application Name=ChinookASPNETCoreAPINTier";
             }
             
             services.AddDbContextPool<ChinookContext>(options => options.UseSqlServer(connection));
