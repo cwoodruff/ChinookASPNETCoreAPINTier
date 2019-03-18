@@ -10,7 +10,6 @@ namespace Chinook.UnitTest.Supervisor
 {
     public class PlayListSupervisorTest
     {
-        private readonly ChinookSupervisor _super;
         private ArtistRepository _repo;
 
         public PlayListSupervisorTest()

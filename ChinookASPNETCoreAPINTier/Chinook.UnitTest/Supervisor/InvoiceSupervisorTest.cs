@@ -10,7 +10,6 @@ namespace Chinook.UnitTest.Supervisor
 {
     public class InvoiceSupervisorTest
     {
-        private readonly ChinookSupervisor _super;
         private ArtistRepository _repo;
 
         public InvoiceSupervisorTest()

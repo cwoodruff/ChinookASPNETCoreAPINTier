@@ -60,7 +60,6 @@ namespace Chinook.API.Configurations
                 .AddConsole()
                 .AddFilter(level => level >= LogLevel.Information)
             );
-            var loggerFactory = services.BuildServiceProvider().GetService<ILoggerFactory>();
 
             return services;
         }
