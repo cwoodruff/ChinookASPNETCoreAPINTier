@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<Customer>("Select * From Customer").Result.ToList();
+                var customers = await Connection.QueryAsync<Customer>("Select * From Customer");
+                return customers.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Customer>("Select * From Customer WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<Customer>("Select * From Customer WHERE Id = @Id", new {id});
             }
         }
 
@@ -57,7 +58,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<Customer>("Select * From Customer WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var customers = await cn.QueryAsync<Customer>("Select * From Customer WHERE ArtistId = @Id", new {id});
+                return customers.ToList();
             }
         }
 
@@ -67,7 +69,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newCustomer.CustomerId = cn.InsertAsync(
+                newCustomer.CustomerId = await cn.InsertAsync(
                     new Customer
                     {
                         CustomerId = newCustomer.CustomerId,
@@ -83,7 +85,7 @@ namespace Chinook.DataDapper.Repositories
                         Fax = newCustomer.Fax,
                         Email = newCustomer.Email,
                         SupportRepId = newCustomer.SupportRepId
-                    }).Result;
+                    });
             }
 
             return newCustomer;
@@ -99,10 +101,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.UpdateAsync(customer).Result;
+                    return await cn.UpdateAsync(customer);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -115,10 +117,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new Customer {CustomerId = id}).Result;
+                    return await cn.DeleteAsync(new Customer {CustomerId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

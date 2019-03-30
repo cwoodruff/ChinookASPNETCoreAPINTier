@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<Artist>("Select * From Artist").Result.ToList();
+                var artists = await Connection.QueryAsync<Artist>("Select * From Artist");
+                return artists.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Artist>("Select * From Artist WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<Artist>("Select * From Artist WHERE Id = @Id", new {id});
             }
         }
 
@@ -58,7 +59,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newArtist.ArtistId = cn.InsertAsync(new Artist {Name = newArtist.Name}).Result;
+                 newArtist.ArtistId = await cn.InsertAsync(new Artist {Name = newArtist.Name});
             }
 
             return newArtist;
@@ -77,7 +78,7 @@ namespace Chinook.DataDapper.Repositories
                     return cn.UpdateAsync(artist).Result;
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -90,10 +91,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new Artist {ArtistId = id}).Result;
+                    return await cn.DeleteAsync(new Artist {ArtistId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

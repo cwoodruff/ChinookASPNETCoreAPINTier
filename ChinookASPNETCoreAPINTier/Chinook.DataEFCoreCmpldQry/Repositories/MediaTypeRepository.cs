@@ -37,7 +37,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return _context.GetMediaTypeAsync(id).Result.First();
+            var mediaType = await _context.GetMediaTypeAsync(id);
+            return mediaType.First();
         }
 
         public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken))

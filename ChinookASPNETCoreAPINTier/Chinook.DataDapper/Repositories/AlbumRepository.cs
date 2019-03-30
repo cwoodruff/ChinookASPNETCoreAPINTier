@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<Album>("Select * From Album").Result.ToList();
+                var albums = await Connection.QueryAsync<Album>("Select * From Album");
+                return albums.ToList();
             }
         }
 
@@ -48,7 +49,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Album>("Select * From Album WHERE Id = @Id", new {id}).Result;
+                var album = await cn.QueryFirstOrDefaultAsync<Album>("Select * From Album WHERE Id = @Id", new {id});
+                return album;
             }
         }
 
@@ -57,7 +59,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<Album>("Select * From Album WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var albums = await cn.QueryAsync<Album>("Select * From Album WHERE ArtistId = @Id", new {id});
+                return albums.ToList();
             }
         }
 
@@ -66,8 +69,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-
-                newAlbum.AlbumId = cn.InsertAsync(new Album {Title = newAlbum.Title, ArtistId = newAlbum.ArtistId}).Result;
+                var albumId = await cn.InsertAsync(new Album {Title = newAlbum.Title, ArtistId = newAlbum.ArtistId});
+                newAlbum.AlbumId = albumId;
             }
 
             return newAlbum;
@@ -86,7 +89,7 @@ namespace Chinook.DataDapper.Repositories
                     return cn.UpdateAsync(album).Result;
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -99,10 +102,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new Album {AlbumId = id}).Result;
+                    return await cn.DeleteAsync(new Album {AlbumId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

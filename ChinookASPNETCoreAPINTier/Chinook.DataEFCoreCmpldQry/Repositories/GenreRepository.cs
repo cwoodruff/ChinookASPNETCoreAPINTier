@@ -49,12 +49,12 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
                 return cachedGenre;
             }
 
-            var dbGenre = _context.GetGenreAsync(id).Result.First();
+            var dbGenre = await _context.GetGenreAsync(id);
 
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-            _cache.Set(dbGenre.GenreId, dbGenre, cacheEntryOptions);
+            _cache.Set(dbGenre.FirstOrDefault().GenreId, dbGenre, cacheEntryOptions);
 
-            return dbGenre;
+            return dbGenre.FirstOrDefault();
         }
 
         public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))

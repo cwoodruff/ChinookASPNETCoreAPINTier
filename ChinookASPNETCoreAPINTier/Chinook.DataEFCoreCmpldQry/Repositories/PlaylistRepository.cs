@@ -37,7 +37,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 
         public async Task<Playlist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            return _context.GetPlaylistAsync(id).Result.First();
+            var playlist = await _context.GetPlaylistAsync(id);
+            return playlist.First();
         }
 
         public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id,

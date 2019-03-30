@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<Employee>("Select * From Employee").Result.ToList();
+                var employees = await Connection.QueryAsync<Employee>("Select * From Employee");
+                return employees.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Employee>("Select * From Employee WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<Employee>("Select * From Employee WHERE Id = @Id", new {id});
             }
         }
 
