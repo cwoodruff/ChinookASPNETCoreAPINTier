@@ -86,7 +86,7 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.UpdateAsync(playlist).Result;
+                    return await cn.UpdateAsync(playlist);
                 }
             }
             catch(Exception)
