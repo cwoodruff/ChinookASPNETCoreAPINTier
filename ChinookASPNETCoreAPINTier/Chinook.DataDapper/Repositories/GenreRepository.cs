@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<Genre>("Select * From Genre").Result.ToList();
+                var genres = await Connection.QueryAsync<Genre>("Select * From Genre");
+                return genres.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Genre>("Select * From Genre WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<Genre>("Select * From Genre WHERE Id = @Id", new {id});
             }
         }
 
@@ -58,7 +59,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newGenre.GenreId = cn.InsertAsync(new Genre {Name = newGenre.Name}).Result;
+                newGenre.GenreId = await cn.InsertAsync(new Genre {Name = newGenre.Name});
             }
 
             return newGenre;
@@ -77,7 +78,7 @@ namespace Chinook.DataDapper.Repositories
                     return cn.UpdateAsync(genre).Result;
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -90,10 +91,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new Genre {GenreId = id}).Result;
+                    return await cn.DeleteAsync(new Genre {GenreId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

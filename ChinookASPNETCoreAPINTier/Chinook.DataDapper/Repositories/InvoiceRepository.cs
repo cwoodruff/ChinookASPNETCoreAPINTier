@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<Invoice>("Select * From Invoice").Result.ToList();
+                var invoices = await  Connection.QueryAsync<Invoice>("Select * From Invoice");
+                return invoices.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Invoice>("Select * From Invoice WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<Invoice>("Select * From Invoice WHERE Id = @Id", new {id});
             }
         }
 
@@ -57,7 +58,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<Invoice>("Select * From Invoice WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var invoices = await cn.QueryAsync<Invoice>("Select * From Invoice WHERE ArtistId = @Id", new { id });
+                return invoices.ToList();
             }
         }
 
@@ -67,7 +69,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newInvoice.InvoiceId = cn.InsertAsync(
+                newInvoice.InvoiceId = await cn.InsertAsync(
                     new Invoice
                     {
                         InvoiceId = newInvoice.InvoiceId,
@@ -79,7 +81,7 @@ namespace Chinook.DataDapper.Repositories
                         BillingCountry = newInvoice.BillingCountry,
                         BillingPostalCode = newInvoice.BillingPostalCode,
                         Total = newInvoice.Total
-                    }).Result;
+                    });
             }
 
             return newInvoice;
@@ -98,7 +100,7 @@ namespace Chinook.DataDapper.Repositories
                     return cn.UpdateAsync(invoice).Result;
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -111,10 +113,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new Invoice {InvoiceId = id}).Result;
+                    return await cn.DeleteAsync(new Invoice {InvoiceId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

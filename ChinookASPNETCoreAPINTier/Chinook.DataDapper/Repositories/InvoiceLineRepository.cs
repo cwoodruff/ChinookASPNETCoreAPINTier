@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<InvoiceLine>("Select * From InvoiceLine").Result.ToList();
+                var invoiceLines = await Connection.QueryAsync<InvoiceLine>("Select * From InvoiceLine");
+                return invoiceLines.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<InvoiceLine>("Select * From InvoiceLine WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<InvoiceLine>("Select * From InvoiceLine WHERE Id = @Id", new {id});
             }
         }
 
@@ -57,7 +58,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<InvoiceLine>("Select * From InvoiceLine WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var invoiceLines = await cn.QueryAsync<InvoiceLine>("Select * From InvoiceLine WHERE ArtistId = @Id", new { id });
+                return invoiceLines.ToList();
             }
         }
 
@@ -66,7 +68,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<InvoiceLine>("Select * From InvoiceLine WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var invoiceLines = await  cn.QueryAsync<InvoiceLine>("Select * From InvoiceLine WHERE ArtistId = @Id", new { id });
+                return invoiceLines.ToList();
             }
         }
 
@@ -76,7 +79,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newInvoiceLine.InvoiceLineId = cn.InsertAsync(
+                newInvoiceLine.InvoiceLineId = await cn.InsertAsync(
                     new InvoiceLine
                     {
                         InvoiceLineId = newInvoiceLine.InvoiceLineId,
@@ -84,7 +87,7 @@ namespace Chinook.DataDapper.Repositories
                         TrackId = newInvoiceLine.TrackId,
                         UnitPrice = newInvoiceLine.UnitPrice,
                         Quantity = newInvoiceLine.Quantity
-                    }).Result;
+                    });
             }
 
             return newInvoiceLine;
@@ -100,10 +103,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.UpdateAsync(invoiceLine).Result;
+                    return await cn.UpdateAsync(invoiceLine);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -116,10 +119,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new InvoiceLine {InvoiceLineId = id}).Result;
+                    return await cn.DeleteAsync(new InvoiceLine {InvoiceLineId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

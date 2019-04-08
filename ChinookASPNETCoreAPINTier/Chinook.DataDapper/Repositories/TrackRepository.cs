@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<Track>("Select * From Track").Result.ToList();
+                var tracks = await Connection.QueryAsync<Track>("Select * From Track");
+                return tracks.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Track>("Select * From Track WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<Track>("Select * From Track WHERE Id = @Id", new {id});
             }
         }
 
@@ -58,7 +59,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newTrack.TrackId = cn.InsertAsync(
+                newTrack.TrackId = await cn.InsertAsync(
                     new Track
                     {
                         Name = newTrack.Name,
@@ -69,7 +70,7 @@ namespace Chinook.DataDapper.Repositories
                         Milliseconds = newTrack.Milliseconds,
                         Bytes = newTrack.Bytes,
                         UnitPrice = newTrack.UnitPrice
-                    }).Result;
+                    });
             }
 
             return newTrack;
@@ -88,7 +89,7 @@ namespace Chinook.DataDapper.Repositories
                     return cn.UpdateAsync(track).Result;
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -101,10 +102,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new Track {TrackId = id}).Result;
+                    return await cn.DeleteAsync(new Track {TrackId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -115,7 +116,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<Track>("Select * From Track WHERE AlbumId = @Id", new { id }).Result.ToList();
+                var tracks = await cn.QueryAsync<Track>("Select * From Track WHERE AlbumId = @Id", new { id });
+                return tracks.ToList();
             }
         }
 
@@ -124,7 +126,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<Track>("Select * From Track WHERE GenreId = @Id", new { id }).Result.ToList();
+                var tracks = await cn.QueryAsync<Track>("Select * From Track WHERE GenreId = @Id", new { id });
+                return tracks.ToList();
             }
         }
 
@@ -133,7 +136,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<Track>("Select * From Track WHERE MediaTypeId = @Id", new { id }).Result.ToList();
+                var tracks = await cn.QueryAsync<Track>("Select * From Track WHERE MediaTypeId = @Id", new { id });
+                return tracks.ToList();
             }
         }
     }

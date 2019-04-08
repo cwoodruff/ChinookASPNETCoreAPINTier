@@ -34,7 +34,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack").Result.ToList();
+                var playListTracks = await Connection.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack");
+                return playListTracks.ToList();
             }
         }
 
@@ -43,7 +44,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var playListTracks = await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE ArtistId = @Id", new { id });
+                return playListTracks.ToList();
             }
         }
 
@@ -52,7 +54,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var playListTracks = await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE ArtistId = @Id", new { id });
+                return playListTracks.ToList();
             }
         }
 
@@ -62,7 +65,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                var result = cn.InsertAsync(new PlaylistTrack {PlaylistId = newPlaylistTrack.PlaylistId, TrackId = newPlaylistTrack.TrackId}).Result;
+                var result = await cn.InsertAsync(new PlaylistTrack {PlaylistId = newPlaylistTrack.PlaylistId, TrackId = newPlaylistTrack.TrackId});
             }
 
             return newPlaylistTrack;
@@ -75,10 +78,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.UpdateAsync(playlistTrack).Result;
+                    return await cn.UpdateAsync(playlistTrack);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -91,10 +94,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new PlaylistTrack {PlaylistId = id}).Result;
+                    return await cn.DeleteAsync(new PlaylistTrack {PlaylistId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

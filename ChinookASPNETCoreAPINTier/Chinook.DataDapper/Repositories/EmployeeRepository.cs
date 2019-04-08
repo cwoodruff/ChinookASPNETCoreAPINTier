@@ -58,7 +58,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<Employee>("Select * From Employee WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<Employee>("Select * From Employee WHERE Id = @Id", new {id});
             }
         }
 
@@ -68,7 +68,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newEmployee.EmployeeId = cn.InsertAsync(
+                newEmployee.EmployeeId = await cn.InsertAsync(
                     new Employee
                     {
                         LastName = newEmployee.LastName,
@@ -85,7 +85,7 @@ namespace Chinook.DataDapper.Repositories
                         Phone = newEmployee.Phone,
                         Fax = newEmployee.Fax,
                         Email = newEmployee.Email
-                    }).Result;
+                    });
             }
 
             return newEmployee;
@@ -104,7 +104,7 @@ namespace Chinook.DataDapper.Repositories
                     return cn.UpdateAsync(employee).Result;
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -117,10 +117,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new Employee {EmployeeId = id}).Result;
+                    return await cn.DeleteAsync(new Employee {EmployeeId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -131,7 +131,8 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryAsync<Employee>("Select * From Employee WHERE ArtistId = @Id", new { id }).Result.ToList();
+                var employees = await cn.QueryAsync<Employee>("Select * From Employee WHERE ArtistId = @Id", new { id });
+                return employees.ToList();
             }
         }
     }

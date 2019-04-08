@@ -39,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                return Connection.QueryAsync<MediaType>("Select * From MediaType").Result.ToList();
+                var mediaTypes = await Connection.QueryAsync<MediaType>("Select * From MediaType");
+                return mediaTypes.ToList();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             using (var cn = Connection)
             {
                 cn.Open();
-                return cn.QueryFirstOrDefaultAsync<MediaType>("Select * From MediaType WHERE Id = @Id", new {id}).Result;
+                return await cn.QueryFirstOrDefaultAsync<MediaType>("Select * From MediaType WHERE Id = @Id", new {id});
             }
         }
 
@@ -58,7 +59,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                newMediaType.MediaTypeId = cn.InsertAsync(new MediaType {Name = newMediaType.Name}).Result;
+                newMediaType.MediaTypeId = await cn.InsertAsync(new MediaType {Name = newMediaType.Name});
             }
 
             return newMediaType;
@@ -77,7 +78,7 @@ namespace Chinook.DataDapper.Repositories
                     return cn.UpdateAsync(mediaType).Result;
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -90,10 +91,10 @@ namespace Chinook.DataDapper.Repositories
                 using (var cn = Connection)
                 {
                     cn.Open();
-                    return cn.DeleteAsync(new MediaType {MediaTypeId = id}).Result;
+                    return await cn.DeleteAsync(new MediaType {MediaTypeId = id});
                 }  
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
