@@ -9,7 +9,7 @@ namespace Chinook.UnitTest.Supervisor
     {
         private readonly ChinookSupervisor _super;
 
-        public AlbumSupervisorTest(ChinookSupervisor super)
+        public AlbumSupervisorTest()
         {
             _super = new ChinookSupervisor();
         }

@@ -65,7 +65,7 @@ namespace Chinook.DataDapper.Repositories
             {
                 cn.Open();
 
-                var result = await cn.InsertAsync(new PlaylistTrack {PlaylistId = newPlaylistTrack.PlaylistId, TrackId = newPlaylistTrack.TrackId});
+                await cn.InsertAsync(new PlaylistTrack {PlaylistId = newPlaylistTrack.PlaylistId, TrackId = newPlaylistTrack.TrackId});
             }
 
             return newPlaylistTrack;

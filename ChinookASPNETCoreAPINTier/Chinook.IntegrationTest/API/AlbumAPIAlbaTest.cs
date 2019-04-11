@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Chinook.IntegrationTest.API
 {
-    public class AlbumAPIAlbaTest
+    public class AlbumApiAlbaTest
     {
         [Fact]
         public async Task should_get_list_of_albums()

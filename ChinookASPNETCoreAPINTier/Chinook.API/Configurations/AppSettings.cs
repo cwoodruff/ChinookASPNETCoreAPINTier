@@ -1,7 +1,7 @@
 ﻿namespace Chinook.API.Configurations
 {
-    public class AppSettings
+    public abstract class AppSettings
     {
-        public string TestValue { get; }
+
     }
 }

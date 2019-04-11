@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Chinook.Domain.Repositories;
-using Chinook.Domain.ViewModels;
+﻿using Chinook.Domain.Repositories;
 
 namespace Chinook.Domain.Supervisor
 {
