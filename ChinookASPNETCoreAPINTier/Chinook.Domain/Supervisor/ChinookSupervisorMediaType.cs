@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -9,14 +9,14 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<MediaTypeViewModel>> GetAllMediaTypeAsync(
+        public async Task<List<MediaTypeResponse>> GetAllMediaTypeAsync(
             CancellationToken ct = default(CancellationToken))
         {
             var mediaTypes = MediaTypeCoverter.ConvertList(await _mediaTypeRepository.GetAllAsync(ct));
             return mediaTypes;
         }
 
-        public async Task<MediaTypeViewModel> GetMediaTypeByIdAsync(int id,
+        public async Task<MediaTypeResponse> GetMediaTypeByIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var mediaTypeViewModel = MediaTypeCoverter.Convert(await _mediaTypeRepository.GetByIdAsync(id, ct));
@@ -24,7 +24,7 @@ namespace Chinook.Domain.Supervisor
             return mediaTypeViewModel;
         }
 
-        public async Task<MediaTypeViewModel> AddMediaTypeAsync(MediaTypeViewModel newMediaTypeViewModel,
+        public async Task<MediaTypeResponse> AddMediaTypeAsync(MediaTypeResponse newMediaTypeViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var mediaType = new MediaType
@@ -37,7 +37,7 @@ namespace Chinook.Domain.Supervisor
             return newMediaTypeViewModel;
         }
 
-        public async Task<bool> UpdateMediaTypeAsync(MediaTypeViewModel mediaTypeViewModel,
+        public async Task<bool> UpdateMediaTypeAsync(MediaTypeResponse mediaTypeViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var mediaType = await _mediaTypeRepository.GetByIdAsync(mediaTypeViewModel.MediaTypeId, ct);

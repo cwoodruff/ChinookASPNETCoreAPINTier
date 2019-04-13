@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -10,14 +10,14 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<EmployeeViewModel>> GetAllEmployeeAsync(
+        public async Task<List<EmployeeResponse>> GetAllEmployeeAsync(
             CancellationToken ct = default(CancellationToken))
         {
             var employees = EmployeeCoverter.ConvertList(await _employeeRepository.GetAllAsync(ct));
             return employees;
         }
 
-        public async Task<EmployeeViewModel> GetEmployeeByIdAsync(int id,
+        public async Task<EmployeeResponse> GetEmployeeByIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var employeeViewModel = EmployeeCoverter.Convert(await _employeeRepository.GetByIdAsync(id, ct));
@@ -32,14 +32,14 @@ namespace Chinook.Domain.Supervisor
             return employeeViewModel;
         }
 
-        public async Task<EmployeeViewModel> GetEmployeeReportsToAsync(int id,
+        public async Task<EmployeeResponse> GetEmployeeReportsToAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var employee = await _employeeRepository.GetReportsToAsync(id, ct);
             return EmployeeCoverter.Convert(employee);
         }
 
-        public async Task<EmployeeViewModel> AddEmployeeAsync(EmployeeViewModel newEmployeeViewModel,
+        public async Task<EmployeeResponse> AddEmployeeAsync(EmployeeResponse newEmployeeViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var employee = new Employee
@@ -65,7 +65,7 @@ namespace Chinook.Domain.Supervisor
             return newEmployeeViewModel;
         }
 
-        public async Task<bool> UpdateEmployeeAsync(EmployeeViewModel employeeViewModel,
+        public async Task<bool> UpdateEmployeeAsync(EmployeeResponse employeeViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var employee = await _employeeRepository.GetByIdAsync(employeeViewModel.EmployeeId, ct);
@@ -95,14 +95,14 @@ namespace Chinook.Domain.Supervisor
             return await _employeeRepository.DeleteAsync(id, ct);
         }
 
-        public async Task<List<EmployeeViewModel>> GetEmployeeDirectReportsAsync(int id,
+        public async Task<List<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);
             return EmployeeCoverter.ConvertList(employees).ToList();
         }
 
-        public async Task<List<EmployeeViewModel>> GetDirectReportsAsync(int id,
+        public async Task<List<EmployeeResponse>> GetDirectReportsAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);

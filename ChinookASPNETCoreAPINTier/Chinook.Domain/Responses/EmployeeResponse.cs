@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chinook.Domain.ViewModels
+namespace Chinook.Domain.Responses
 {
-    public class EmployeeViewModel
+    public class EmployeeResponse
     {
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
@@ -22,8 +22,8 @@ namespace Chinook.Domain.ViewModels
         public string Fax { get; set; }
         public string Email { get; set; }
 
-        public List<CustomerViewModel> Customers { get; set; }
-        public EmployeeViewModel Manager { get; set; }
-        public ICollection<EmployeeViewModel> DirectReports { get; set; }
+        public List<CustomerResponse> Customers { get; set; }
+        public EmployeeResponse Manager { get; set; }
+        public ICollection<EmployeeResponse> DirectReports { get; set; }
     }
 }

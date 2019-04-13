@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Chinook.Domain.ViewModels
+namespace Chinook.Domain.Responses
 {
-    public class ArtistViewModel
+    public class ArtistResponse
     {
         public int ArtistId { get; set; }
         public string Name { get; set; }
 
-        public IList<AlbumViewModel> Albums { get; set; }
+        public IList<AlbumResponse> Albums { get; set; }
     }
 }

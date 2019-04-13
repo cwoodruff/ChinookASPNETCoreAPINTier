@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -9,20 +9,20 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<GenreViewModel>> GetAllGenreAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<GenreResponse>> GetAllGenreAsync(CancellationToken ct = default(CancellationToken))
         {
             var genres = GenreCoverter.ConvertList(await _genreRepository.GetAllAsync(ct));
             return genres;
         }
 
-        public async Task<GenreViewModel> GetGenreByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<GenreResponse> GetGenreByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
             var genreViewModel = GenreCoverter.Convert(await _genreRepository.GetByIdAsync(id, ct));
             genreViewModel.Tracks = await GetTrackByGenreIdAsync(genreViewModel.GenreId, ct);
             return genreViewModel;
         }
 
-        public async Task<GenreViewModel> AddGenreAsync(GenreViewModel newGenreViewModel,
+        public async Task<GenreResponse> AddGenreAsync(GenreResponse newGenreViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var genre = new Genre
@@ -35,7 +35,7 @@ namespace Chinook.Domain.Supervisor
             return newGenreViewModel;
         }
 
-        public async Task<bool> UpdateGenreAsync(GenreViewModel genreViewModel,
+        public async Task<bool> UpdateGenreAsync(GenreResponse genreViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var genre = await _genreRepository.GetByIdAsync(genreViewModel.GenreId, ct);

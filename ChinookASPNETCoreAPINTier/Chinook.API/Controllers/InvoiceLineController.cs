@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<ActionResult<List<InvoiceLineViewModel>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<InvoiceLineResponse>))]
+        public async Task<ActionResult<List<InvoiceLineResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(InvoiceLineViewModel))]
-        public async Task<ActionResult<InvoiceLineViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(InvoiceLineResponse))]
+        public async Task<ActionResult<InvoiceLineResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("invoice/{id}")]
-        [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<ActionResult<InvoiceLineViewModel>> GetByInvoiceId(int id, CancellationToken ct = default)
+        [Produces(typeof(List<InvoiceLineResponse>))]
+        public async Task<ActionResult<InvoiceLineResponse>> GetByInvoiceId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -76,8 +76,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("track/{id}")]
-        [Produces(typeof(List<InvoiceLineViewModel>))]
-        public async Task<ActionResult<InvoiceLineViewModel>> GetByArtistId(int id, CancellationToken ct = default)
+        [Produces(typeof(List<InvoiceLineResponse>))]
+        public async Task<ActionResult<InvoiceLineResponse>> GetByArtistId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -96,8 +96,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(InvoiceLineViewModel))]
-        public async Task<ActionResult<InvoiceLineViewModel>> Post([FromBody] InvoiceLineViewModel input,
+        [Produces(typeof(InvoiceLineResponse))]
+        public async Task<ActionResult<InvoiceLineResponse>> Post([FromBody] InvoiceLineResponse input,
             CancellationToken ct = default)
         {
             try
@@ -114,8 +114,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(InvoiceLineViewModel))]
-        public async Task<ActionResult<InvoiceLineViewModel>> Put(int id, [FromBody] InvoiceLineViewModel input,
+        [Produces(typeof(InvoiceLineResponse))]
+        public async Task<ActionResult<InvoiceLineResponse>> Put(int id, [FromBody] InvoiceLineResponse input,
             CancellationToken ct = default)
         {
             try

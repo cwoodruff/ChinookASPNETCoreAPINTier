@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Entities;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.Domain.Converters
 {
     public static class TrackCoverter
     {
-        public static TrackViewModel Convert(Track track)
+        public static TrackResponse Convert(Track track)
         {
-            var trackViewModel = new TrackViewModel();
+            var trackViewModel = new TrackResponse();
             trackViewModel.TrackId = track.TrackId;
             trackViewModel.Name = track.Name;
             trackViewModel.AlbumId = track.AlbumId;
@@ -22,11 +22,11 @@ namespace Chinook.Domain.Converters
             return trackViewModel;
         }
 
-        public static List<TrackViewModel> ConvertList(IEnumerable<Track> albums)
+        public static List<TrackResponse> ConvertList(IEnumerable<Track> albums)
         {
             return albums.Select(t =>
                 {
-                    var model = new TrackViewModel();
+                    var model = new TrackResponse();
                     model.TrackId = t.TrackId;
                     model.Name = t.Name;
                     model.AlbumId = t.AlbumId;

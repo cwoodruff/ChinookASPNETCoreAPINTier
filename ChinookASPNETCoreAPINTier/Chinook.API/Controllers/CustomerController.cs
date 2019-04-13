@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<CustomerViewModel>))]
-        public async Task<ActionResult<List<CustomerViewModel>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<CustomerResponse>))]
+        public async Task<ActionResult<List<CustomerResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(CustomerViewModel))]
-        public async Task<ActionResult<CustomerViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(CustomerResponse))]
+        public async Task<ActionResult<CustomerResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("supportrep/{id}")]
-        [Produces(typeof(List<CustomerViewModel>))]
-        public async Task<ActionResult<CustomerViewModel>> GetBySupportRepId(int id, CancellationToken ct = default)
+        [Produces(typeof(List<CustomerResponse>))]
+        public async Task<ActionResult<CustomerResponse>> GetBySupportRepId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -76,8 +76,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(CustomerViewModel))]
-        public async Task<ActionResult<CustomerViewModel>> Post([FromBody] CustomerViewModel input,
+        [Produces(typeof(CustomerResponse))]
+        public async Task<ActionResult<CustomerResponse>> Post([FromBody] CustomerResponse input,
             CancellationToken ct = default)
         {
             try
@@ -94,8 +94,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(CustomerViewModel))]
-        public async Task<ActionResult<CustomerViewModel>> Put(int id, [FromBody] CustomerViewModel input,
+        [Produces(typeof(CustomerResponse))]
+        public async Task<ActionResult<CustomerResponse>> Put(int id, [FromBody] CustomerResponse input,
             CancellationToken ct = default)
         {
             try

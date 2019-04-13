@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -10,13 +10,13 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<InvoiceViewModel>> GetAllInvoiceAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceResponse>> GetAllInvoiceAsync(CancellationToken ct = default(CancellationToken))
         {
             var invoices = InvoiceCoverter.ConvertList(await _invoiceRepository.GetAllAsync(ct));
             return invoices;
         }
 
-        public async Task<InvoiceViewModel> GetInvoiceByIdAsync(int id,
+        public async Task<InvoiceResponse> GetInvoiceByIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var invoiceViewModel = InvoiceCoverter.Convert(await _invoiceRepository.GetByIdAsync(id, ct));
@@ -27,14 +27,14 @@ namespace Chinook.Domain.Supervisor
             return invoiceViewModel;
         }
 
-        public async Task<List<InvoiceViewModel>> GetInvoiceByCustomerIdAsync(int id,
+        public async Task<List<InvoiceResponse>> GetInvoiceByCustomerIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var invoices = await _invoiceRepository.GetByCustomerIdAsync(id, ct);
             return InvoiceCoverter.ConvertList(invoices).ToList();
         }
 
-        public async Task<InvoiceViewModel> AddInvoiceAsync(InvoiceViewModel newInvoiceViewModel,
+        public async Task<InvoiceResponse> AddInvoiceAsync(InvoiceResponse newInvoiceViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var invoice = new Invoice
@@ -54,7 +54,7 @@ namespace Chinook.Domain.Supervisor
             return newInvoiceViewModel;
         }
 
-        public async Task<bool> UpdateInvoiceAsync(InvoiceViewModel invoiceViewModel,
+        public async Task<bool> UpdateInvoiceAsync(InvoiceResponse invoiceViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var invoice = await _invoiceRepository.GetByIdAsync(invoiceViewModel.InvoiceId, ct);

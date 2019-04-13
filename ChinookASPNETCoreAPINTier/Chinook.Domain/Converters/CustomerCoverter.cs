@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Entities;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.Domain.Converters
 {
     public static class CustomerCoverter
     {
-        public static CustomerViewModel Convert(Customer customer)
+        public static CustomerResponse Convert(Customer customer)
         {
-            var customerViewModel = new CustomerViewModel();
+            var customerViewModel = new CustomerResponse();
             customerViewModel.CustomerId = customer.CustomerId;
             customerViewModel.FirstName = customer.FirstName;
             customerViewModel.LastName = customer.LastName;
@@ -27,11 +27,11 @@ namespace Chinook.Domain.Converters
             return customerViewModel;
         }
 
-        public static IEnumerable<CustomerViewModel> ConvertList(IEnumerable<Customer> customers)
+        public static IEnumerable<CustomerResponse> ConvertList(IEnumerable<Customer> customers)
         {
             return customers.Select(c =>
                 {
-                    var model = new CustomerViewModel();
+                    var model = new CustomerResponse();
                     model.CustomerId = c.CustomerId;
                     model.FirstName = c.FirstName;
                     model.LastName = c.LastName;

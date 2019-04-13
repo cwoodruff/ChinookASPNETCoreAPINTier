@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Entities;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.Domain.Converters
 {
     public static class InvoiceLineCoverter
     {
-        public static InvoiceLineViewModel Convert(InvoiceLine invoiceLine)
+        public static InvoiceLineResponse Convert(InvoiceLine invoiceLine)
         {
-            var invoiceLineViewModel = new InvoiceLineViewModel();
+            var invoiceLineViewModel = new InvoiceLineResponse();
             invoiceLineViewModel.InvoiceLineId = invoiceLine.InvoiceLineId;
             invoiceLineViewModel.InvoiceId = invoiceLine.InvoiceId;
             invoiceLineViewModel.TrackId = invoiceLine.TrackId;
@@ -19,11 +19,11 @@ namespace Chinook.Domain.Converters
             return invoiceLineViewModel;
         }
 
-        public static List<InvoiceLineViewModel> ConvertList(IEnumerable<InvoiceLine> invoiceLines)
+        public static List<InvoiceLineResponse> ConvertList(IEnumerable<InvoiceLine> invoiceLines)
         {
             return invoiceLines.Select(i =>
                 {
-                    var model = new InvoiceLineViewModel();
+                    var model = new InvoiceLineResponse();
                     model.InvoiceLineId = i.InvoiceLineId;
                     model.InvoiceId = i.InvoiceId;
                     model.TrackId = i.TrackId;

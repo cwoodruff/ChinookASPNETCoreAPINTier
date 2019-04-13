@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -23,9 +23,9 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<MediaTypeViewModel>))]
+        [Produces(typeof(List<MediaTypeResponse>))]
         [ResponseCache(Duration = 604800)] // cache for a week
-        public async Task<ActionResult<List<MediaTypeViewModel>>> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<MediaTypeResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -38,8 +38,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(MediaTypeViewModel))]
-        public async Task<ActionResult<MediaTypeViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(MediaTypeResponse))]
+        public async Task<ActionResult<MediaTypeResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -58,8 +58,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(MediaTypeViewModel))]
-        public async Task<ActionResult<MediaTypeViewModel>> Post([FromBody] MediaTypeViewModel input,
+        [Produces(typeof(MediaTypeResponse))]
+        public async Task<ActionResult<MediaTypeResponse>> Post([FromBody] MediaTypeResponse input,
             CancellationToken ct = default)
         {
             try
@@ -76,8 +76,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(MediaTypeViewModel))]
-        public async Task<ActionResult<MediaTypeViewModel>> Put(int id, [FromBody] MediaTypeViewModel input,
+        [Produces(typeof(MediaTypeResponse))]
+        public async Task<ActionResult<MediaTypeResponse>> Put(int id, [FromBody] MediaTypeResponse input,
             CancellationToken ct = default)
         {
             try

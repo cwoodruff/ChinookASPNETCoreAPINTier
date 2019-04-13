@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -10,14 +10,14 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<InvoiceLineViewModel>> GetAllInvoiceLineAsync(
+        public async Task<List<InvoiceLineResponse>> GetAllInvoiceLineAsync(
             CancellationToken ct = default(CancellationToken))
         {
             var invoiceLines = InvoiceLineCoverter.ConvertList(await _invoiceLineRepository.GetAllAsync(ct));
             return invoiceLines;
         }
 
-        public async Task<InvoiceLineViewModel> GetInvoiceLineByIdAsync(int id,
+        public async Task<InvoiceLineResponse> GetInvoiceLineByIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var invoiceLineViewModel = InvoiceLineCoverter.Convert(await _invoiceLineRepository.GetByIdAsync(id, ct));
@@ -27,21 +27,21 @@ namespace Chinook.Domain.Supervisor
             return invoiceLineViewModel;
         }
 
-        public async Task<List<InvoiceLineViewModel>> GetInvoiceLineByInvoiceIdAsync(int id,
+        public async Task<List<InvoiceLineResponse>> GetInvoiceLineByInvoiceIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var invoiceLines = await _invoiceLineRepository.GetByInvoiceIdAsync(id, ct);
             return InvoiceLineCoverter.ConvertList(invoiceLines).ToList();
         }
 
-        public async Task<List<InvoiceLineViewModel>> GetInvoiceLineByTrackIdAsync(int id,
+        public async Task<List<InvoiceLineResponse>> GetInvoiceLineByTrackIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var invoiceLines = await _invoiceLineRepository.GetByTrackIdAsync(id, ct);
             return InvoiceLineCoverter.ConvertList(invoiceLines).ToList();
         }
 
-        public async Task<InvoiceLineViewModel> AddInvoiceLineAsync(InvoiceLineViewModel newInvoiceLineViewModel,
+        public async Task<InvoiceLineResponse> AddInvoiceLineAsync(InvoiceLineResponse newInvoiceLineViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var invoiceLine = new InvoiceLine
@@ -57,7 +57,7 @@ namespace Chinook.Domain.Supervisor
             return newInvoiceLineViewModel;
         }
 
-        public async Task<bool> UpdateInvoiceLineAsync(InvoiceLineViewModel invoiceLineViewModel,
+        public async Task<bool> UpdateInvoiceLineAsync(InvoiceLineResponse invoiceLineViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var invoiceLine = await _invoiceLineRepository.GetByIdAsync(invoiceLineViewModel.InvoiceId, ct);

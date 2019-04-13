@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -10,14 +10,14 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<CustomerViewModel>> GetAllCustomerAsync(
+        public async Task<List<CustomerResponse>> GetAllCustomerAsync(
             CancellationToken ct = default(CancellationToken))
         {
             var customers = CustomerCoverter.ConvertList(await _customerRepository.GetAllAsync(ct)).ToList();
             return customers;
         }
 
-        public async Task<CustomerViewModel> GetCustomerByIdAsync(int id,
+        public async Task<CustomerResponse> GetCustomerByIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var customerViewModel = CustomerCoverter.Convert(await _customerRepository.GetByIdAsync(id, ct));
@@ -29,14 +29,14 @@ namespace Chinook.Domain.Supervisor
             return customerViewModel;
         }
 
-        public async Task<List<CustomerViewModel>> GetCustomerBySupportRepIdAsync(int id,
+        public async Task<List<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var customers = await _customerRepository.GetBySupportRepIdAsync(id, ct);
             return CustomerCoverter.ConvertList(customers).ToList();
         }
 
-        public async Task<CustomerViewModel> AddCustomerAsync(CustomerViewModel newCustomerViewModel,
+        public async Task<CustomerResponse> AddCustomerAsync(CustomerResponse newCustomerViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var customer = new Customer
@@ -60,7 +60,7 @@ namespace Chinook.Domain.Supervisor
             return newCustomerViewModel;
         }
 
-        public async Task<bool> UpdateCustomerAsync(CustomerViewModel customerViewModel,
+        public async Task<bool> UpdateCustomerAsync(CustomerResponse customerViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var customer = await _customerRepository.GetByIdAsync(customerViewModel.CustomerId, ct);

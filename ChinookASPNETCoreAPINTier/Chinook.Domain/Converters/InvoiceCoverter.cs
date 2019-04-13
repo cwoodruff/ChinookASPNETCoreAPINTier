@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Entities;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.Domain.Converters
 {
     public static class InvoiceCoverter
     {
-        public static InvoiceViewModel Convert(Invoice invoice)
+        public static InvoiceResponse Convert(Invoice invoice)
         {
-            var invoiceViewModel = new InvoiceViewModel();
+            var invoiceViewModel = new InvoiceResponse();
             invoiceViewModel.InvoiceId = invoice.InvoiceId;
             invoiceViewModel.CustomerId = invoice.CustomerId;
             invoiceViewModel.InvoiceDate = invoice.InvoiceDate;
@@ -23,11 +23,11 @@ namespace Chinook.Domain.Converters
             return invoiceViewModel;
         }
 
-        public static List<InvoiceViewModel> ConvertList(IEnumerable<Invoice> invoices)
+        public static List<InvoiceResponse> ConvertList(IEnumerable<Invoice> invoices)
         {
             return invoices.Select(i =>
                 {
-                    var model = new InvoiceViewModel();
+                    var model = new InvoiceResponse();
                     model.InvoiceId = i.InvoiceId;
                     model.CustomerId = i.CustomerId;
                     model.InvoiceDate = i.InvoiceDate;

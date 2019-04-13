@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Entities;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.Domain.Converters
 {
     public static class EmployeeCoverter
     {
-        public static EmployeeViewModel Convert(Employee employee)
+        public static EmployeeResponse Convert(Employee employee)
         {
-            var employeeViewModel = new EmployeeViewModel();
+            var employeeViewModel = new EmployeeResponse();
             employeeViewModel.EmployeeId = employee.EmployeeId;
             employeeViewModel.LastName = employee.LastName;
             employeeViewModel.FirstName = employee.FirstName;
@@ -29,11 +29,11 @@ namespace Chinook.Domain.Converters
             return employeeViewModel;
         }
 
-        public static List<EmployeeViewModel> ConvertList(IEnumerable<Employee> employees)
+        public static List<EmployeeResponse> ConvertList(IEnumerable<Employee> employees)
         {
             return employees.Select(e =>
                 {
-                    var model = new EmployeeViewModel();
+                    var model = new EmployeeResponse();
                     model.EmployeeId = e.EmployeeId;
                     model.LastName = e.LastName;
                     model.FirstName = e.FirstName;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chinook.Domain.ViewModels
+namespace Chinook.Domain.Responses
 {
-    public sealed class InvoiceViewModel
+    public sealed class InvoiceResponse
     {
         public int InvoiceId { get; set; }
         public int CustomerId { get; set; }
@@ -16,7 +16,7 @@ namespace Chinook.Domain.ViewModels
         public string BillingPostalCode { get; set; }
         public decimal Total { get; set; }
 
-        public IList<InvoiceLineViewModel> InvoiceLines { get; set; }
-        public CustomerViewModel Customer { get; set; }
+        public IList<InvoiceLineResponse> InvoiceLines { get; set; }
+        public CustomerResponse Customer { get; set; }
     }
 }

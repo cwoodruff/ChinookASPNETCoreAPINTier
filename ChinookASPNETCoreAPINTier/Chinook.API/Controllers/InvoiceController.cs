@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<InvoiceViewModel>))]
-        public async Task<ActionResult<List<InvoiceViewModel>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<InvoiceResponse>))]
+        public async Task<ActionResult<List<InvoiceResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(InvoiceViewModel))]
-        public async Task<ActionResult<InvoiceViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(InvoiceResponse))]
+        public async Task<ActionResult<InvoiceResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("customer/{id}")]
-        [Produces(typeof(List<InvoiceViewModel>))]
-        public async Task<ActionResult<InvoiceViewModel>> GetByCustomerId(int id, CancellationToken ct = default)
+        [Produces(typeof(List<InvoiceResponse>))]
+        public async Task<ActionResult<InvoiceResponse>> GetByCustomerId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -75,8 +75,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(InvoiceViewModel))]
-        public async Task<ActionResult<InvoiceViewModel>> Post([FromBody] InvoiceViewModel input,
+        [Produces(typeof(InvoiceResponse))]
+        public async Task<ActionResult<InvoiceResponse>> Post([FromBody] InvoiceResponse input,
             CancellationToken ct = default)
         {
             try
@@ -93,8 +93,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(InvoiceViewModel))]
-        public async Task<ActionResult<InvoiceViewModel>> Put(int id, [FromBody] InvoiceViewModel input,
+        [Produces(typeof(InvoiceResponse))]
+        public async Task<ActionResult<InvoiceResponse>> Put(int id, [FromBody] InvoiceResponse input,
             CancellationToken ct = default)
         {
             try

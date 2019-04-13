@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<ArtistViewModel>))]
-        public async Task<ActionResult<List<ArtistViewModel>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<ArtistResponse>))]
+        public async Task<ActionResult<List<ArtistResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(ArtistViewModel))]
-        public async Task<ActionResult<ArtistViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(ArtistResponse))]
+        public async Task<ActionResult<ArtistResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(ArtistViewModel))]
-        public async Task<ActionResult<ArtistViewModel>> Post([FromBody] ArtistViewModel input,
+        [Produces(typeof(ArtistResponse))]
+        public async Task<ActionResult<ArtistResponse>> Post([FromBody] ArtistResponse input,
             CancellationToken ct = default)
         {
             try
@@ -74,8 +74,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(ArtistViewModel))]
-        public async Task<ActionResult<ArtistViewModel>> Put(int id, [FromBody] ArtistViewModel input,
+        [Produces(typeof(ArtistResponse))]
+        public async Task<ActionResult<ArtistResponse>> Put(int id, [FromBody] ArtistResponse input,
             CancellationToken ct = default)
         {
             try

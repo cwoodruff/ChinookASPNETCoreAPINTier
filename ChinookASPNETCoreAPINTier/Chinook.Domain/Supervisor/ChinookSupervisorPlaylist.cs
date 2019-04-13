@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -9,14 +9,14 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<PlaylistViewModel>> GetAllPlaylistAsync(
+        public async Task<List<PlaylistResponse>> GetAllPlaylistAsync(
             CancellationToken ct = default(CancellationToken))
         {
             var playlists = PlaylistCoverter.ConvertList(await _playlistRepository.GetAllAsync(ct));
             return playlists;
         }
 
-        public async Task<PlaylistViewModel> GetPlaylistByIdAsync(int id,
+        public async Task<PlaylistResponse> GetPlaylistByIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
         {
             var playlistViewModel = PlaylistCoverter.Convert(await _playlistRepository.GetByIdAsync(id, ct));
@@ -24,7 +24,7 @@ namespace Chinook.Domain.Supervisor
             return playlistViewModel;
         }
 
-        public async Task<PlaylistViewModel> AddPlaylistAsync(PlaylistViewModel newPlaylistViewModel,
+        public async Task<PlaylistResponse> AddPlaylistAsync(PlaylistResponse newPlaylistViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var playlist = new Playlist
@@ -37,7 +37,7 @@ namespace Chinook.Domain.Supervisor
             return newPlaylistViewModel;
         }
 
-        public async Task<bool> UpdatePlaylistAsync(PlaylistViewModel playlistViewModel,
+        public async Task<bool> UpdatePlaylistAsync(PlaylistResponse playlistViewModel,
             CancellationToken ct = default(CancellationToken))
         {
             var playlist = await _playlistRepository.GetByIdAsync(playlistViewModel.PlaylistId, ct);

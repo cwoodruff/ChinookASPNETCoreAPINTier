@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<GenreViewModel>))]
-        public async Task<ActionResult<List<GenreViewModel>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<GenreResponse>))]
+        public async Task<ActionResult<List<GenreResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(GenreViewModel))]
-        public async Task<ActionResult<GenreViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(GenreResponse))]
+        public async Task<ActionResult<GenreResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(GenreViewModel))]
-        public async Task<ActionResult<GenreViewModel>> Post([FromBody] GenreViewModel input,
+        [Produces(typeof(GenreResponse))]
+        public async Task<ActionResult<GenreResponse>> Post([FromBody] GenreResponse input,
             CancellationToken ct = default)
         {
             try
@@ -74,8 +74,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(GenreViewModel))]
-        public async Task<ActionResult<GenreViewModel>> Put(int id, [FromBody] GenreViewModel input,
+        [Produces(typeof(GenreResponse))]
+        public async Task<ActionResult<GenreResponse>> Put(int id, [FromBody] GenreResponse input,
             CancellationToken ct = default)
         {
             try
