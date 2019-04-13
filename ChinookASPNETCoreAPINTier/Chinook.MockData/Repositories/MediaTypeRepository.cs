@@ -13,7 +13,7 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default)
         {
             IList<MediaType> list = new List<MediaType>();
             var mediaType = new MediaType
@@ -25,7 +25,7 @@ namespace Chinook.MockData.Repositories
             return list.ToList();
         }
 
-        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var mediaType = new MediaType
             {
@@ -35,10 +35,10 @@ namespace Chinook.MockData.Repositories
             return mediaType;
         }
 
-        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken)) => newMediaType;
+        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default) => newMediaType;
 
-        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
     }
 }

@@ -31,7 +31,7 @@ namespace Chinook.DataDapper.Repositories
 
         private async Task<bool> EmployeeExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
-        public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default)
         {
             using (IDbConnection cn = Connection)
             {
@@ -41,7 +41,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -50,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -59,7 +59,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default(CancellationToken))
+        public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -88,7 +88,7 @@ namespace Chinook.DataDapper.Repositories
             return newEmployee;
         }
 
-        public async Task<bool> UpdateAsync(Employee employee, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Employee employee, CancellationToken ct = default)
         {
             if (!await EmployeeExists(employee.EmployeeId, ct))
                 return false;
@@ -107,7 +107,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<List<Employee>> GetDirectReportsAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Employee>> GetDirectReportsAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {

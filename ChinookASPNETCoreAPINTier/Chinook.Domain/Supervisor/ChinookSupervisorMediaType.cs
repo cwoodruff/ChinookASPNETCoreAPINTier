@@ -10,14 +10,14 @@ namespace Chinook.Domain.Supervisor
     public partial class ChinookSupervisor
     {
         public async Task<List<MediaTypeResponse>> GetAllMediaTypeAsync(
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var mediaTypes = MediaTypeCoverter.ConvertList(await _mediaTypeRepository.GetAllAsync(ct));
             return mediaTypes;
         }
 
         public async Task<MediaTypeResponse> GetMediaTypeByIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var mediaTypeViewModel = MediaTypeCoverter.Convert(await _mediaTypeRepository.GetByIdAsync(id, ct));
             mediaTypeViewModel.Tracks = await GetTrackByMediaTypeIdAsync(mediaTypeViewModel.MediaTypeId, ct);
@@ -25,7 +25,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<MediaTypeResponse> AddMediaTypeAsync(MediaTypeResponse newMediaTypeViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var mediaType = new MediaType
             {
@@ -38,7 +38,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<bool> UpdateMediaTypeAsync(MediaTypeResponse mediaTypeViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var mediaType = await _mediaTypeRepository.GetByIdAsync(mediaTypeViewModel.MediaTypeId, ct);
 
@@ -49,6 +49,6 @@ namespace Chinook.Domain.Supervisor
             return await _mediaTypeRepository.UpdateAsync(mediaType, ct);
         }
 
-        public async Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default(CancellationToken)) => await _mediaTypeRepository.DeleteAsync(id, ct);
+        public async Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default) => await _mediaTypeRepository.DeleteAsync(id, ct);
     }
 }

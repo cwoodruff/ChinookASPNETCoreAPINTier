@@ -13,7 +13,7 @@ namespace Chinook.MockData.Dapper.Repositories
         {
         }
 
-        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default)
         {
             IList<PlaylistTrack> list = new List<PlaylistTrack>();
             var playlistTrack = new PlaylistTrack
@@ -26,7 +26,7 @@ namespace Chinook.MockData.Dapper.Repositories
         }
 
         public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             IList<PlaylistTrack> list = new List<PlaylistTrack>();
             var newisd = new PlaylistTrack
@@ -39,7 +39,7 @@ namespace Chinook.MockData.Dapper.Repositories
         }
 
         public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             IList<PlaylistTrack> list = new List<PlaylistTrack>();
             var newisd = new PlaylistTrack
@@ -52,11 +52,11 @@ namespace Chinook.MockData.Dapper.Repositories
         }
 
         public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack,
-            CancellationToken ct = default(CancellationToken)) => newPlaylistTrack;
+            CancellationToken ct = default) => newPlaylistTrack;
 
         public async Task<bool> UpdateAsync(PlaylistTrack playlistTrack,
-            CancellationToken ct = default(CancellationToken)) => true;
+            CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
     }
 }

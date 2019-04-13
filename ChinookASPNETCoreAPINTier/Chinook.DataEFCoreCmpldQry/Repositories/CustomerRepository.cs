@@ -18,26 +18,26 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             _context = context;
         }
 
-        private async Task<bool> CustomerExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> CustomerExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.GetAllCustomersAsync();
+        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllCustomersAsync();
 
-        public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var customer = await _context.GetCustomerAsync(id);
             return customer.First();
         }
 
-        public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default(CancellationToken))
+        public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default)
         {
             _context.Customer.Add(newCustomer);
             await _context.SaveChangesAsync(ct);
             return newCustomer;
         }
 
-        public async Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default)
         {
             if (!await CustomerExists(customer.CustomerId, ct))
                 return false;
@@ -46,7 +46,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await CustomerExists(id, ct))
                 return false;
@@ -57,6 +57,6 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
         }
 
         public async Task<List<Customer>> GetBySupportRepIdAsync(int id,
-            CancellationToken ct = default(CancellationToken)) => await _context.GetCustomerBySupportRepIdAsync(id);
+            CancellationToken ct = default) => await _context.GetCustomerBySupportRepIdAsync(id);
     }
 }

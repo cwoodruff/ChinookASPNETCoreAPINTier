@@ -13,7 +13,7 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default)
         {
             IList<Employee> list = new List<Employee>();
 
@@ -26,7 +26,7 @@ namespace Chinook.MockData.Repositories
             return list.ToList();
         }
 
-        public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default)
         {
             string reportsToName;
             var employee = new Employee
@@ -36,13 +36,13 @@ namespace Chinook.MockData.Repositories
             return employee;
         }
 
-        public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default(CancellationToken)) => newEmployee;
+        public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default) => newEmployee;
 
-        public async Task<bool> UpdateAsync(Employee employee, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> UpdateAsync(Employee employee, CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
 
-        public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default)
         {
             var employee = new Employee
             {
@@ -52,7 +52,7 @@ namespace Chinook.MockData.Repositories
         }
 
         public async Task<List<Employee>> GetDirectReportsAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             IList<Employee> list = new List<Employee>();
             var employee = new Employee

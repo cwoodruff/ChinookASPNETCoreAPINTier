@@ -11,14 +11,14 @@ namespace Chinook.Domain.Supervisor
     public partial class ChinookSupervisor
     {
         public async Task<List<CustomerResponse>> GetAllCustomerAsync(
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var customers = CustomerCoverter.ConvertList(await _customerRepository.GetAllAsync(ct)).ToList();
             return customers;
         }
 
         public async Task<CustomerResponse> GetCustomerByIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var customerViewModel = CustomerCoverter.Convert(await _customerRepository.GetByIdAsync(id, ct));
             customerViewModel.Invoices = await GetInvoiceByCustomerIdAsync(customerViewModel.CustomerId, ct);
@@ -30,14 +30,14 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<List<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var customers = await _customerRepository.GetBySupportRepIdAsync(id, ct);
             return CustomerCoverter.ConvertList(customers).ToList();
         }
 
         public async Task<CustomerResponse> AddCustomerAsync(CustomerResponse newCustomerViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var customer = new Customer
             {
@@ -61,7 +61,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<bool> UpdateCustomerAsync(CustomerResponse customerViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var customer = await _customerRepository.GetByIdAsync(customerViewModel.CustomerId, ct);
 
@@ -82,6 +82,6 @@ namespace Chinook.Domain.Supervisor
             return await _customerRepository.UpdateAsync(customer, ct);
         }
 
-        public async Task<bool> DeleteCustomerAsync(int id, CancellationToken ct = default(CancellationToken)) => await _customerRepository.DeleteAsync(id, ct);
+        public async Task<bool> DeleteCustomerAsync(int id, CancellationToken ct = default) => await _customerRepository.DeleteAsync(id, ct);
     }
 }

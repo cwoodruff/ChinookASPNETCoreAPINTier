@@ -31,7 +31,7 @@ namespace Chinook.DataDapper.Repositories
 
         private async Task<bool> InvoiceLineExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
-        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default)
         {
             using (IDbConnection cn = Connection)
             {
@@ -41,7 +41,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -50,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -60,7 +60,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -70,7 +70,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -90,7 +90,7 @@ namespace Chinook.DataDapper.Repositories
             return newInvoiceLine;
         }
 
-        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default)
         {
             if (!await InvoiceLineExists(invoiceLine.InvoiceLineId, ct))
                 return false;
@@ -109,7 +109,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             try
             {

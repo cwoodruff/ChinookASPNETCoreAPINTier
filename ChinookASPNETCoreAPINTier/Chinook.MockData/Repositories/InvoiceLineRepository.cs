@@ -13,7 +13,7 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default)
         {
             IList<InvoiceLine> list = new List<InvoiceLine>();
             var invoiceLine = new InvoiceLine
@@ -24,7 +24,7 @@ namespace Chinook.MockData.Repositories
             return list.ToList();
         }
 
-        public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var invoiceLine = new InvoiceLine
             {
@@ -34,14 +34,14 @@ namespace Chinook.MockData.Repositories
         }
 
         public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,
-            CancellationToken ct = default(CancellationToken)) => newInvoiceLine;
+            CancellationToken ct = default) => newInvoiceLine;
 
-        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
 
         public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             IList<InvoiceLine> list = new List<InvoiceLine>();
             var newisd = new InvoiceLine
@@ -53,7 +53,7 @@ namespace Chinook.MockData.Repositories
         }
 
         public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             IList<InvoiceLine> list = new List<InvoiceLine>();
             var newisd = new InvoiceLine

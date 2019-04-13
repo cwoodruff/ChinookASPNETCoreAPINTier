@@ -9,13 +9,13 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<AlbumResponse>> GetAllAlbumAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<AlbumResponse>> GetAllAlbumAsync(CancellationToken ct = default)
         {
             var albums = AlbumCoverter.ConvertList(await _albumRepository.GetAllAsync(ct));
             return albums;
         }
 
-        public async Task<AlbumResponse> GetAlbumByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<AlbumResponse> GetAlbumByIdAsync(int id, CancellationToken ct = default)
         {
             var albumViewModel = AlbumCoverter.Convert(await _albumRepository.GetByIdAsync(id, ct));
             albumViewModel.ArtistName = _artistRepository.GetByIdAsync(albumViewModel.ArtistId, ct).Result.Name;
@@ -23,14 +23,14 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<List<AlbumResponse>> GetAlbumByArtistIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var albums = AlbumCoverter.ConvertList(await _albumRepository.GetByArtistIdAsync(id, ct));
             return albums;
         }
 
         public async Task<AlbumResponse> AddAlbumAsync(AlbumResponse newAlbumViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var album = new Album
             {
@@ -44,7 +44,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<bool> UpdateAlbumAsync(AlbumResponse albumViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var album = await _albumRepository.GetByIdAsync(albumViewModel.AlbumId, ct);
 
@@ -56,6 +56,6 @@ namespace Chinook.Domain.Supervisor
             return await _albumRepository.UpdateAsync(album, ct);
         }
 
-        public async Task<bool> DeleteAlbumAsync(int id, CancellationToken ct = default(CancellationToken)) => await _albumRepository.DeleteAsync(id, ct);
+        public async Task<bool> DeleteAlbumAsync(int id, CancellationToken ct = default) => await _albumRepository.DeleteAsync(id, ct);
     }
 }

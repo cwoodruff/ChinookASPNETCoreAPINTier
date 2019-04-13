@@ -31,7 +31,7 @@ namespace Chinook.DataDapper.Repositories
 
         private async Task<bool> MediaTypeExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
-        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default)
         {
             using (IDbConnection cn = Connection)
             {
@@ -41,7 +41,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -50,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken))
+        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -62,7 +62,7 @@ namespace Chinook.DataDapper.Repositories
             return newMediaType;
         }
 
-        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default)
         {
             if (!await MediaTypeExists(mediaType.MediaTypeId, ct))
                 return false;
@@ -81,7 +81,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             try
             {

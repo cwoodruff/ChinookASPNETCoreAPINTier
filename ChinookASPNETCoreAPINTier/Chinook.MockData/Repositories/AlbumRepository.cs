@@ -13,7 +13,7 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<Album>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<Album>> GetAllAsync(CancellationToken ct = default)
         {
             IList<Album> list = new List<Album>();
 
@@ -28,7 +28,7 @@ namespace Chinook.MockData.Repositories
             return list.ToList();
         }
 
-        public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var album = new Album
             {
@@ -39,17 +39,17 @@ namespace Chinook.MockData.Repositories
             return album;
         }
 
-        public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default(CancellationToken))
+        public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default)
         {
             newAlbum.AlbumId = 1;
             return newAlbum;
         }
 
-        public async Task<bool> UpdateAsync(Album album, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> UpdateAsync(Album album, CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
 
-        public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default)
         {
             IList<Album> list = new List<Album>();
             var newisd = new Album

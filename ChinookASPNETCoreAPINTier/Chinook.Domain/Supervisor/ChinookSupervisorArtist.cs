@@ -10,13 +10,13 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<ArtistResponse>> GetAllArtistAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<ArtistResponse>> GetAllArtistAsync(CancellationToken ct = default)
         {
             var artists = ArtistCoverter.ConvertList(await _artistRepository.GetAllAsync(ct));
             return artists.ToList();
         }
 
-        public async Task<ArtistResponse> GetArtistByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<ArtistResponse> GetArtistByIdAsync(int id, CancellationToken ct = default)
         {
             var artistViewModel = ArtistCoverter.Convert(await _artistRepository.GetByIdAsync(id, ct));
             artistViewModel.Albums = await GetAlbumByArtistIdAsync(artistViewModel.ArtistId, ct);
@@ -24,7 +24,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<ArtistResponse> AddArtistAsync(ArtistResponse newArtistViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var artist = new Artist
             {
@@ -37,7 +37,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<bool> UpdateArtistAsync(ArtistResponse artistViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var artist = await _artistRepository.GetByIdAsync(artistViewModel.ArtistId, ct);
 
@@ -48,6 +48,6 @@ namespace Chinook.Domain.Supervisor
             return await _artistRepository.UpdateAsync(artist, ct);
         }
 
-        public async Task<bool> DeleteArtistAsync(int id, CancellationToken ct = default(CancellationToken)) => await _artistRepository.DeleteAsync(id, ct);
+        public async Task<bool> DeleteArtistAsync(int id, CancellationToken ct = default) => await _artistRepository.DeleteAsync(id, ct);
     }
 }

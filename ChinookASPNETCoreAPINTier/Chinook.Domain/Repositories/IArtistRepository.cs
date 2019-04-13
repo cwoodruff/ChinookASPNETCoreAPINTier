@@ -8,10 +8,10 @@ namespace Chinook.Domain.Repositories
 {
     public interface IArtistRepository : IDisposable
     {
-        Task<List<Artist>> GetAllAsync(CancellationToken ct = default(CancellationToken));
-        Task<Artist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken));
-        Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken));
-        Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default(CancellationToken));
-        Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken));
+        Task<List<Artist>> GetAllAsync(CancellationToken ct = default);
+        Task<Artist> GetByIdAsync(int id, CancellationToken ct = default);
+        Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default);
+        Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default);
+        Task<bool> DeleteAsync(int id, CancellationToken ct = default);
     }
 }

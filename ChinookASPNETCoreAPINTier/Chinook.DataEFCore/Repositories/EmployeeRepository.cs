@@ -17,22 +17,22 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private async Task<bool> EmployeeExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> EmployeeExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.Employee.ToListAsync(ct);
+        public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default) => await _context.Employee.ToListAsync(ct);
 
-        public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.Employee.FindAsync(id);
+        public async Task<Employee> GetByIdAsync(int id, CancellationToken ct = default) => await _context.Employee.FindAsync(id);
 
-        public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default(CancellationToken))
+        public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default)
         {
             _context.Employee.Add(newEmployee);
             await _context.SaveChangesAsync(ct);
             return newEmployee;
         }
 
-        public async Task<bool> UpdateAsync(Employee employee, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Employee employee, CancellationToken ct = default)
         {
             if (!await EmployeeExists(employee.EmployeeId, ct))
                 return false;
@@ -41,7 +41,7 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await EmployeeExists(id, ct))
                 return false;
@@ -51,9 +51,9 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.Employee.FindAsync(id);
+        public async Task<Employee> GetReportsToAsync(int id, CancellationToken ct = default) => await _context.Employee.FindAsync(id);
 
         public async Task<List<Employee>> GetDirectReportsAsync(int id,
-            CancellationToken ct = default(CancellationToken)) => await _context.Employee.Where(e => e.ReportsTo == id).ToListAsync(ct);
+            CancellationToken ct = default) => await _context.Employee.Where(e => e.ReportsTo == id).ToListAsync(ct);
     }
 }

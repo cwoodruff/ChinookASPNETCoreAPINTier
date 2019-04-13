@@ -9,13 +9,13 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<GenreResponse>> GetAllGenreAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<GenreResponse>> GetAllGenreAsync(CancellationToken ct = default)
         {
             var genres = GenreCoverter.ConvertList(await _genreRepository.GetAllAsync(ct));
             return genres;
         }
 
-        public async Task<GenreResponse> GetGenreByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<GenreResponse> GetGenreByIdAsync(int id, CancellationToken ct = default)
         {
             var genreViewModel = GenreCoverter.Convert(await _genreRepository.GetByIdAsync(id, ct));
             genreViewModel.Tracks = await GetTrackByGenreIdAsync(genreViewModel.GenreId, ct);
@@ -23,7 +23,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<GenreResponse> AddGenreAsync(GenreResponse newGenreViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var genre = new Genre
             {
@@ -36,7 +36,7 @@ namespace Chinook.Domain.Supervisor
         }
 
         public async Task<bool> UpdateGenreAsync(GenreResponse genreViewModel,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var genre = await _genreRepository.GetByIdAsync(genreViewModel.GenreId, ct);
 
@@ -47,6 +47,6 @@ namespace Chinook.Domain.Supervisor
             return await _genreRepository.UpdateAsync(genre, ct);
         }
 
-        public async Task<bool> DeleteGenreAsync(int id, CancellationToken ct = default(CancellationToken)) => await _genreRepository.DeleteAsync(id, ct);
+        public async Task<bool> DeleteGenreAsync(int id, CancellationToken ct = default) => await _genreRepository.DeleteAsync(id, ct);
     }
 }

@@ -24,13 +24,13 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             _cache = memoryCache;
         }
 
-        private async Task<bool> GenreExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> GenreExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.GetAllGenresAsync();
+        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllGenresAsync();
 
-        public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var cachedGenre = _cache.Get<Genre>(id);
 
@@ -47,14 +47,14 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return dbGenre.FirstOrDefault();
         }
 
-        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))
+        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default)
         {
             _context.Genre.Add(newGenre);
             await _context.SaveChangesAsync(ct);
             return newGenre;
         }
 
-        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default)
         {
             if (!await GenreExists(genre.GenreId, ct))
                 return false;
@@ -63,7 +63,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await GenreExists(id, ct))
                 return false;
