@@ -37,19 +37,10 @@ namespace Chinook.MockData.Repositories
             return genre;
         }
 
-        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))
-        {
-            return newGenre;
-        }
+        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken)) => newGenre;
 
-        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default(CancellationToken)) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
     }
 }

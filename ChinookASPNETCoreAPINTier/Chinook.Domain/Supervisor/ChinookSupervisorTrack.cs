@@ -96,9 +96,6 @@ namespace Chinook.Domain.Supervisor
             return await _trackRepository.UpdateAsync(track, ct);
         }
 
-        public async Task<bool> DeleteTrackAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _trackRepository.DeleteAsync(id, ct);
-        }
+        public async Task<bool> DeleteTrackAsync(int id, CancellationToken ct = default(CancellationToken)) => await _trackRepository.DeleteAsync(id, ct);
     }
 }

@@ -35,19 +35,10 @@ namespace Chinook.MockData.Repositories
             return mediaType;
         }
 
-        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken))
-        {
-            return newMediaType;
-        }
+        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken)) => newMediaType;
 
-        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default(CancellationToken)) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
     }
 }

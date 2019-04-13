@@ -23,25 +23,13 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private async Task<bool> InvoiceExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> InvoiceExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Invoice.ToListAsync(ct);
-        }
+        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.Invoice.ToListAsync(ct);
 
-        public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Invoice.FindAsync(id);
-        }
+        public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.Invoice.FindAsync(id);
 
         public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default(CancellationToken))
         {
@@ -69,9 +57,6 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Invoice.Where(a => a.InvoiceId == id).ToListAsync(ct);
-        }
+        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.Invoice.Where(a => a.InvoiceId == id).ToListAsync(ct);
     }
 }

@@ -28,11 +28,8 @@ namespace Chinook.DataDapper.Repositories
         {
             
         }
-        
-        private async Task<bool> EmployeeExists(int id, CancellationToken ct = default)
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+
+        private async Task<bool> EmployeeExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
         public async Task<List<Employee>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {

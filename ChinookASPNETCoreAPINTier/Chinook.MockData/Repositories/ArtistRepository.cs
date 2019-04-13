@@ -36,19 +36,10 @@ namespace Chinook.MockData.Repositories
             return artist;
         }
 
-        public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken))
-        {
-            return newArtist;
-        }
+        public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken)) => newArtist;
 
-        public async Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default(CancellationToken)) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
     }
 }

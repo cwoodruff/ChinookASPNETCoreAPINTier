@@ -169,169 +169,70 @@ namespace Chinook.DataEFCoreCmpldQry
             new TrackConfiguration(modelBuilder.Entity<Track>());
         }
 
-        public async Task<List<Album>> GetAllAlbumsAsync()
-        {
-            return await _queryGetAllAlbums(this).ToListAsync();
-        }
+        public async Task<List<Album>> GetAllAlbumsAsync() => await _queryGetAllAlbums(this).ToListAsync();
 
-        public async Task<List<Album>> GetAlbumAsync(int id)
-        {
-            return await _queryGetAlbum(this, id).ToListAsync();
-        }
+        public async Task<List<Album>> GetAlbumAsync(int id) => await _queryGetAlbum(this, id).ToListAsync();
 
-        public async Task<List<Album>> GetAlbumsByArtistIdAsync(int id)
-        {
-            return await _queryGetAlbumsByArtistId(this, id).ToListAsync();
-        }
+        public async Task<List<Album>> GetAlbumsByArtistIdAsync(int id) => await _queryGetAlbumsByArtistId(this, id).ToListAsync();
 
-        public async Task<List<Artist>> GetAllArtistsAsync()
-        {
-            return await _queryGetAllArtists(this).ToListAsync();
-        }
+        public async Task<List<Artist>> GetAllArtistsAsync() => await _queryGetAllArtists(this).ToListAsync();
 
-        public async Task<List<Artist>> GetArtistAsync(int id)
-        {
-            return await _queryGetArtist(this, id).ToListAsync();
-        }
+        public async Task<List<Artist>> GetArtistAsync(int id) => await _queryGetArtist(this, id).ToListAsync();
 
-        public async Task<List<Customer>> GetAllCustomersAsync()
-        {
-            return await _queryGetAllCustomers(this).ToListAsync();
-        }
+        public async Task<List<Customer>> GetAllCustomersAsync() => await _queryGetAllCustomers(this).ToListAsync();
 
-        public async Task<List<Customer>> GetCustomerAsync(int id)
-        {
-            return await _queryGetCustomer(this, id).ToListAsync();
-        }
+        public async Task<List<Customer>> GetCustomerAsync(int id) => await _queryGetCustomer(this, id).ToListAsync();
 
-        public async Task<List<Customer>> GetCustomerBySupportRepIdAsync(int id)
-        {
-            return await _queryGetCustomerBySupportRepId(this, id).ToListAsync();
-        }
+        public async Task<List<Customer>> GetCustomerBySupportRepIdAsync(int id) => await _queryGetCustomerBySupportRepId(this, id).ToListAsync();
 
-        public async Task<List<Employee>> GetAllEmployeesAsync()
-        {
-            return await _queryGetAllEmployees(this).ToListAsync();
-        }
+        public async Task<List<Employee>> GetAllEmployeesAsync() => await _queryGetAllEmployees(this).ToListAsync();
 
-        public async Task<List<Employee>> GetEmployeeAsync(int id)
-        {
-            return await _queryGetEmployee(this, id).ToListAsync();
-        }
+        public async Task<List<Employee>> GetEmployeeAsync(int id) => await _queryGetEmployee(this, id).ToListAsync();
 
-        public async Task<List<Employee>> GetEmployeeDirectReportsAsync(int id)
-        {
-            return await _queryGetDirectReports(this, id).ToListAsync();
-        }
+        public async Task<List<Employee>> GetEmployeeDirectReportsAsync(int id) => await _queryGetDirectReports(this, id).ToListAsync();
 
-        public async Task<List<Employee>> GetEmployeeGetReportsToAsync(int id)
-        {
-            return await _queryGetReportsTo(this, id).ToListAsync();
-        }
+        public async Task<List<Employee>> GetEmployeeGetReportsToAsync(int id) => await _queryGetReportsTo(this, id).ToListAsync();
 
-        public async Task<List<Genre>> GetAllGenresAsync()
-        {
-            return await _queryGetAllGenres(this).ToListAsync();
-        }
+        public async Task<List<Genre>> GetAllGenresAsync() => await _queryGetAllGenres(this).ToListAsync();
 
-        public async Task<List<Genre>> GetGenreAsync(int id)
-        {
-            return await _queryGetGenre(this, id).ToListAsync();
-        }
+        public async Task<List<Genre>> GetGenreAsync(int id) => await _queryGetGenre(this, id).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetAllInvoiceLinesAsync()
-        {
-            return await _queryGetAllInvoiceLines(this).ToListAsync();
-        }
+        public async Task<List<InvoiceLine>> GetAllInvoiceLinesAsync() => await _queryGetAllInvoiceLines(this).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetInvoiceLineAsync(int id)
-        {
-            return await _queryGetInvoiceLine(this, id).ToListAsync();
-        }
+        public async Task<List<InvoiceLine>> GetInvoiceLineAsync(int id) => await _queryGetInvoiceLine(this, id).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetInvoiceLinesByInvoiceIdAsync(int id)
-        {
-            return await _queryGetInvoiceLinesByInvoiceId(this, id).ToListAsync();
-        }
+        public async Task<List<InvoiceLine>> GetInvoiceLinesByInvoiceIdAsync(int id) => await _queryGetInvoiceLinesByInvoiceId(this, id).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetInvoiceLinesByTrackIdAsync(int id)
-        {
-            return await _queryGetInvoiceLinesByTrackId(this, id).ToListAsync();
-        }
+        public async Task<List<InvoiceLine>> GetInvoiceLinesByTrackIdAsync(int id) => await _queryGetInvoiceLinesByTrackId(this, id).ToListAsync();
 
-        public async Task<List<Invoice>> GetAllInvoicesAsync()
-        {
-            return await _queryGetAllInvoices(this).ToListAsync();
-        }
+        public async Task<List<Invoice>> GetAllInvoicesAsync() => await _queryGetAllInvoices(this).ToListAsync();
 
-        public async Task<List<Invoice>> GetInvoiceAsync(int id)
-        {
-            return await _queryGetInvoice(this, id).ToListAsync();
-        }
+        public async Task<List<Invoice>> GetInvoiceAsync(int id) => await _queryGetInvoice(this, id).ToListAsync();
 
-        public async Task<List<Invoice>> GetInvoicesByCustomerIdAsync(int id)
-        {
-            return await _queryGetInvoicesByCustomerId(this, id).ToListAsync();
-        }
+        public async Task<List<Invoice>> GetInvoicesByCustomerIdAsync(int id) => await _queryGetInvoicesByCustomerId(this, id).ToListAsync();
 
-        public async Task<List<MediaType>> GetAllMediaTypesAsync()
-        {
-            return await _queryGetAllMediaTypes(this).ToListAsync();
-        }
+        public async Task<List<MediaType>> GetAllMediaTypesAsync() => await _queryGetAllMediaTypes(this).ToListAsync();
 
-        public async Task<List<MediaType>> GetMediaTypeAsync(int id)
-        {
-            return await _queryGetMediaType(this, id).ToListAsync();
-        }
+        public async Task<List<MediaType>> GetMediaTypeAsync(int id) => await _queryGetMediaType(this, id).ToListAsync();
 
-        public async Task<List<Playlist>> GetAllPlaylistsAsync()
-        {
-            return await _queryGetAllPlaylists(this).ToListAsync();
-        }
+        public async Task<List<Playlist>> GetAllPlaylistsAsync() => await _queryGetAllPlaylists(this).ToListAsync();
 
-        public async Task<List<Playlist>> GetPlaylistAsync(int id)
-        {
-            return await _queryGetPlaylist(this, id).ToListAsync();
-        }
+        public async Task<List<Playlist>> GetPlaylistAsync(int id) => await _queryGetPlaylist(this, id).ToListAsync();
 
-        public async Task<List<PlaylistTrack>> GetAllPlaylistTracksAsync()
-        {
-            return await _queryGetAllPlaylistTracks(this).ToListAsync();
-        }
+        public async Task<List<PlaylistTrack>> GetAllPlaylistTracksAsync() => await _queryGetAllPlaylistTracks(this).ToListAsync();
 
-        public async Task<List<PlaylistTrack>> GetPlaylistTrackByPlaylistId(int id)
-        {
-            return await _queryGetPlaylistTrackByPlaylistId(this, id).ToListAsync();
-        }
+        public async Task<List<PlaylistTrack>> GetPlaylistTrackByPlaylistId(int id) => await _queryGetPlaylistTrackByPlaylistId(this, id).ToListAsync();
 
-        public async Task<List<PlaylistTrack>> GetPlaylistTracksByTrackIdAsync(int id)
-        {
-            return await _queryGetPlaylistTracksByTrackId(this, id).ToListAsync();
-        }
+        public async Task<List<PlaylistTrack>> GetPlaylistTracksByTrackIdAsync(int id) => await _queryGetPlaylistTracksByTrackId(this, id).ToListAsync();
 
-        public async Task<List<Track>> GetAllTracksAsync()
-        {
-            return await _queryGetAllTracks(this).ToListAsync();
-        }
+        public async Task<List<Track>> GetAllTracksAsync() => await _queryGetAllTracks(this).ToListAsync();
 
-        public async Task<List<Track>> GetTrackAsync(int id)
-        {
-            return await _queryGetTrack(this, id).ToListAsync();
-        }
+        public async Task<List<Track>> GetTrackAsync(int id) => await _queryGetTrack(this, id).ToListAsync();
 
-        public async Task<List<Track>> GetTracksByAlbumIdAsync(int id)
-        {
-            return await _queryGetTracksByAlbumId(this, id).ToListAsync();
-        }
+        public async Task<List<Track>> GetTracksByAlbumIdAsync(int id) => await _queryGetTracksByAlbumId(this, id).ToListAsync();
 
-        public async Task<List<Track>> GetTracksByGenreIdAsync(int id)
-        {
-            return await _queryGetTracksByGenreId(this, id).ToListAsync();
-        }
+        public async Task<List<Track>> GetTracksByGenreIdAsync(int id) => await _queryGetTracksByGenreId(this, id).ToListAsync();
 
-        public async Task<List<Track>> GetTracksByMediaTypeIdAsync(int id)
-        {
-            return await _queryGetTracksByMediaTypeId(this, id).ToListAsync();
-        }
+        public async Task<List<Track>> GetTracksByMediaTypeIdAsync(int id) => await _queryGetTracksByMediaTypeId(this, id).ToListAsync();
     }
 }

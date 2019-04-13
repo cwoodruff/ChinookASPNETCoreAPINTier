@@ -49,9 +49,6 @@ namespace Chinook.Domain.Supervisor
             return await _mediaTypeRepository.UpdateAsync(mediaType, ct);
         }
 
-        public async Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _mediaTypeRepository.DeleteAsync(id, ct);
-        }
+        public async Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default(CancellationToken)) => await _mediaTypeRepository.DeleteAsync(id, ct);
     }
 }

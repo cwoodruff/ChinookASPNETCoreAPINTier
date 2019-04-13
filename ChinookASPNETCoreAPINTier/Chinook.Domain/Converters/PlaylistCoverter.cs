@@ -8,23 +8,13 @@ namespace Chinook.Domain.Converters
     public static class PlaylistCoverter
     {
         public static PlaylistResponse Convert(Playlist playlist)
-        {
-            var playlistViewModel = new PlaylistResponse();
-            playlistViewModel.PlaylistId = playlist.PlaylistId;
-            playlistViewModel.Name = playlist.Name;
-            return playlistViewModel;
-        }
+            => new PlaylistResponse
+            {
+                PlaylistId = playlist.PlaylistId,
+                Name = playlist.Name
+            };
 
-        public static List<PlaylistResponse> ConvertList(IEnumerable<Playlist> playlists)
-        {
-            return playlists.Select(p =>
-                {
-                    var model = new PlaylistResponse();
-                    model.PlaylistId = p.PlaylistId;
-                    model.Name = p.Name;
-                    return model;
-                })
-                .ToList();
-        }
+        public static List<PlaylistResponse> ConvertList(IEnumerable<Playlist> playlists) 
+            => playlists.Select(Convert).ToList();
     }
 }

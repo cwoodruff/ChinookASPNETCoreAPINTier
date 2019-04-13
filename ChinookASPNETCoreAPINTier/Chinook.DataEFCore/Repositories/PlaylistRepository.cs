@@ -17,25 +17,13 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private async Task<bool> PlaylistExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> PlaylistExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Playlist.ToListAsync(ct);
-        }
+        public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.Playlist.ToListAsync(ct);
 
-        public async Task<Playlist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Playlist.FindAsync(id);
-        }
+        public async Task<Playlist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.Playlist.FindAsync(id);
 
         public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id,
             CancellationToken ct = default(CancellationToken))

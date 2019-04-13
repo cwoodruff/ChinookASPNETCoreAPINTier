@@ -22,20 +22,11 @@ namespace Chinook.DataEFCore.Repositories
             _cache = memoryCache;
         }
 
-        private async Task<bool> GenreExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> GenreExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Genre.ToListAsync(ct);
-        }
+        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.Genre.ToListAsync(ct);
 
         public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {

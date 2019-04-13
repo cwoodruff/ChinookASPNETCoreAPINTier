@@ -35,20 +35,11 @@ namespace Chinook.MockData.Dapper.Repositories
             return customer;
         }
 
-        public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default(CancellationToken))
-        {
-            return newCustomer;
-        }
+        public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default(CancellationToken)) => newCustomer;
 
-        public async Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default(CancellationToken)) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
 
         public async Task<List<Customer>> GetBySupportRepIdAsync(int id,
             CancellationToken ct = default(CancellationToken))

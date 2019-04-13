@@ -18,32 +18,17 @@ namespace Chinook.DataEFCore.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        private async Task<bool> PlaylistTrackExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByPlaylistIdAsync(id, ct) != null;
-        }
+        private async Task<bool> PlaylistTrackExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByPlaylistIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.PlaylistTrack.ToListAsync(ct);
-        }
+        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.PlaylistTrack.ToListAsync(ct);
 
         public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
-        }
+            CancellationToken ct = default(CancellationToken)) => await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
 
         public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.PlaylistTrack.Where(a => a.TrackId == id).ToListAsync(ct);
-        }
+            CancellationToken ct = default(CancellationToken)) => await _context.PlaylistTrack.Where(a => a.TrackId == id).ToListAsync(ct);
 
         public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack,
             CancellationToken ct = default(CancellationToken))

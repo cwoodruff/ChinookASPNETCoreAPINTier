@@ -56,9 +56,6 @@ namespace Chinook.Domain.Supervisor
             return await _albumRepository.UpdateAsync(album, ct);
         }
 
-        public async Task<bool> DeleteAlbumAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _albumRepository.DeleteAsync(id, ct);
-        }
+        public async Task<bool> DeleteAlbumAsync(int id, CancellationToken ct = default(CancellationToken)) => await _albumRepository.DeleteAsync(id, ct);
     }
 }

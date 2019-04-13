@@ -18,20 +18,11 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             _context = context;
         }
 
-        private async Task<bool> TrackExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> TrackExists(int id, CancellationToken ct = default(CancellationToken)) => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetAllTracksAsync();
-        }
+        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default(CancellationToken)) => await _context.GetAllTracksAsync();
 
         public async Task<Track> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
@@ -65,19 +56,10 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetTracksByAlbumIdAsync(id);
-        }
+        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.GetTracksByAlbumIdAsync(id);
 
-        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetTracksByGenreIdAsync(id);
-        }
+        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.GetTracksByGenreIdAsync(id);
 
-        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetTracksByMediaTypeIdAsync(id);
-        }
+        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default(CancellationToken)) => await _context.GetTracksByMediaTypeIdAsync(id);
     }
 }

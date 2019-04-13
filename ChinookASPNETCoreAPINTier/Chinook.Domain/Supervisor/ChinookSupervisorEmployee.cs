@@ -90,10 +90,7 @@ namespace Chinook.Domain.Supervisor
             return await _employeeRepository.UpdateAsync(employee, ct);
         }
 
-        public async Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _employeeRepository.DeleteAsync(id, ct);
-        }
+        public async Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default(CancellationToken)) => await _employeeRepository.DeleteAsync(id, ct);
 
         public async Task<List<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
             CancellationToken ct = default(CancellationToken))

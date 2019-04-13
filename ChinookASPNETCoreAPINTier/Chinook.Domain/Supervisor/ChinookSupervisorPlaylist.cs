@@ -49,9 +49,6 @@ namespace Chinook.Domain.Supervisor
             return await _playlistRepository.UpdateAsync(playlist, ct);
         }
 
-        public async Task<bool> DeletePlaylistAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _playlistRepository.DeleteAsync(id, ct);
-        }
+        public async Task<bool> DeletePlaylistAsync(int id, CancellationToken ct = default(CancellationToken)) => await _playlistRepository.DeleteAsync(id, ct);
     }
 }

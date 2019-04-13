@@ -35,10 +35,7 @@ namespace Chinook.MockData.Repositories
             return playlist;
         }
 
-        public async Task<Playlist> AddAsync(Playlist newPlaylist, CancellationToken ct = default(CancellationToken))
-        {
-            return newPlaylist;
-        }
+        public async Task<Playlist> AddAsync(Playlist newPlaylist, CancellationToken ct = default(CancellationToken)) => newPlaylist;
 
         public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id,
             CancellationToken ct = default(CancellationToken))
@@ -60,14 +57,8 @@ namespace Chinook.MockData.Repositories
             return list.ToList();
         }
 
-        public async Task<bool> UpdateAsync(Playlist playlist, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(Playlist playlist, CancellationToken ct = default(CancellationToken)) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
     }
 }

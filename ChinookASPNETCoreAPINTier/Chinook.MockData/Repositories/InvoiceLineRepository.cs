@@ -34,20 +34,11 @@ namespace Chinook.MockData.Repositories
         }
 
         public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,
-            CancellationToken ct = default(CancellationToken))
-        {
-            return newInvoiceLine;
-        }
+            CancellationToken ct = default(CancellationToken)) => newInvoiceLine;
 
-        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default(CancellationToken)) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken)) => true;
 
         public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id,
             CancellationToken ct = default(CancellationToken))

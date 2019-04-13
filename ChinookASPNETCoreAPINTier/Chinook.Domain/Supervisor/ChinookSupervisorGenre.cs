@@ -47,9 +47,6 @@ namespace Chinook.Domain.Supervisor
             return await _genreRepository.UpdateAsync(genre, ct);
         }
 
-        public async Task<bool> DeleteGenreAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _genreRepository.DeleteAsync(id, ct);
-        }
+        public async Task<bool> DeleteGenreAsync(int id, CancellationToken ct = default(CancellationToken)) => await _genreRepository.DeleteAsync(id, ct);
     }
 }
