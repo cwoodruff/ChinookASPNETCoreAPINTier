@@ -7,16 +7,16 @@ namespace Chinook.Domain.Supervisor
 {
     public interface IChinookSupervisor
     {
-        Task<List<AlbumResponse>> GetAllAlbumAsync(CancellationToken ct = default);
+        Task<IEnumerable<AlbumResponse>> GetAllAlbumAsync(CancellationToken ct = default);
         Task<AlbumResponse> GetAlbumByIdAsync(int id, CancellationToken ct = default);
-        Task<List<AlbumResponse>> GetAlbumByArtistIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<AlbumResponse>> GetAlbumByArtistIdAsync(int id, CancellationToken ct = default);
 
         Task<AlbumResponse> AddAlbumAsync(AlbumResponse newAlbumViewModel,
             CancellationToken ct = default);
 
         Task<bool> UpdateAlbumAsync(AlbumResponse albumViewModel, CancellationToken ct = default);
         Task<bool> DeleteAlbumAsync(int id, CancellationToken ct = default);
-        Task<List<ArtistResponse>> GetAllArtistAsync(CancellationToken ct = default);
+        Task<IEnumerable<ArtistResponse>> GetAllArtistAsync(CancellationToken ct = default);
         Task<ArtistResponse> GetArtistByIdAsync(int id, CancellationToken ct = default);
 
         Task<ArtistResponse> AddArtistAsync(ArtistResponse newArtistViewModel,
@@ -26,10 +26,10 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default);
 
         Task<bool> DeleteArtistAsync(int id, CancellationToken ct = default);
-        Task<List<CustomerResponse>> GetAllCustomerAsync(CancellationToken ct = default);
+        Task<IEnumerable<CustomerResponse>> GetAllCustomerAsync(CancellationToken ct = default);
         Task<CustomerResponse> GetCustomerByIdAsync(int id, CancellationToken ct = default);
 
-        Task<List<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
+        Task<IEnumerable<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
             CancellationToken ct = default);
 
         Task<CustomerResponse> AddCustomerAsync(CustomerResponse newCustomerViewModel,
@@ -39,7 +39,7 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default);
 
         Task<bool> DeleteCustomerAsync(int id, CancellationToken ct = default);
-        Task<List<EmployeeResponse>> GetAllEmployeeAsync(CancellationToken ct = default);
+        Task<IEnumerable<EmployeeResponse>> GetAllEmployeeAsync(CancellationToken ct = default);
         Task<EmployeeResponse> GetEmployeeByIdAsync(int id, CancellationToken ct = default);
         Task<EmployeeResponse> GetEmployeeReportsToAsync(int id, CancellationToken ct = default);
 
@@ -51,11 +51,11 @@ namespace Chinook.Domain.Supervisor
 
         Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default);
 
-        Task<List<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
+        Task<IEnumerable<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
             CancellationToken ct = default);
 
-        Task<List<EmployeeResponse>> GetDirectReportsAsync(int id, CancellationToken ct = default);
-        Task<List<GenreResponse>> GetAllGenreAsync(CancellationToken ct = default);
+        Task<IEnumerable<EmployeeResponse>> GetDirectReportsAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<GenreResponse>> GetAllGenreAsync(CancellationToken ct = default);
         Task<GenreResponse> GetGenreByIdAsync(int id, CancellationToken ct = default);
 
         Task<GenreResponse> AddGenreAsync(GenreResponse newGenreViewModel,
@@ -63,13 +63,13 @@ namespace Chinook.Domain.Supervisor
 
         Task<bool> UpdateGenreAsync(GenreResponse genreViewModel, CancellationToken ct = default);
         Task<bool> DeleteGenreAsync(int id, CancellationToken ct = default);
-        Task<List<InvoiceLineResponse>> GetAllInvoiceLineAsync(CancellationToken ct = default);
+        Task<IEnumerable<InvoiceLineResponse>> GetAllInvoiceLineAsync(CancellationToken ct = default);
         Task<InvoiceLineResponse> GetInvoiceLineByIdAsync(int id, CancellationToken ct = default);
 
-        Task<List<InvoiceLineResponse>> GetInvoiceLineByInvoiceIdAsync(int id,
+        Task<IEnumerable<InvoiceLineResponse>> GetInvoiceLineByInvoiceIdAsync(int id,
             CancellationToken ct = default);
 
-        Task<List<InvoiceLineResponse>> GetInvoiceLineByTrackIdAsync(int id,
+        Task<IEnumerable<InvoiceLineResponse>> GetInvoiceLineByTrackIdAsync(int id,
             CancellationToken ct = default);
 
         Task<InvoiceLineResponse> AddInvoiceLineAsync(InvoiceLineResponse newInvoiceLineViewModel,
@@ -79,10 +79,10 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default);
 
         Task<bool> DeleteInvoiceLineAsync(int id, CancellationToken ct = default);
-        Task<List<InvoiceResponse>> GetAllInvoiceAsync(CancellationToken ct = default);
+        Task<IEnumerable<InvoiceResponse>> GetAllInvoiceAsync(CancellationToken ct = default);
         Task<InvoiceResponse> GetInvoiceByIdAsync(int id, CancellationToken ct = default);
 
-        Task<List<InvoiceResponse>> GetInvoiceByCustomerIdAsync(int id,
+        Task<IEnumerable<InvoiceResponse>> GetInvoiceByCustomerIdAsync(int id,
             CancellationToken ct = default);
 
         Task<InvoiceResponse> AddInvoiceAsync(InvoiceResponse newInvoiceViewModel,
@@ -92,7 +92,7 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default);
 
         Task<bool> DeleteInvoiceAsync(int id, CancellationToken ct = default);
-        Task<List<MediaTypeResponse>> GetAllMediaTypeAsync(CancellationToken ct = default);
+        Task<IEnumerable<MediaTypeResponse>> GetAllMediaTypeAsync(CancellationToken ct = default);
         Task<MediaTypeResponse> GetMediaTypeByIdAsync(int id, CancellationToken ct = default);
 
         Task<MediaTypeResponse> AddMediaTypeAsync(MediaTypeResponse newMediaTypeViewModel,
@@ -102,7 +102,7 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default);
 
         Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default);
-        Task<List<PlaylistResponse>> GetAllPlaylistAsync(CancellationToken ct = default);
+        Task<IEnumerable<PlaylistResponse>> GetAllPlaylistAsync(CancellationToken ct = default);
         Task<PlaylistResponse> GetPlaylistByIdAsync(int id, CancellationToken ct = default);
 
         Task<PlaylistResponse> AddPlaylistAsync(PlaylistResponse newPlaylistViewModel,
@@ -112,15 +112,15 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default);
 
         Task<bool> DeletePlaylistAsync(int id, CancellationToken ct = default);
-        Task<List<TrackResponse>> GetAllTrackAsync(CancellationToken ct = default);
+        Task<IEnumerable<TrackResponse>> GetAllTrackAsync(CancellationToken ct = default);
         Task<TrackResponse> GetTrackByIdAsync(int id, CancellationToken ct = default);
-        Task<List<TrackResponse>> GetTrackByAlbumIdAsync(int id, CancellationToken ct = default);
-        Task<List<TrackResponse>> GetTrackByGenreIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<TrackResponse>> GetTrackByAlbumIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<TrackResponse>> GetTrackByGenreIdAsync(int id, CancellationToken ct = default);
 
-        Task<List<TrackResponse>>
+        Task<IEnumerable<TrackResponse>>
             GetTrackByMediaTypeIdAsync(int id, CancellationToken ct = default);
 
-        Task<List<TrackResponse>> GetTrackByPlaylistIdIdAsync(int id,
+        Task<IEnumerable<TrackResponse>> GetTrackByPlaylistIdIdAsync(int id,
             CancellationToken ct = default);
 
         Task<TrackResponse> AddTrackAsync(TrackResponse newTrackViewModel,

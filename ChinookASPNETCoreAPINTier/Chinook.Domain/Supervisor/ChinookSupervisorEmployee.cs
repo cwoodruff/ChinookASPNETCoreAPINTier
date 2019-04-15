@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Chinook.Domain.Extensions;
 using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
@@ -10,19 +11,19 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<EmployeeResponse>> GetAllEmployeeAsync(
+        public async Task<IEnumerable<EmployeeResponse>> GetAllEmployeeAsync(
             CancellationToken ct = default)
         {
-            var employees = EmployeeCoverter.ConvertList(await _employeeRepository.GetAllAsync(ct));
-            return employees;
+            var employees = await _employeeRepository.GetAllAsync(ct);
+            return employees.ConvertAll();
         }
 
         public async Task<EmployeeResponse> GetEmployeeByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var employeeViewModel = EmployeeCoverter.Convert(await _employeeRepository.GetByIdAsync(id, ct));
-            employeeViewModel.Customers = await GetCustomerBySupportRepIdAsync(employeeViewModel.EmployeeId, ct);
-            employeeViewModel.DirectReports = await GetEmployeeDirectReportsAsync(employeeViewModel.EmployeeId, ct);
+            var employeeViewModel = (await _employeeRepository.GetByIdAsync(id, ct)).Convert;
+            employeeViewModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeViewModel.EmployeeId, ct)).ToList();
+            employeeViewModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeViewModel.EmployeeId, ct)).ToList();
             employeeViewModel.Manager = employeeViewModel.ReportsTo.HasValue
                 ? await GetEmployeeReportsToAsync(employeeViewModel.ReportsTo.GetValueOrDefault(), ct)
                 : null;
@@ -36,7 +37,7 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default)
         {
             var employee = await _employeeRepository.GetReportsToAsync(id, ct);
-            return EmployeeCoverter.Convert(employee);
+            return employee.Convert;
         }
 
         public async Task<EmployeeResponse> AddEmployeeAsync(EmployeeResponse newEmployeeViewModel,
@@ -90,20 +91,21 @@ namespace Chinook.Domain.Supervisor
             return await _employeeRepository.UpdateAsync(employee, ct);
         }
 
-        public async Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default) => await _employeeRepository.DeleteAsync(id, ct);
+        public async Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default) 
+            => await _employeeRepository.DeleteAsync(id, ct);
 
-        public async Task<List<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
+        public async Task<IEnumerable<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
             CancellationToken ct = default)
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);
-            return EmployeeCoverter.ConvertList(employees).ToList();
+            return employees.ConvertAll();
         }
 
-        public async Task<List<EmployeeResponse>> GetDirectReportsAsync(int id,
+        public async Task<IEnumerable<EmployeeResponse>> GetDirectReportsAsync(int id,
             CancellationToken ct = default)
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);
-            return EmployeeCoverter.ConvertList(employees).ToList();
+            return employees.ConvertAll();
         }
     }
 }

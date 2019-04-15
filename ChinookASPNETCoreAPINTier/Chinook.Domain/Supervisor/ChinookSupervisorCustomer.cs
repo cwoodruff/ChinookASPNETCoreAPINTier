@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Chinook.Domain.Extensions;
 using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
@@ -10,18 +11,18 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<CustomerResponse>> GetAllCustomerAsync(
+        public async Task<IEnumerable<CustomerResponse>> GetAllCustomerAsync(
             CancellationToken ct = default)
         {
-            var customers = CustomerCoverter.ConvertList(await _customerRepository.GetAllAsync(ct)).ToList();
-            return customers;
+            var customers = await _customerRepository.GetAllAsync(ct);
+            return customers.ConvertAll();
         }
 
         public async Task<CustomerResponse> GetCustomerByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var customerViewModel = CustomerCoverter.Convert(await _customerRepository.GetByIdAsync(id, ct));
-            customerViewModel.Invoices = await GetInvoiceByCustomerIdAsync(customerViewModel.CustomerId, ct);
+            var customerViewModel = (await _customerRepository.GetByIdAsync(id, ct)).Convert;
+            customerViewModel.Invoices = (await GetInvoiceByCustomerIdAsync(customerViewModel.CustomerId, ct)).ToList();
             customerViewModel.SupportRep =
                 await GetEmployeeByIdAsync(customerViewModel.SupportRepId.GetValueOrDefault(), ct);
             customerViewModel.SupportRepName =
@@ -29,11 +30,11 @@ namespace Chinook.Domain.Supervisor
             return customerViewModel;
         }
 
-        public async Task<List<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
+        public async Task<IEnumerable<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
             CancellationToken ct = default)
         {
             var customers = await _customerRepository.GetBySupportRepIdAsync(id, ct);
-            return CustomerCoverter.ConvertList(customers).ToList();
+            return customers.ConvertAll();
         }
 
         public async Task<CustomerResponse> AddCustomerAsync(CustomerResponse newCustomerViewModel,
@@ -82,6 +83,7 @@ namespace Chinook.Domain.Supervisor
             return await _customerRepository.UpdateAsync(customer, ct);
         }
 
-        public async Task<bool> DeleteCustomerAsync(int id, CancellationToken ct = default) => await _customerRepository.DeleteAsync(id, ct);
+        public Task<bool> DeleteCustomerAsync(int id, CancellationToken ct = default) 
+            => _customerRepository.DeleteAsync(id, ct);
     }
 }
