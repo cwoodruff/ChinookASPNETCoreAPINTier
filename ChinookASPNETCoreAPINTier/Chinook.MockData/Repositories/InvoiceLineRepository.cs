@@ -13,55 +13,37 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default)
-        {
-            IList<InvoiceLine> list = new List<InvoiceLine>();
-            var invoiceLine = new InvoiceLine
+        public Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default)
+            => new InvoiceLine
             {
                 InvoiceLineId = 1
-            };
-            list.Add(invoiceLine);
-            return list.ToList();
-        }
+            }.AsListTask();
 
-        public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default)
-        {
-            var invoiceLine = new InvoiceLine
+        public Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default)
+            => new InvoiceLine
             {
                 InvoiceLineId = id
-            };
-            return invoiceLine;
-        }
+            }.AsTask();
 
-        public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,
-            CancellationToken ct = default) => newInvoiceLine;
+        public Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,
+            CancellationToken ct = default) => newInvoiceLine.AsTask();
 
-        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default) => true;
+        public Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default) => true.AsTask();
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
+        public Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true.AsTask();
 
-        public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id,
+        public Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id,
             CancellationToken ct = default)
-        {
-            IList<InvoiceLine> list = new List<InvoiceLine>();
-            var newisd = new InvoiceLine
+            => new InvoiceLine
             {
                 InvoiceLineId = id
-            };
-            list.Add(newisd);
-            return list.ToList();
-        }
+            }.AsListTask();
 
-        public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id,
+        public Task<List<InvoiceLine>> GetByTrackIdAsync(int id,
             CancellationToken ct = default)
-        {
-            IList<InvoiceLine> list = new List<InvoiceLine>();
-            var newisd = new InvoiceLine
+            => new InvoiceLine
             {
                 InvoiceLineId = id
-            };
-            list.Add(newisd);
-            return list.ToList();
-        }
+            }.AsListTask();
     }
 }

@@ -13,50 +13,35 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default)
-        {
-            IList<PlaylistTrack> list = new List<PlaylistTrack>();
-            var playlistTrack = new PlaylistTrack
+        public Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default)
+            => new PlaylistTrack
             {
                 PlaylistId = 1,
                 TrackId = 1
-            };
-            list.Add(playlistTrack);
-            return list.ToList();
-        }
+            }.AsListTask();
 
-        public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
+        public Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
             CancellationToken ct = default)
-        {
-            IList<PlaylistTrack> list = new List<PlaylistTrack>();
-            var newisd = new PlaylistTrack
+            => new PlaylistTrack
             {
-                PlaylistId = 1,
+                PlaylistId = id,
                 TrackId = 1
-            };
-            list.Add(newisd);
-            return list.ToList();
-        }
+            }.AsListTask();
 
-        public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
+        public Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
             CancellationToken ct = default)
-        {
-            IList<PlaylistTrack> list = new List<PlaylistTrack>();
-            var newisd = new PlaylistTrack
+            => new PlaylistTrack
             {
                 PlaylistId = 1,
-                TrackId = 1
-            };
-            list.Add(newisd);
-            return list.ToList();
-        }
+                TrackId = id
+            }.AsListTask();
 
-        public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack,
-            CancellationToken ct = default) => newPlaylistTrack;
+        public Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack,
+            CancellationToken ct = default) => newPlaylistTrack.AsTask();
 
-        public async Task<bool> UpdateAsync(PlaylistTrack playlistTrack,
-            CancellationToken ct = default) => true;
+        public Task<bool> UpdateAsync(PlaylistTrack playlistTrack,
+            CancellationToken ct = default) => true.AsTask();
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
+        public Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true.AsTask();
     }
 }

@@ -13,33 +13,24 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<Artist>> GetAllAsync(CancellationToken ct = default)
-        {
-            IList<Artist> list = new List<Artist>();
-
-            var artist = new Artist
+        public Task<List<Artist>> GetAllAsync(CancellationToken ct = default)
+            => new Artist
             {
                 ArtistId = 1,
                 Name = "Foo"
-            };
-            list.Add(artist);
-            return list.ToList();
-        }
+            }.AsListTask();
 
-        public async Task<Artist> GetByIdAsync(int id, CancellationToken ct = default)
-        {
-            var artist = new Artist
+        public Task<Artist> GetByIdAsync(int id, CancellationToken ct = default)
+            => new Artist
             {
                 ArtistId = id,
                 Name = "Foo"
-            };
-            return artist;
-        }
+            }.AsTask();
 
-        public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default) => newArtist;
+        public Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default) => Task.FromResult(newArtist);
 
-        public async Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default) => true;
+        public Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default) => Task.FromResult(true);
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
+        public Task<bool> DeleteAsync(int id, CancellationToken ct = default) => Task.FromResult(true);
     }
 }
