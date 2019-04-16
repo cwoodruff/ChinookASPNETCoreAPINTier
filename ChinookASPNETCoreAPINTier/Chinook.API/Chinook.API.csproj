@@ -10,7 +10,7 @@
     <None Remove="wwwroot\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Mapping\PlaylistViewModelConverter.cs" />
+    <Compile Remove="Mapping\PlaylistApiModelConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />

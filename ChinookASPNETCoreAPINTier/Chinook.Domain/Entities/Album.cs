@@ -1,11 +1,11 @@
 ﻿using Chinook.Domain.Converters;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public sealed class Album : IConvertModel<Album, AlbumResponse>
+    public sealed class Album : IConvertModel<Album, AlbumApiModel>
     {
         public int AlbumId { get; set; }
 
@@ -17,7 +17,7 @@ namespace Chinook.Domain.Entities
 
         public Artist Artist { get; set; }
 
-        public AlbumResponse Convert => new AlbumResponse
+        public AlbumApiModel Convert => new AlbumApiModel
         {
             AlbumId = AlbumId,
             ArtistId = ArtistId,

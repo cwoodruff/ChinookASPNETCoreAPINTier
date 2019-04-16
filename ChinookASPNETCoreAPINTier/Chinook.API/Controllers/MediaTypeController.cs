@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 
 namespace Chinook.API.Controllers
 {
@@ -23,9 +23,9 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<MediaTypeResponse>))]
+        [Produces(typeof(List<MediaTypeApiModel>))]
         [ResponseCache(Duration = 604800)] // cache for a week
-        public async Task<ActionResult<List<MediaTypeResponse>>> Get(CancellationToken ct = default)
+        public async Task<ActionResult<List<MediaTypeApiModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -38,8 +38,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(MediaTypeResponse))]
-        public async Task<ActionResult<MediaTypeResponse>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(MediaTypeApiModel))]
+        public async Task<ActionResult<MediaTypeApiModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -58,8 +58,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(MediaTypeResponse))]
-        public async Task<ActionResult<MediaTypeResponse>> Post([FromBody] MediaTypeResponse input,
+        [Produces(typeof(MediaTypeApiModel))]
+        public async Task<ActionResult<MediaTypeApiModel>> Post([FromBody] MediaTypeApiModel input,
             CancellationToken ct = default)
         {
             try
@@ -76,8 +76,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(MediaTypeResponse))]
-        public async Task<ActionResult<MediaTypeResponse>> Put(int id, [FromBody] MediaTypeResponse input,
+        [Produces(typeof(MediaTypeApiModel))]
+        public async Task<ActionResult<MediaTypeApiModel>> Put(int id, [FromBody] MediaTypeApiModel input,
             CancellationToken ct = default)
         {
             try

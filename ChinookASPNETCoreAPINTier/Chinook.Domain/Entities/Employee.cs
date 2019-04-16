@@ -1,11 +1,11 @@
 ﻿using Chinook.Domain.Converters;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public class Employee : IConvertModel<Employee, EmployeeResponse>
+    public class Employee : IConvertModel<Employee, EmployeeApiModel>
     {
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
@@ -27,7 +27,7 @@ namespace Chinook.Domain.Entities
         public Employee Manager { get; set; }
         public ICollection<Employee> DirectReports { get; set; } = new HashSet<Employee>();
 
-        public EmployeeResponse Convert => new EmployeeResponse
+        public EmployeeApiModel Convert => new EmployeeApiModel
         {
             EmployeeId = EmployeeId,
             LastName = LastName,

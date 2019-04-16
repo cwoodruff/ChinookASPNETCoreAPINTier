@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Chinook.Domain.Responses
+namespace Chinook.Domain.ApiModels
 {
-    public class GenreResponse
+    public class GenreApiModel
     {
         public int GenreId { get; set; }
         public string Name { get; set; }
 
-        public IList<TrackResponse> Tracks { get; set; }
+        public IList<TrackApiModel> Tracks { get; set; }
     }
 }

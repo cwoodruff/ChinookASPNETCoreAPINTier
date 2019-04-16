@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chinook.Domain.Responses
+namespace Chinook.Domain.ApiModels
 {
-    public class EmployeeResponse
+    public class EmployeeApiModel
     {
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
@@ -22,8 +22,8 @@ namespace Chinook.Domain.Responses
         public string Fax { get; set; }
         public string Email { get; set; }
 
-        public List<CustomerResponse> Customers { get; set; }
-        public EmployeeResponse Manager { get; set; }
-        public ICollection<EmployeeResponse> DirectReports { get; set; }
+        public List<CustomerApiModel> Customers { get; set; }
+        public EmployeeApiModel Manager { get; set; }
+        public ICollection<EmployeeApiModel> DirectReports { get; set; }
     }
 }

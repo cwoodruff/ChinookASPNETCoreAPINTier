@@ -1,17 +1,17 @@
 ﻿using Chinook.Domain.Converters;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public class Playlist : IConvertModel<Playlist, PlaylistResponse>
+    public class Playlist : IConvertModel<Playlist, PlaylistApiModel>
     {
         public int PlaylistId { get; set; }
         public string Name { get; set; }
 
         public ICollection<PlaylistTrack> PlaylistTracks { get; set; } = new HashSet<PlaylistTrack>();
 
-        public PlaylistResponse Convert => new PlaylistResponse
+        public PlaylistApiModel Convert => new PlaylistApiModel
         {
             PlaylistId = PlaylistId,
             Name = Name

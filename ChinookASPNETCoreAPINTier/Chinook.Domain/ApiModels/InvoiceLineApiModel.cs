@@ -1,6 +1,6 @@
-﻿namespace Chinook.Domain.Responses
+﻿namespace Chinook.Domain.ApiModels
 {
-    public class InvoiceLineResponse
+    public class InvoiceLineApiModel
     {
         public int InvoiceLineId { get; set; }
         public int InvoiceId { get; set; }
@@ -9,7 +9,7 @@
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
 
-        public InvoiceResponse Invoice { get; set; }
-        public TrackResponse Track { get; set; }
+        public InvoiceApiModel Invoice { get; set; }
+        public TrackApiModel Track { get; set; }
     }
 }

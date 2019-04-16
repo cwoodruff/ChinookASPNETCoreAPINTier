@@ -1,10 +1,10 @@
 ﻿using Chinook.Domain.Converters;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public class Artist : IConvertModel<Artist, ArtistResponse>
+    public class Artist : IConvertModel<Artist, ArtistApiModel>
     {
         public int ArtistId { get; set; }
 
@@ -12,7 +12,7 @@ namespace Chinook.Domain.Entities
 
         public ICollection<Album> Albums { get; set; } = new HashSet<Album>();
 
-        public ArtistResponse Convert => new ArtistResponse
+        public ArtistApiModel Convert => new ArtistApiModel
         {
             ArtistId = ArtistId,
             Name = Name

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -11,20 +11,20 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<IEnumerable<ArtistResponse>> GetAllArtistAsync(CancellationToken ct = default)
+        public async Task<IEnumerable<ArtistApiModel>> GetAllArtistAsync(CancellationToken ct = default)
         {
             var artists = await _artistRepository.GetAllAsync(ct);
             return artists.ConvertAll();
         }
 
-        public async Task<ArtistResponse> GetArtistByIdAsync(int id, CancellationToken ct = default)
+        public async Task<ArtistApiModel> GetArtistByIdAsync(int id, CancellationToken ct = default)
         {
             var artistViewModel = (await _artistRepository.GetByIdAsync(id, ct)).Convert;
             artistViewModel.Albums = (await GetAlbumByArtistIdAsync(artistViewModel.ArtistId, ct)).ToList();
             return artistViewModel;
         }
 
-        public async Task<ArtistResponse> AddArtistAsync(ArtistResponse newArtistViewModel,
+        public async Task<ArtistApiModel> AddArtistAsync(ArtistApiModel newArtistViewModel,
             CancellationToken ct = default)
         {
             var artist = new Artist
@@ -37,7 +37,7 @@ namespace Chinook.Domain.Supervisor
             return newArtistViewModel;
         }
 
-        public async Task<bool> UpdateArtistAsync(ArtistResponse artistViewModel,
+        public async Task<bool> UpdateArtistAsync(ArtistApiModel artistViewModel,
             CancellationToken ct = default)
         {
             var artist = await _artistRepository.GetByIdAsync(artistViewModel.ArtistId, ct);

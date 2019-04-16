@@ -1,10 +1,10 @@
 ﻿using Chinook.Domain.Converters;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public class Customer : IConvertModel<Customer, CustomerResponse>
+    public class Customer : IConvertModel<Customer, CustomerApiModel>
     {
         public int CustomerId { get; set; }
         public string FirstName { get; set; }
@@ -23,7 +23,7 @@ namespace Chinook.Domain.Entities
         public ICollection<Invoice> Invoices { get; set; } = new HashSet<Invoice>();
         public Employee SupportRep { get; set; }
 
-        public CustomerResponse Convert => new CustomerResponse
+        public CustomerApiModel Convert => new CustomerApiModel
         {
             CustomerId = CustomerId,
             FirstName = FirstName,

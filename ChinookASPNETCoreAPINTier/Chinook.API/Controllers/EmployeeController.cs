@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<EmployeeResponse>))]
-        public async Task<ActionResult<List<EmployeeResponse>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<EmployeeApiModel>))]
+        public async Task<ActionResult<List<EmployeeApiModel>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(EmployeeResponse))]
-        public async Task<ActionResult<EmployeeResponse>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(EmployeeApiModel))]
+        public async Task<ActionResult<EmployeeApiModel>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("reportsto/{id}")]
-        [Produces(typeof(List<EmployeeResponse>))]
-        public async Task<ActionResult<List<EmployeeResponse>>> GetReportsTo(int id, CancellationToken ct = default)
+        [Produces(typeof(List<EmployeeApiModel>))]
+        public async Task<ActionResult<List<EmployeeApiModel>>> GetReportsTo(int id, CancellationToken ct = default)
         {
             try
             {
@@ -76,8 +76,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("directreports/{id}")]
-        [Produces(typeof(EmployeeResponse))]
-        public async Task<ActionResult<EmployeeResponse>> GetDirectReports(int id, CancellationToken ct = default)
+        [Produces(typeof(EmployeeApiModel))]
+        public async Task<ActionResult<EmployeeApiModel>> GetDirectReports(int id, CancellationToken ct = default)
         {
             try
             {
@@ -96,8 +96,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(EmployeeResponse))]
-        public async Task<ActionResult<EmployeeResponse>> Post([FromBody] EmployeeResponse input,
+        [Produces(typeof(EmployeeApiModel))]
+        public async Task<ActionResult<EmployeeApiModel>> Post([FromBody] EmployeeApiModel input,
             CancellationToken ct = default)
         {
             try
@@ -114,8 +114,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(EmployeeResponse))]
-        public async Task<ActionResult<EmployeeResponse>> Put(int id, [FromBody] EmployeeResponse input,
+        [Produces(typeof(EmployeeApiModel))]
+        public async Task<ActionResult<EmployeeApiModel>> Put(int id, [FromBody] EmployeeApiModel input,
             CancellationToken ct = default)
         {
             try

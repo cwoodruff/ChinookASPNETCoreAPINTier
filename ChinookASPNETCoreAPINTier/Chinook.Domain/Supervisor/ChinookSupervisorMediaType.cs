@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using System.Linq;
@@ -11,42 +11,42 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<IEnumerable<MediaTypeResponse>> GetAllMediaTypeAsync(
+        public async Task<IEnumerable<MediaTypeApiModel>> GetAllMediaTypeAsync(
             CancellationToken ct = default)
         {
             var mediaTypes = await _mediaTypeRepository.GetAllAsync(ct);
             return mediaTypes.ConvertAll();
         }
 
-        public async Task<MediaTypeResponse> GetMediaTypeByIdAsync(int id,
+        public async Task<MediaTypeApiModel> GetMediaTypeByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var mediaTypeViewModel = (await _mediaTypeRepository.GetByIdAsync(id, ct)).Convert;
-            mediaTypeViewModel.Tracks = (await GetTrackByMediaTypeIdAsync(mediaTypeViewModel.MediaTypeId, ct)).ToList();
-            return mediaTypeViewModel;
+            var mediaTypeApiModel = (await _mediaTypeRepository.GetByIdAsync(id, ct)).Convert;
+            mediaTypeApiModel.Tracks = (await GetTrackByMediaTypeIdAsync(mediaTypeApiModel.MediaTypeId, ct)).ToList();
+            return mediaTypeApiModel;
         }
 
-        public async Task<MediaTypeResponse> AddMediaTypeAsync(MediaTypeResponse newMediaTypeViewModel,
+        public async Task<MediaTypeApiModel> AddMediaTypeAsync(MediaTypeApiModel newMediaTypeApiModel,
             CancellationToken ct = default)
         {
             var mediaType = new MediaType
             {
-                Name = newMediaTypeViewModel.Name
+                Name = newMediaTypeApiModel.Name
             };
 
             mediaType = await _mediaTypeRepository.AddAsync(mediaType, ct);
-            newMediaTypeViewModel.MediaTypeId = mediaType.MediaTypeId;
-            return newMediaTypeViewModel;
+            newMediaTypeApiModel.MediaTypeId = mediaType.MediaTypeId;
+            return newMediaTypeApiModel;
         }
 
-        public async Task<bool> UpdateMediaTypeAsync(MediaTypeResponse mediaTypeViewModel,
+        public async Task<bool> UpdateMediaTypeAsync(MediaTypeApiModel mediaTypeApiModel,
             CancellationToken ct = default)
         {
-            var mediaType = await _mediaTypeRepository.GetByIdAsync(mediaTypeViewModel.MediaTypeId, ct);
+            var mediaType = await _mediaTypeRepository.GetByIdAsync(mediaTypeApiModel.MediaTypeId, ct);
 
             if (mediaType == null) return false;
-            mediaType.MediaTypeId = mediaTypeViewModel.MediaTypeId;
-            mediaType.Name = mediaTypeViewModel.Name;
+            mediaType.MediaTypeId = mediaTypeApiModel.MediaTypeId;
+            mediaType.Name = mediaTypeApiModel.Name;
 
             return await _mediaTypeRepository.UpdateAsync(mediaType, ct);
         }

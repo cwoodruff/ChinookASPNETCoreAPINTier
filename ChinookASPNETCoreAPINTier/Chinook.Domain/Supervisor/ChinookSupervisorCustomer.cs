@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -11,74 +11,74 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<IEnumerable<CustomerResponse>> GetAllCustomerAsync(
+        public async Task<IEnumerable<CustomerApiModel>> GetAllCustomerAsync(
             CancellationToken ct = default)
         {
             var customers = await _customerRepository.GetAllAsync(ct);
             return customers.ConvertAll();
         }
 
-        public async Task<CustomerResponse> GetCustomerByIdAsync(int id,
+        public async Task<CustomerApiModel> GetCustomerByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var customerViewModel = (await _customerRepository.GetByIdAsync(id, ct)).Convert;
-            customerViewModel.Invoices = (await GetInvoiceByCustomerIdAsync(customerViewModel.CustomerId, ct)).ToList();
-            customerViewModel.SupportRep =
-                await GetEmployeeByIdAsync(customerViewModel.SupportRepId.GetValueOrDefault(), ct);
-            customerViewModel.SupportRepName =
-                $"{customerViewModel.SupportRep.LastName}, {customerViewModel.SupportRep.FirstName}";
-            return customerViewModel;
+            var customerApiModel = (await _customerRepository.GetByIdAsync(id, ct)).Convert;
+            customerApiModel.Invoices = (await GetInvoiceByCustomerIdAsync(customerApiModel.CustomerId, ct)).ToList();
+            customerApiModel.SupportRep =
+                await GetEmployeeByIdAsync(customerApiModel.SupportRepId.GetValueOrDefault(), ct);
+            customerApiModel.SupportRepName =
+                $"{customerApiModel.SupportRep.LastName}, {customerApiModel.SupportRep.FirstName}";
+            return customerApiModel;
         }
 
-        public async Task<IEnumerable<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
+        public async Task<IEnumerable<CustomerApiModel>> GetCustomerBySupportRepIdAsync(int id,
             CancellationToken ct = default)
         {
             var customers = await _customerRepository.GetBySupportRepIdAsync(id, ct);
             return customers.ConvertAll();
         }
 
-        public async Task<CustomerResponse> AddCustomerAsync(CustomerResponse newCustomerViewModel,
+        public async Task<CustomerApiModel> AddCustomerAsync(CustomerApiModel newCustomerApiModel,
             CancellationToken ct = default)
         {
             var customer = new Customer
             {
-                FirstName = newCustomerViewModel.FirstName,
-                LastName = newCustomerViewModel.LastName,
-                Company = newCustomerViewModel.Company,
-                Address = newCustomerViewModel.Address,
-                City = newCustomerViewModel.City,
-                State = newCustomerViewModel.State,
-                Country = newCustomerViewModel.Country,
-                PostalCode = newCustomerViewModel.PostalCode,
-                Phone = newCustomerViewModel.Phone,
-                Fax = newCustomerViewModel.Fax,
-                Email = newCustomerViewModel.Email,
-                SupportRepId = newCustomerViewModel.SupportRepId
+                FirstName = newCustomerApiModel.FirstName,
+                LastName = newCustomerApiModel.LastName,
+                Company = newCustomerApiModel.Company,
+                Address = newCustomerApiModel.Address,
+                City = newCustomerApiModel.City,
+                State = newCustomerApiModel.State,
+                Country = newCustomerApiModel.Country,
+                PostalCode = newCustomerApiModel.PostalCode,
+                Phone = newCustomerApiModel.Phone,
+                Fax = newCustomerApiModel.Fax,
+                Email = newCustomerApiModel.Email,
+                SupportRepId = newCustomerApiModel.SupportRepId
             };
 
             customer = await _customerRepository.AddAsync(customer, ct);
-            newCustomerViewModel.CustomerId = customer.CustomerId;
-            return newCustomerViewModel;
+            newCustomerApiModel.CustomerId = customer.CustomerId;
+            return newCustomerApiModel;
         }
 
-        public async Task<bool> UpdateCustomerAsync(CustomerResponse customerViewModel,
+        public async Task<bool> UpdateCustomerAsync(CustomerApiModel customerApiModel,
             CancellationToken ct = default)
         {
-            var customer = await _customerRepository.GetByIdAsync(customerViewModel.CustomerId, ct);
+            var customer = await _customerRepository.GetByIdAsync(customerApiModel.CustomerId, ct);
 
             if (customer == null) return false;
-            customer.FirstName = customerViewModel.FirstName;
-            customer.LastName = customerViewModel.LastName;
-            customer.Company = customerViewModel.Company;
-            customer.Address = customerViewModel.Address;
-            customer.City = customerViewModel.City;
-            customer.State = customerViewModel.State;
-            customer.Country = customerViewModel.Country;
-            customer.PostalCode = customerViewModel.PostalCode;
-            customer.Phone = customerViewModel.Phone;
-            customer.Fax = customerViewModel.Fax;
-            customer.Email = customerViewModel.Email;
-            customer.SupportRepId = customerViewModel.SupportRepId;
+            customer.FirstName = customerApiModel.FirstName;
+            customer.LastName = customerApiModel.LastName;
+            customer.Company = customerApiModel.Company;
+            customer.Address = customerApiModel.Address;
+            customer.City = customerApiModel.City;
+            customer.State = customerApiModel.State;
+            customer.Country = customerApiModel.Country;
+            customer.PostalCode = customerApiModel.PostalCode;
+            customer.Phone = customerApiModel.Phone;
+            customer.Fax = customerApiModel.Fax;
+            customer.Email = customerApiModel.Email;
+            customer.SupportRepId = customerApiModel.SupportRepId;
 
             return await _customerRepository.UpdateAsync(customer, ct);
         }

@@ -1,9 +1,9 @@
 ﻿using Chinook.Domain.Converters;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 
 namespace Chinook.Domain.Entities
 {
-    public class InvoiceLine : IConvertModel<InvoiceLine, InvoiceLineResponse>
+    public class InvoiceLine : IConvertModel<InvoiceLine, InvoiceLineApiModel>
     {
         public int InvoiceLineId { get; set; }
         public int InvoiceId { get; set; }
@@ -14,7 +14,7 @@ namespace Chinook.Domain.Entities
         public Invoice Invoice { get; set; }
         public Track Track { get; set; }
 
-        public InvoiceLineResponse Convert => new InvoiceLineResponse
+        public InvoiceLineApiModel Convert => new InvoiceLineApiModel
         {
             InvoiceLineId = InvoiceLineId,
             InvoiceId = InvoiceId,

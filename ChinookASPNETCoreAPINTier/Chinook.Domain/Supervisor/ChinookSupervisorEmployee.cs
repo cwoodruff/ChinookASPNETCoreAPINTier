@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -11,82 +11,82 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<IEnumerable<EmployeeResponse>> GetAllEmployeeAsync(
+        public async Task<IEnumerable<EmployeeApiModel>> GetAllEmployeeAsync(
             CancellationToken ct = default)
         {
             var employees = await _employeeRepository.GetAllAsync(ct);
             return employees.ConvertAll();
         }
 
-        public async Task<EmployeeResponse> GetEmployeeByIdAsync(int id,
+        public async Task<EmployeeApiModel> GetEmployeeByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var employeeViewModel = (await _employeeRepository.GetByIdAsync(id, ct)).Convert;
-            employeeViewModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeViewModel.EmployeeId, ct)).ToList();
-            employeeViewModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeViewModel.EmployeeId, ct)).ToList();
-            employeeViewModel.Manager = employeeViewModel.ReportsTo.HasValue
-                ? await GetEmployeeReportsToAsync(employeeViewModel.ReportsTo.GetValueOrDefault(), ct)
+            var employeeApiModel = (await _employeeRepository.GetByIdAsync(id, ct)).Convert;
+            employeeApiModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeApiModel.EmployeeId, ct)).ToList();
+            employeeApiModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeApiModel.EmployeeId, ct)).ToList();
+            employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
+                ? await GetEmployeeReportsToAsync(employeeApiModel.ReportsTo.GetValueOrDefault(), ct)
                 : null;
-            employeeViewModel.ReportsToName = employeeViewModel.ReportsTo.HasValue
-                ? $"{employeeViewModel.Manager.LastName}, {employeeViewModel.Manager.FirstName}"
+            employeeApiModel.ReportsToName = employeeApiModel.ReportsTo.HasValue
+                ? $"{employeeApiModel.Manager.LastName}, {employeeApiModel.Manager.FirstName}"
                 : string.Empty;
-            return employeeViewModel;
+            return employeeApiModel;
         }
 
-        public async Task<EmployeeResponse> GetEmployeeReportsToAsync(int id,
+        public async Task<EmployeeApiModel> GetEmployeeReportsToAsync(int id,
             CancellationToken ct = default)
         {
             var employee = await _employeeRepository.GetReportsToAsync(id, ct);
             return employee.Convert;
         }
 
-        public async Task<EmployeeResponse> AddEmployeeAsync(EmployeeResponse newEmployeeViewModel,
+        public async Task<EmployeeApiModel> AddEmployeeAsync(EmployeeApiModel newEmployeeApiModel,
             CancellationToken ct = default)
         {
             var employee = new Employee
             {
-                LastName = newEmployeeViewModel.LastName,
-                FirstName = newEmployeeViewModel.FirstName,
-                Title = newEmployeeViewModel.Title,
-                ReportsTo = newEmployeeViewModel.ReportsTo,
-                BirthDate = newEmployeeViewModel.BirthDate,
-                HireDate = newEmployeeViewModel.HireDate,
-                Address = newEmployeeViewModel.Address,
-                City = newEmployeeViewModel.City,
-                State = newEmployeeViewModel.State,
-                Country = newEmployeeViewModel.Country,
-                PostalCode = newEmployeeViewModel.PostalCode,
-                Phone = newEmployeeViewModel.Phone,
-                Fax = newEmployeeViewModel.Fax,
-                Email = newEmployeeViewModel.Email
+                LastName = newEmployeeApiModel.LastName,
+                FirstName = newEmployeeApiModel.FirstName,
+                Title = newEmployeeApiModel.Title,
+                ReportsTo = newEmployeeApiModel.ReportsTo,
+                BirthDate = newEmployeeApiModel.BirthDate,
+                HireDate = newEmployeeApiModel.HireDate,
+                Address = newEmployeeApiModel.Address,
+                City = newEmployeeApiModel.City,
+                State = newEmployeeApiModel.State,
+                Country = newEmployeeApiModel.Country,
+                PostalCode = newEmployeeApiModel.PostalCode,
+                Phone = newEmployeeApiModel.Phone,
+                Fax = newEmployeeApiModel.Fax,
+                Email = newEmployeeApiModel.Email
             };
 
             employee = await _employeeRepository.AddAsync(employee, ct);
-            newEmployeeViewModel.EmployeeId = employee.EmployeeId;
-            return newEmployeeViewModel;
+            newEmployeeApiModel.EmployeeId = employee.EmployeeId;
+            return newEmployeeApiModel;
         }
 
-        public async Task<bool> UpdateEmployeeAsync(EmployeeResponse employeeViewModel,
+        public async Task<bool> UpdateEmployeeAsync(EmployeeApiModel employeeApiModel,
             CancellationToken ct = default)
         {
-            var employee = await _employeeRepository.GetByIdAsync(employeeViewModel.EmployeeId, ct);
+            var employee = await _employeeRepository.GetByIdAsync(employeeApiModel.EmployeeId, ct);
 
             if (employee == null) return false;
-            employee.EmployeeId = employeeViewModel.EmployeeId;
-            employee.LastName = employeeViewModel.LastName;
-            employee.FirstName = employeeViewModel.FirstName;
-            employee.Title = employeeViewModel.Title;
-            employee.ReportsTo = employeeViewModel.ReportsTo;
-            employee.BirthDate = employeeViewModel.BirthDate;
-            employee.HireDate = employeeViewModel.HireDate;
-            employee.Address = employeeViewModel.Address;
-            employee.City = employeeViewModel.City;
-            employee.State = employeeViewModel.State;
-            employee.Country = employeeViewModel.Country;
-            employee.PostalCode = employeeViewModel.PostalCode;
-            employee.Phone = employeeViewModel.Phone;
-            employee.Fax = employeeViewModel.Fax;
-            employee.Email = employeeViewModel.Email;
+            employee.EmployeeId = employeeApiModel.EmployeeId;
+            employee.LastName = employeeApiModel.LastName;
+            employee.FirstName = employeeApiModel.FirstName;
+            employee.Title = employeeApiModel.Title;
+            employee.ReportsTo = employeeApiModel.ReportsTo;
+            employee.BirthDate = employeeApiModel.BirthDate;
+            employee.HireDate = employeeApiModel.HireDate;
+            employee.Address = employeeApiModel.Address;
+            employee.City = employeeApiModel.City;
+            employee.State = employeeApiModel.State;
+            employee.Country = employeeApiModel.Country;
+            employee.PostalCode = employeeApiModel.PostalCode;
+            employee.Phone = employeeApiModel.Phone;
+            employee.Fax = employeeApiModel.Fax;
+            employee.Email = employeeApiModel.Email;
 
             return await _employeeRepository.UpdateAsync(employee, ct);
         }
@@ -94,14 +94,14 @@ namespace Chinook.Domain.Supervisor
         public async Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default) 
             => await _employeeRepository.DeleteAsync(id, ct);
 
-        public async Task<IEnumerable<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
+        public async Task<IEnumerable<EmployeeApiModel>> GetEmployeeDirectReportsAsync(int id,
             CancellationToken ct = default)
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);
             return employees.ConvertAll();
         }
 
-        public async Task<IEnumerable<EmployeeResponse>> GetDirectReportsAsync(int id,
+        public async Task<IEnumerable<EmployeeApiModel>> GetDirectReportsAsync(int id,
             CancellationToken ct = default)
         {
             var employees = await _employeeRepository.GetDirectReportsAsync(id, ct);

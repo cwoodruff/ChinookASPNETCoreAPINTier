@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Chinook.Domain.Responses
+namespace Chinook.Domain.ApiModels
 {
-    public class CustomerResponse
+    public class CustomerApiModel
     {
         public int CustomerId { get; set; }
         public string FirstName { get; set; }
@@ -19,7 +19,7 @@ namespace Chinook.Domain.Responses
         public int? SupportRepId { get; set; }
         public string SupportRepName { get; set; }
 
-        public IList<InvoiceResponse> Invoices { get; set; }
-        public EmployeeResponse SupportRep { get; set; }
+        public IList<InvoiceApiModel> Invoices { get; set; }
+        public EmployeeApiModel SupportRep { get; set; }
     }
 }

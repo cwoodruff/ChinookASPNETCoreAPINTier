@@ -1,10 +1,10 @@
 ﻿using Chinook.Domain.Converters;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public class Track : IConvertModel<Track, TrackResponse>
+    public class Track : IConvertModel<Track, TrackApiModel>
     {
         public int TrackId { get; set; }
         public string Name { get; set; }
@@ -22,7 +22,7 @@ namespace Chinook.Domain.Entities
         public Genre Genre { get; set; }
         public MediaType MediaType { get; set; }
 
-        public TrackResponse Convert => new TrackResponse
+        public TrackApiModel Convert => new TrackApiModel
         {
             TrackId = TrackId,
             Name = Name,

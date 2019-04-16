@@ -1,132 +1,132 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 
 namespace Chinook.Domain.Supervisor
 {
     public interface IChinookSupervisor
     {
-        Task<IEnumerable<AlbumResponse>> GetAllAlbumAsync(CancellationToken ct = default);
-        Task<AlbumResponse> GetAlbumByIdAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<AlbumResponse>> GetAlbumByArtistIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<AlbumApiModel>> GetAllAlbumAsync(CancellationToken ct = default);
+        Task<AlbumApiModel> GetAlbumByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<AlbumApiModel>> GetAlbumByArtistIdAsync(int id, CancellationToken ct = default);
 
-        Task<AlbumResponse> AddAlbumAsync(AlbumResponse newAlbumViewModel,
+        Task<AlbumApiModel> AddAlbumAsync(AlbumApiModel newAlbumViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateAlbumAsync(AlbumResponse albumViewModel, CancellationToken ct = default);
+        Task<bool> UpdateAlbumAsync(AlbumApiModel albumViewModel, CancellationToken ct = default);
         Task<bool> DeleteAlbumAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<ArtistResponse>> GetAllArtistAsync(CancellationToken ct = default);
-        Task<ArtistResponse> GetArtistByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<ArtistApiModel>> GetAllArtistAsync(CancellationToken ct = default);
+        Task<ArtistApiModel> GetArtistByIdAsync(int id, CancellationToken ct = default);
 
-        Task<ArtistResponse> AddArtistAsync(ArtistResponse newArtistViewModel,
+        Task<ArtistApiModel> AddArtistAsync(ArtistApiModel newArtistViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateArtistAsync(ArtistResponse artistViewModel,
+        Task<bool> UpdateArtistAsync(ArtistApiModel artistViewModel,
             CancellationToken ct = default);
 
         Task<bool> DeleteArtistAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<CustomerResponse>> GetAllCustomerAsync(CancellationToken ct = default);
-        Task<CustomerResponse> GetCustomerByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<CustomerApiModel>> GetAllCustomerAsync(CancellationToken ct = default);
+        Task<CustomerApiModel> GetCustomerByIdAsync(int id, CancellationToken ct = default);
 
-        Task<IEnumerable<CustomerResponse>> GetCustomerBySupportRepIdAsync(int id,
+        Task<IEnumerable<CustomerApiModel>> GetCustomerBySupportRepIdAsync(int id,
             CancellationToken ct = default);
 
-        Task<CustomerResponse> AddCustomerAsync(CustomerResponse newCustomerViewModel,
+        Task<CustomerApiModel> AddCustomerAsync(CustomerApiModel newCustomerViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateCustomerAsync(CustomerResponse customerViewModel,
+        Task<bool> UpdateCustomerAsync(CustomerApiModel customerViewModel,
             CancellationToken ct = default);
 
         Task<bool> DeleteCustomerAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<EmployeeResponse>> GetAllEmployeeAsync(CancellationToken ct = default);
-        Task<EmployeeResponse> GetEmployeeByIdAsync(int id, CancellationToken ct = default);
-        Task<EmployeeResponse> GetEmployeeReportsToAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<EmployeeApiModel>> GetAllEmployeeAsync(CancellationToken ct = default);
+        Task<EmployeeApiModel> GetEmployeeByIdAsync(int id, CancellationToken ct = default);
+        Task<EmployeeApiModel> GetEmployeeReportsToAsync(int id, CancellationToken ct = default);
 
-        Task<EmployeeResponse> AddEmployeeAsync(EmployeeResponse newEmployeeViewModel,
+        Task<EmployeeApiModel> AddEmployeeAsync(EmployeeApiModel newEmployeeViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateEmployeeAsync(EmployeeResponse employeeViewModel,
+        Task<bool> UpdateEmployeeAsync(EmployeeApiModel employeeViewModel,
             CancellationToken ct = default);
 
         Task<bool> DeleteEmployeeAsync(int id, CancellationToken ct = default);
 
-        Task<IEnumerable<EmployeeResponse>> GetEmployeeDirectReportsAsync(int id,
+        Task<IEnumerable<EmployeeApiModel>> GetEmployeeDirectReportsAsync(int id,
             CancellationToken ct = default);
 
-        Task<IEnumerable<EmployeeResponse>> GetDirectReportsAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<GenreResponse>> GetAllGenreAsync(CancellationToken ct = default);
-        Task<GenreResponse> GetGenreByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<EmployeeApiModel>> GetDirectReportsAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<GenreApiModel>> GetAllGenreAsync(CancellationToken ct = default);
+        Task<GenreApiModel> GetGenreByIdAsync(int id, CancellationToken ct = default);
 
-        Task<GenreResponse> AddGenreAsync(GenreResponse newGenreViewModel,
+        Task<GenreApiModel> AddGenreAsync(GenreApiModel newGenreViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateGenreAsync(GenreResponse genreViewModel, CancellationToken ct = default);
+        Task<bool> UpdateGenreAsync(GenreApiModel genreViewModel, CancellationToken ct = default);
         Task<bool> DeleteGenreAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<InvoiceLineResponse>> GetAllInvoiceLineAsync(CancellationToken ct = default);
-        Task<InvoiceLineResponse> GetInvoiceLineByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<InvoiceLineApiModel>> GetAllInvoiceLineAsync(CancellationToken ct = default);
+        Task<InvoiceLineApiModel> GetInvoiceLineByIdAsync(int id, CancellationToken ct = default);
 
-        Task<IEnumerable<InvoiceLineResponse>> GetInvoiceLineByInvoiceIdAsync(int id,
+        Task<IEnumerable<InvoiceLineApiModel>> GetInvoiceLineByInvoiceIdAsync(int id,
             CancellationToken ct = default);
 
-        Task<IEnumerable<InvoiceLineResponse>> GetInvoiceLineByTrackIdAsync(int id,
+        Task<IEnumerable<InvoiceLineApiModel>> GetInvoiceLineByTrackIdAsync(int id,
             CancellationToken ct = default);
 
-        Task<InvoiceLineResponse> AddInvoiceLineAsync(InvoiceLineResponse newInvoiceLineViewModel,
+        Task<InvoiceLineApiModel> AddInvoiceLineAsync(InvoiceLineApiModel newInvoiceLineViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateInvoiceLineAsync(InvoiceLineResponse invoiceLineViewModel,
+        Task<bool> UpdateInvoiceLineAsync(InvoiceLineApiModel invoiceLineViewModel,
             CancellationToken ct = default);
 
         Task<bool> DeleteInvoiceLineAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<InvoiceResponse>> GetAllInvoiceAsync(CancellationToken ct = default);
-        Task<InvoiceResponse> GetInvoiceByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<InvoiceApiModel>> GetAllInvoiceAsync(CancellationToken ct = default);
+        Task<InvoiceApiModel> GetInvoiceByIdAsync(int id, CancellationToken ct = default);
 
-        Task<IEnumerable<InvoiceResponse>> GetInvoiceByCustomerIdAsync(int id,
+        Task<IEnumerable<InvoiceApiModel>> GetInvoiceByCustomerIdAsync(int id,
             CancellationToken ct = default);
 
-        Task<InvoiceResponse> AddInvoiceAsync(InvoiceResponse newInvoiceViewModel,
+        Task<InvoiceApiModel> AddInvoiceAsync(InvoiceApiModel newInvoiceViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateInvoiceAsync(InvoiceResponse invoiceViewModel,
+        Task<bool> UpdateInvoiceAsync(InvoiceApiModel invoiceViewModel,
             CancellationToken ct = default);
 
         Task<bool> DeleteInvoiceAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<MediaTypeResponse>> GetAllMediaTypeAsync(CancellationToken ct = default);
-        Task<MediaTypeResponse> GetMediaTypeByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<MediaTypeApiModel>> GetAllMediaTypeAsync(CancellationToken ct = default);
+        Task<MediaTypeApiModel> GetMediaTypeByIdAsync(int id, CancellationToken ct = default);
 
-        Task<MediaTypeResponse> AddMediaTypeAsync(MediaTypeResponse newMediaTypeViewModel,
+        Task<MediaTypeApiModel> AddMediaTypeAsync(MediaTypeApiModel newMediaTypeViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateMediaTypeAsync(MediaTypeResponse mediaTypeViewModel,
+        Task<bool> UpdateMediaTypeAsync(MediaTypeApiModel mediaTypeViewModel,
             CancellationToken ct = default);
 
         Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<PlaylistResponse>> GetAllPlaylistAsync(CancellationToken ct = default);
-        Task<PlaylistResponse> GetPlaylistByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<PlaylistApiModel>> GetAllPlaylistAsync(CancellationToken ct = default);
+        Task<PlaylistApiModel> GetPlaylistByIdAsync(int id, CancellationToken ct = default);
 
-        Task<PlaylistResponse> AddPlaylistAsync(PlaylistResponse newPlaylistViewModel,
+        Task<PlaylistApiModel> AddPlaylistAsync(PlaylistApiModel newPlaylistViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdatePlaylistAsync(PlaylistResponse playlistViewModel,
+        Task<bool> UpdatePlaylistAsync(PlaylistApiModel playlistViewModel,
             CancellationToken ct = default);
 
         Task<bool> DeletePlaylistAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<TrackResponse>> GetAllTrackAsync(CancellationToken ct = default);
-        Task<TrackResponse> GetTrackByIdAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<TrackResponse>> GetTrackByAlbumIdAsync(int id, CancellationToken ct = default);
-        Task<IEnumerable<TrackResponse>> GetTrackByGenreIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<TrackApiModel>> GetAllTrackAsync(CancellationToken ct = default);
+        Task<TrackApiModel> GetTrackByIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<TrackApiModel>> GetTrackByAlbumIdAsync(int id, CancellationToken ct = default);
+        Task<IEnumerable<TrackApiModel>> GetTrackByGenreIdAsync(int id, CancellationToken ct = default);
 
-        Task<IEnumerable<TrackResponse>>
+        Task<IEnumerable<TrackApiModel>>
             GetTrackByMediaTypeIdAsync(int id, CancellationToken ct = default);
 
-        Task<IEnumerable<TrackResponse>> GetTrackByPlaylistIdIdAsync(int id,
+        Task<IEnumerable<TrackApiModel>> GetTrackByPlaylistIdIdAsync(int id,
             CancellationToken ct = default);
 
-        Task<TrackResponse> AddTrackAsync(TrackResponse newTrackViewModel,
+        Task<TrackApiModel> AddTrackAsync(TrackApiModel newTrackViewModel,
             CancellationToken ct = default);
 
-        Task<bool> UpdateTrackAsync(TrackResponse trackViewModel, CancellationToken ct = default);
+        Task<bool> UpdateTrackAsync(TrackApiModel trackViewModel, CancellationToken ct = default);
         Task<bool> DeleteTrackAsync(int id, CancellationToken ct = default);
     }
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -11,14 +11,14 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<IEnumerable<InvoiceLineResponse>> GetAllInvoiceLineAsync(
+        public async Task<IEnumerable<InvoiceLineApiModel>> GetAllInvoiceLineAsync(
             CancellationToken ct = default)
         {
             var invoiceLines = await _invoiceLineRepository.GetAllAsync(ct);
             return invoiceLines.ConvertAll();
         }
 
-        public async Task<InvoiceLineResponse> GetInvoiceLineByIdAsync(int id,
+        public async Task<InvoiceLineApiModel> GetInvoiceLineByIdAsync(int id,
             CancellationToken ct = default)
         {
             var invoiceLineViewModel = (await _invoiceLineRepository.GetByIdAsync(id, ct)).Convert;
@@ -28,21 +28,21 @@ namespace Chinook.Domain.Supervisor
             return invoiceLineViewModel;
         }
 
-        public async Task<IEnumerable<InvoiceLineResponse>> GetInvoiceLineByInvoiceIdAsync(int id,
+        public async Task<IEnumerable<InvoiceLineApiModel>> GetInvoiceLineByInvoiceIdAsync(int id,
             CancellationToken ct = default)
         {
             var invoiceLines = await _invoiceLineRepository.GetByInvoiceIdAsync(id, ct);
             return invoiceLines.ConvertAll();
         }
 
-        public async Task<IEnumerable<InvoiceLineResponse>> GetInvoiceLineByTrackIdAsync(int id,
+        public async Task<IEnumerable<InvoiceLineApiModel>> GetInvoiceLineByTrackIdAsync(int id,
             CancellationToken ct = default)
         {
             var invoiceLines = await _invoiceLineRepository.GetByTrackIdAsync(id, ct);
             return invoiceLines.ConvertAll();
         }
 
-        public async Task<InvoiceLineResponse> AddInvoiceLineAsync(InvoiceLineResponse newInvoiceLineViewModel,
+        public async Task<InvoiceLineApiModel> AddInvoiceLineAsync(InvoiceLineApiModel newInvoiceLineViewModel,
             CancellationToken ct = default)
         {
             var invoiceLine = new InvoiceLine
@@ -58,7 +58,7 @@ namespace Chinook.Domain.Supervisor
             return newInvoiceLineViewModel;
         }
 
-        public async Task<bool> UpdateInvoiceLineAsync(InvoiceLineResponse invoiceLineViewModel,
+        public async Task<bool> UpdateInvoiceLineAsync(InvoiceLineApiModel invoiceLineViewModel,
             CancellationToken ct = default)
         {
             var invoiceLine = await _invoiceLineRepository.GetByIdAsync(invoiceLineViewModel.InvoiceId, ct);

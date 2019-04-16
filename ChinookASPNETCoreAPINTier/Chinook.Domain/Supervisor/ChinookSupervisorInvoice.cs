@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
-using Chinook.Domain.Responses;
+using Chinook.Domain.ApiModels;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 
@@ -11,13 +11,13 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<IEnumerable<InvoiceResponse>> GetAllInvoiceAsync(CancellationToken ct = default)
+        public async Task<IEnumerable<InvoiceApiModel>> GetAllInvoiceAsync(CancellationToken ct = default)
         {
             var invoices = await _invoiceRepository.GetAllAsync(ct);
             return invoices.ConvertAll();
         }
         
-        public async Task<InvoiceResponse> GetInvoiceByIdAsync(int id,
+        public async Task<InvoiceApiModel> GetInvoiceByIdAsync(int id,
             CancellationToken ct = default)
         {
             var invoiceViewModel = (await _invoiceRepository.GetByIdAsync(id, ct)).Convert;
@@ -28,14 +28,14 @@ namespace Chinook.Domain.Supervisor
             return invoiceViewModel;
         }
 
-        public async Task<IEnumerable<InvoiceResponse>> GetInvoiceByCustomerIdAsync(int id,
+        public async Task<IEnumerable<InvoiceApiModel>> GetInvoiceByCustomerIdAsync(int id,
             CancellationToken ct = default)
         {
             var invoices = await _invoiceRepository.GetByCustomerIdAsync(id, ct);
             return invoices.ConvertAll();
         }
 
-        public async Task<InvoiceResponse> AddInvoiceAsync(InvoiceResponse newInvoiceViewModel,
+        public async Task<InvoiceApiModel> AddInvoiceAsync(InvoiceApiModel newInvoiceViewModel,
             CancellationToken ct = default)
         {
             var invoice = new Invoice
@@ -55,7 +55,7 @@ namespace Chinook.Domain.Supervisor
             return newInvoiceViewModel;
         }
 
-        public async Task<bool> UpdateInvoiceAsync(InvoiceResponse invoiceViewModel,
+        public async Task<bool> UpdateInvoiceAsync(InvoiceApiModel invoiceViewModel,
             CancellationToken ct = default)
         {
             var invoice = await _invoiceRepository.GetByIdAsync(invoiceViewModel.InvoiceId, ct);

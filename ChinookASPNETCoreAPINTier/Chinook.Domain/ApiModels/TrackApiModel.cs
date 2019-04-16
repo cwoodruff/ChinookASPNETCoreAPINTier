@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Chinook.Domain.Responses
+namespace Chinook.Domain.ApiModels
 {
-    public sealed class TrackResponse
+    public sealed class TrackApiModel
     {
         public int TrackId { get; set; }
         public string Name { get; set; }
@@ -17,10 +17,10 @@ namespace Chinook.Domain.Responses
         public int Bytes { get; set; }
         public decimal UnitPrice { get; set; }
 
-        public IList<InvoiceLineResponse> InvoiceLines { get; set; }
-        public IList<PlaylistTrackResponse> PlaylistTracks { get; set; }
-        public AlbumResponse Album { get; set; }
-        public GenreResponse Genre { get; set; }
-        public MediaTypeResponse MediaType { get; set; }
+        public IList<InvoiceLineApiModel> InvoiceLines { get; set; }
+        public IList<PlaylistTrackApiModel> PlaylistTracks { get; set; }
+        public AlbumApiModel Album { get; set; }
+        public GenreApiModel Genre { get; set; }
+        public MediaTypeApiModel MediaType { get; set; }
     }
 }

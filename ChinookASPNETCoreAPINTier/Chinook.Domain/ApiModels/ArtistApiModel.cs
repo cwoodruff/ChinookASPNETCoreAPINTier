@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Chinook.Domain.Responses
+namespace Chinook.Domain.ApiModels
 {
-    public class ArtistResponse
+    public class ArtistApiModel
     {
         public int ArtistId { get; set; }
         public string Name { get; set; }
 
-        public IList<AlbumResponse> Albums { get; set; }
+        public IList<AlbumApiModel> Albums { get; set; }
     }
 }
