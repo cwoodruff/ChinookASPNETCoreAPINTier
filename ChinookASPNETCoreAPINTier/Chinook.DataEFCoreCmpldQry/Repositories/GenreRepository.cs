@@ -28,22 +28,14 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
         public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) 
             => await _context.GetAllGenresAsync();
 
-        public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default)
-        {
-            var cachedGenre = _cache.Get<Genre>(id);
-
-            if (cachedGenre != null)
-            {
-                return cachedGenre;
-            }
-
-            var dbGenre = await _context.GetGenreAsync(id);
-
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-            _cache.Set(dbGenre.FirstOrDefault().GenreId, dbGenre, cacheEntryOptions);
-
-            return dbGenre.FirstOrDefault();
-        }
+        public Task<Genre> GetByIdAsync(int id, CancellationToken ct = default) 
+            => _cache.GetOrCreateAsync<Genre>(id,
+                async entry =>
+                {
+                    entry.SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                    var genres = await _context.GetGenreAsync(id);
+                    return genres.FirstOrDefault();
+                });
 
         public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default)
         {
