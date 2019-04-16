@@ -9,20 +9,20 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
 {
     public class ArtistRepository : IArtistRepository
     {
-        private readonly ChinookContext _context;
-        
-        
+        private readonly ChinookContext _context;        
 
         public ArtistRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> ArtistExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> ArtistExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Artist>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllArtistsAsync();
+        public async Task<List<Artist>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllArtistsAsync();
 
         public async Task<Artist> GetByIdAsync(int id, CancellationToken ct = default)
         {

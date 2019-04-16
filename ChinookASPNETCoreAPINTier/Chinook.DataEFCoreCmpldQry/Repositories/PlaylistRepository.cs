@@ -10,19 +10,19 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class PlaylistRepository : IPlaylistRepository
     {
         private readonly ChinookContext _context;
-        
-        
 
         public PlaylistRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> PlaylistExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> PlaylistExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllPlaylistsAsync();
+        public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllPlaylistsAsync();
 
         public async Task<Playlist> GetByIdAsync(int id, CancellationToken ct = default)
         {

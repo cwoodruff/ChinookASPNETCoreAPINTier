@@ -10,19 +10,19 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class InvoiceLineRepository : IInvoiceLineRepository
     {
         private readonly ChinookContext _context;
-        
-        
 
         public InvoiceLineRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> InvoiceLineExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> InvoiceLineExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllInvoiceLinesAsync();
+        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllInvoiceLinesAsync();
 
         public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default)
         {

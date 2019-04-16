@@ -14,18 +14,18 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     {
         private readonly ChinookContext _context;
         
-        
-
         public InvoiceRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> InvoiceExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> InvoiceExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllInvoicesAsync();
+        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllInvoicesAsync();
 
         public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default)
         {
@@ -59,6 +59,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default) => await _context.GetInvoicesByCustomerIdAsync(id);
+        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default) 
+            => await _context.GetInvoicesByCustomerIdAsync(id);
     }
 }

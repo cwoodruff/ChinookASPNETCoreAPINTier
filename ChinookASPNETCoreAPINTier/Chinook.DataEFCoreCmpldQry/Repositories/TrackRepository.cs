@@ -10,19 +10,19 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class TrackRepository : ITrackRepository
     {
         private readonly ChinookContext _context;
-        
-        
 
         public TrackRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> TrackExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> TrackExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllTracksAsync();
+        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllTracksAsync();
 
         public async Task<Track> GetByIdAsync(int id, CancellationToken ct = default)
         {
@@ -56,10 +56,13 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default) => await _context.GetTracksByAlbumIdAsync(id);
+        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default) 
+            => await _context.GetTracksByAlbumIdAsync(id);
 
-        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default) => await _context.GetTracksByGenreIdAsync(id);
+        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default) 
+            => await _context.GetTracksByGenreIdAsync(id);
 
-        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default) => await _context.GetTracksByMediaTypeIdAsync(id);
+        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default) 
+            => await _context.GetTracksByMediaTypeIdAsync(id);
     }
 }

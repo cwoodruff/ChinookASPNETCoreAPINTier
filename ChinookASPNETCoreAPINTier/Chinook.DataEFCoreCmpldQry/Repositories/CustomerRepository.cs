@@ -10,19 +10,19 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class CustomerRepository : ICustomerRepository
     {
         private readonly ChinookContext _context;
-        
-        
 
         public CustomerRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> CustomerExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> CustomerExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllCustomersAsync();
+        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllCustomersAsync();
 
         public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default)
         {

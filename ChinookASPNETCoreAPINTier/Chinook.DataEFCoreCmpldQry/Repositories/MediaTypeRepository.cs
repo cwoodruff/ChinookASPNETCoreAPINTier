@@ -10,19 +10,19 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class MediaTypeRepository : IMediaTypeRepository
     {
         private readonly ChinookContext _context;
-        
-        
 
         public MediaTypeRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> MediaTypeExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> MediaTypeExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllMediaTypesAsync();
+        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllMediaTypesAsync();
 
         public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default)
         {

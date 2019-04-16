@@ -10,19 +10,19 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class PlaylistTrackRepository : IPlaylistTrackRepository
     {
         private readonly ChinookContext _context;
-        
-        
 
         public PlaylistTrackRepository(ChinookContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        private async Task<bool> PlaylistTrackExists(int id, CancellationToken ct = default) => await GetByPlaylistIdAsync(id, ct) != null;
+        private async Task<bool> PlaylistTrackExists(int id, CancellationToken ct = default) 
+            => await GetByPlaylistIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllPlaylistTracksAsync();
+        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllPlaylistTracksAsync();
 
         public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
             CancellationToken ct = default) => await _context.GetPlaylistTrackByPlaylistId(id);

@@ -12,23 +12,21 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class GenreRepository : IGenreRepository
     {
         private readonly ChinookContext _context;
-        
-        
-        
-        private IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
 
         public GenreRepository(ChinookContext context, IMemoryCache memoryCache)
         {
-            _context = context;
-            
+            _context = context;            
             _cache = memoryCache;
         }
 
-        private async Task<bool> GenreExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> GenreExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) => await _context.GetAllGenresAsync();
+        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllGenresAsync();
 
         public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default)
         {
