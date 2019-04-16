@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<PlaylistViewModel>))]
-        public async Task<ActionResult<List<PlaylistViewModel>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<PlaylistResponse>))]
+        public async Task<ActionResult<List<PlaylistResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(PlaylistViewModel))]
-        public async Task<ActionResult<PlaylistViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(PlaylistResponse))]
+        public async Task<ActionResult<PlaylistResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(PlaylistViewModel))]
-        public async Task<ActionResult<PlaylistViewModel>> Post([FromBody] PlaylistViewModel input,
+        [Produces(typeof(PlaylistResponse))]
+        public async Task<ActionResult<PlaylistResponse>> Post([FromBody] PlaylistResponse input,
             CancellationToken ct = default)
         {
             try
@@ -74,8 +74,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(PlaylistViewModel))]
-        public async Task<ActionResult<PlaylistViewModel>> Put(int id, [FromBody] PlaylistViewModel input,
+        [Produces(typeof(PlaylistResponse))]
+        public async Task<ActionResult<PlaylistResponse>> Put(int id, [FromBody] PlaylistResponse input,
             CancellationToken ct = default)
         {
             try

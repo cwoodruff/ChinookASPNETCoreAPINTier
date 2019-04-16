@@ -20,10 +20,8 @@ namespace Chinook.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMemoryCache();
-            
-            services.AddResponseCaching();
-            
+            services.AddMemoryCache();            
+            services.AddResponseCaching();            
             services.AddMvc();
 
             services.ConfigureRepositories()
@@ -33,11 +31,11 @@ namespace Chinook.API
                 .AddConnectionProvider(Configuration)
                 .AddAppSettings(Configuration);
 
-            services.AddSwaggerGen(s =>
+            services.AddSwaggerGen(s => s.SwaggerDoc("v1", new Info
             {
-                s.SwaggerDoc("v1", new Info {Title = "Chinook API",
-                    Description = "Chinook Music Store API"});
-            });
+                Title = "Chinook API",
+                Description = "Chinook Music Store API"
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,18 +47,13 @@ namespace Chinook.API
             }
 
             app.UseCors("AllowAll");
-
             app.UseStaticFiles();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
+            app.UseMvc(
+                routes => routes.MapRoute(
                     "default",
-                    "{controller=Home}/{action=Index}/{id?}");
-            });
-
+                    "{controller=Home}/{action=Index}/{id?}"));
             app.UseSwagger();
-            app.UseSwaggerUI(s => { s.SwaggerEndpoint("/swagger/v1/swagger.json",
-                "v1 docs"); });
+            app.UseSwaggerUI(s => s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1 docs"));
         }
     }
 }

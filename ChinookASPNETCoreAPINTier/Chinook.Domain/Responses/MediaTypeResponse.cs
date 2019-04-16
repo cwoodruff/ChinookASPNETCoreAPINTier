@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Chinook.Domain.ViewModels
+namespace Chinook.Domain.Responses
 {
-    public class MediaTypeViewModel
+    public class MediaTypeResponse
     {
         public int MediaTypeId { get; set; }
         public string Name { get; set; }
 
-        public IList<TrackViewModel> Tracks { get; set; }
+        public IList<TrackResponse> Tracks { get; set; }
     }
 }

@@ -16,35 +16,28 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             _context = context;
         }
 
-        private async Task<bool> AlbumExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> AlbumExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<Album>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetAllAlbumsAsync();
-        }
+        public async Task<List<Album>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllAlbumsAsync();
 
-        public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var album = await _context.GetAlbumAsync(id);
             return album.First();
         }
 
-        public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default(CancellationToken))
+        public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default)
         {
             _context.Album.Add(newAlbum);
             await _context.SaveChangesAsync(ct);
             return newAlbum;
         }
 
-        public async Task<bool> UpdateAsync(Album album, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Album album, CancellationToken ct = default)
         {
             if (!await AlbumExists(album.AlbumId, ct))
                 return false;
@@ -55,7 +48,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await AlbumExists(id, ct))
                 return false;
@@ -65,9 +58,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetAlbumsByArtistIdAsync(id);
-        }
+        public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default) 
+            => await _context.GetAlbumsByArtistIdAsync(id);
     }
 }

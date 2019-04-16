@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Responses;
 
 namespace Chinook.API.Controllers
 {
@@ -22,8 +22,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet]
-        [Produces(typeof(List<AlbumViewModel>))]
-        public async Task<ActionResult<List<AlbumViewModel>>> Get(CancellationToken ct = default)
+        [Produces(typeof(List<AlbumResponse>))]
+        public async Task<ActionResult<List<AlbumResponse>>> Get(CancellationToken ct = default)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(AlbumViewModel))]
-        public async Task<ActionResult<AlbumViewModel>> Get(int id, CancellationToken ct = default)
+        [Produces(typeof(AlbumResponse))]
+        public async Task<ActionResult<AlbumResponse>> Get(int id, CancellationToken ct = default)
         {
             try
             {
@@ -56,8 +56,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpGet("artist/{id}")]
-        [Produces(typeof(List<AlbumViewModel>))]
-        public async Task<ActionResult<List<AlbumViewModel>>> GetByArtistId(int id, CancellationToken ct = default)
+        [Produces(typeof(List<AlbumResponse>))]
+        public async Task<ActionResult<List<AlbumResponse>>> GetByArtistId(int id, CancellationToken ct = default)
         {
             try
             {
@@ -76,8 +76,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(AlbumViewModel))]
-        public async Task<ActionResult<AlbumViewModel>> Post([FromBody] AlbumViewModel input,
+        [Produces(typeof(AlbumResponse))]
+        public async Task<ActionResult<AlbumResponse>> Post([FromBody] AlbumResponse input,
             CancellationToken ct = default)
         {
             try
@@ -94,8 +94,8 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(AlbumViewModel))]
-        public async Task<ActionResult<AlbumViewModel>> Put(int id, [FromBody] AlbumViewModel input,
+        [Produces(typeof(AlbumResponse))]
+        public async Task<ActionResult<AlbumResponse>> Put(int id, [FromBody] AlbumResponse input,
             CancellationToken ct = default)
         {
             try

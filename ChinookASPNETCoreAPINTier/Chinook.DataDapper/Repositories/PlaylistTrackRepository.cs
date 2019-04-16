@@ -29,7 +29,7 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default)
         {
             using (IDbConnection cn = Connection)
             {
@@ -39,7 +39,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -49,7 +49,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -59,7 +59,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack, CancellationToken ct = default(CancellationToken))
+        public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -71,7 +71,7 @@ namespace Chinook.DataDapper.Repositories
             return newPlaylistTrack;
         }
 
-        public async Task<bool> UpdateAsync(PlaylistTrack playlistTrack, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(PlaylistTrack playlistTrack, CancellationToken ct = default)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             try
             {

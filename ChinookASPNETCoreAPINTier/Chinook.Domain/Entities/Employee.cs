@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Chinook.Domain.Converters;
+using Chinook.Domain.Responses;
+using System;
 using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public class Employee
+    public class Employee : IConvertModel<Employee, EmployeeResponse>
     {
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
@@ -24,5 +26,24 @@ namespace Chinook.Domain.Entities
         public ICollection<Customer> Customers { get; set; } = new HashSet<Customer>();
         public Employee Manager { get; set; }
         public ICollection<Employee> DirectReports { get; set; } = new HashSet<Employee>();
+
+        public EmployeeResponse Convert => new EmployeeResponse
+        {
+            EmployeeId = EmployeeId,
+            LastName = LastName,
+            FirstName = FirstName,
+            Title = Title,
+            ReportsTo = ReportsTo,
+            BirthDate = BirthDate,
+            HireDate = HireDate,
+            Address = Address,
+            City = City,
+            State = State,
+            Country = Country,
+            PostalCode = PostalCode,
+            Phone = Phone,
+            Fax = Fax,
+            Email = Email
+        };
     }
 }

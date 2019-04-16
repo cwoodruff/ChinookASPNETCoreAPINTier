@@ -1,31 +1,33 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Extensions;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using System.Linq;
 
 namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<MediaTypeViewModel>> GetAllMediaTypeAsync(
-            CancellationToken ct = default(CancellationToken))
+        public async Task<IEnumerable<MediaTypeResponse>> GetAllMediaTypeAsync(
+            CancellationToken ct = default)
         {
-            var mediaTypes = MediaTypeCoverter.ConvertList(await _mediaTypeRepository.GetAllAsync(ct));
-            return mediaTypes;
+            var mediaTypes = await _mediaTypeRepository.GetAllAsync(ct);
+            return mediaTypes.ConvertAll();
         }
 
-        public async Task<MediaTypeViewModel> GetMediaTypeByIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+        public async Task<MediaTypeResponse> GetMediaTypeByIdAsync(int id,
+            CancellationToken ct = default)
         {
-            var mediaTypeViewModel = MediaTypeCoverter.Convert(await _mediaTypeRepository.GetByIdAsync(id, ct));
-            mediaTypeViewModel.Tracks = await GetTrackByMediaTypeIdAsync(mediaTypeViewModel.MediaTypeId, ct);
+            var mediaTypeViewModel = (await _mediaTypeRepository.GetByIdAsync(id, ct)).Convert;
+            mediaTypeViewModel.Tracks = (await GetTrackByMediaTypeIdAsync(mediaTypeViewModel.MediaTypeId, ct)).ToList();
             return mediaTypeViewModel;
         }
 
-        public async Task<MediaTypeViewModel> AddMediaTypeAsync(MediaTypeViewModel newMediaTypeViewModel,
-            CancellationToken ct = default(CancellationToken))
+        public async Task<MediaTypeResponse> AddMediaTypeAsync(MediaTypeResponse newMediaTypeViewModel,
+            CancellationToken ct = default)
         {
             var mediaType = new MediaType
             {
@@ -37,8 +39,8 @@ namespace Chinook.Domain.Supervisor
             return newMediaTypeViewModel;
         }
 
-        public async Task<bool> UpdateMediaTypeAsync(MediaTypeViewModel mediaTypeViewModel,
-            CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateMediaTypeAsync(MediaTypeResponse mediaTypeViewModel,
+            CancellationToken ct = default)
         {
             var mediaType = await _mediaTypeRepository.GetByIdAsync(mediaTypeViewModel.MediaTypeId, ct);
 
@@ -49,9 +51,7 @@ namespace Chinook.Domain.Supervisor
             return await _mediaTypeRepository.UpdateAsync(mediaType, ct);
         }
 
-        public async Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _mediaTypeRepository.DeleteAsync(id, ct);
-        }
+        public Task<bool> DeleteMediaTypeAsync(int id, CancellationToken ct = default) 
+            => _mediaTypeRepository.DeleteAsync(id, ct);
     }
 }

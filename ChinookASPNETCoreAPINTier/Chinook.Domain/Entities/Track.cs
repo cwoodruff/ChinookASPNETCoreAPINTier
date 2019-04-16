@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Chinook.Domain.Converters;
+using Chinook.Domain.Responses;
+using System.Collections.Generic;
 
 namespace Chinook.Domain.Entities
 {
-    public class Track
+    public class Track : IConvertModel<Track, TrackResponse>
     {
         public int TrackId { get; set; }
         public string Name { get; set; }
@@ -19,5 +21,18 @@ namespace Chinook.Domain.Entities
         public Album Album { get; set; }
         public Genre Genre { get; set; }
         public MediaType MediaType { get; set; }
+
+        public TrackResponse Convert => new TrackResponse
+        {
+            TrackId = TrackId,
+            Name = Name,
+            AlbumId = AlbumId,
+            MediaTypeId = MediaTypeId,
+            GenreId = GenreId,
+            Composer = Composer,
+            Milliseconds = Milliseconds,
+            Bytes = Bytes,
+            UnitPrice = UnitPrice
+        };
     }
 }

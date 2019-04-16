@@ -13,7 +13,7 @@ namespace Chinook.MockData.Dapper.Repositories
         {
         }
 
-        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default)
         {
             IList<Genre> list = new List<Genre>();
 
@@ -27,7 +27,7 @@ namespace Chinook.MockData.Dapper.Repositories
             return list.ToList();
         }
 
-        public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var genre = new Genre
             {
@@ -37,19 +37,10 @@ namespace Chinook.MockData.Dapper.Repositories
             return genre;
         }
 
-        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))
-        {
-            return newGenre;
-        }
+        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default) => newGenre;
 
-        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
     }
 }

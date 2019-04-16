@@ -13,7 +13,7 @@ namespace Chinook.MockData.Dapper.Repositories
         {
         }
 
-        public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<Playlist>> GetAllAsync(CancellationToken ct = default)
         {
             IList<Playlist> list = new List<Playlist>();
             var playlist = new Playlist
@@ -25,7 +25,7 @@ namespace Chinook.MockData.Dapper.Repositories
             return list.ToList();
         }
 
-        public async Task<Playlist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Playlist> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var playlist = new Playlist
             {
@@ -35,13 +35,10 @@ namespace Chinook.MockData.Dapper.Repositories
             return playlist;
         }
 
-        public async Task<Playlist> AddAsync(Playlist newPlaylist, CancellationToken ct = default(CancellationToken))
-        {
-            return newPlaylist;
-        }
+        public async Task<Playlist> AddAsync(Playlist newPlaylist, CancellationToken ct = default) => newPlaylist;
 
         public async Task<List<Track>> GetTrackByPlaylistIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             IList<Track> list = new List<Track>();
             var track = new Track
@@ -60,14 +57,8 @@ namespace Chinook.MockData.Dapper.Repositories
             return list.ToList();
         }
 
-        public async Task<bool> UpdateAsync(Playlist playlist, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(Playlist playlist, CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
     }
 }

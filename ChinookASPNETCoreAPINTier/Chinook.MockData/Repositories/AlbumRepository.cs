@@ -13,59 +13,38 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<Album>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            IList<Album> list = new List<Album>();
-
-            var album = new Album
+        public Task<List<Album>> GetAllAsync(CancellationToken ct = default)
+            => new Album
             {
                 AlbumId = 1,
                 ArtistId = 1,
                 Title = "Hello World"
-            };
-            list.Add(album);
+            }.AsListTask();
 
-            return list.ToList();
-        }
-
-        public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            var album = new Album
+        public Task<Album> GetByIdAsync(int id, CancellationToken ct = default)
+            => new Album
             {
                 AlbumId = id,
                 ArtistId = 1,
                 Title = "Hello World"
-            };
-            return album;
-        }
+            }.AsTask();
 
-        public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default(CancellationToken))
+        public Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default)
         {
             newAlbum.AlbumId = 1;
-            return newAlbum;
+            return newAlbum.AsTask();
         }
 
-        public async Task<bool> UpdateAsync(Album album, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public Task<bool> UpdateAsync(Album album, CancellationToken ct = default) => Task.FromResult(true);
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public Task<bool> DeleteAsync(int id, CancellationToken ct = default) => Task.FromResult(true);
 
-        public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            IList<Album> list = new List<Album>();
-            var newisd = new Album
+        public Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default)
+            => new Album
             {
                 Title = "hello World",
                 ArtistId = 1,
                 AlbumId = 1
-            };
-            list.Add(newisd);
-            return list.ToList();
-        }
+            }.AsListTask();
     }
 }

@@ -1,31 +1,33 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.Domain.ViewModels;
+using Chinook.Domain.Extensions;
+using Chinook.Domain.Responses;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using System.Linq;
 
 namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public async Task<List<PlaylistViewModel>> GetAllPlaylistAsync(
-            CancellationToken ct = default(CancellationToken))
+        public async Task<IEnumerable<PlaylistResponse>> GetAllPlaylistAsync(
+            CancellationToken ct = default)
         {
-            var playlists = PlaylistCoverter.ConvertList(await _playlistRepository.GetAllAsync(ct));
-            return playlists;
+            var playlists = await _playlistRepository.GetAllAsync(ct);
+            return playlists.ConvertAll();
         }
 
-        public async Task<PlaylistViewModel> GetPlaylistByIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
+        public async Task<PlaylistResponse> GetPlaylistByIdAsync(int id,
+            CancellationToken ct = default)
         {
-            var playlistViewModel = PlaylistCoverter.Convert(await _playlistRepository.GetByIdAsync(id, ct));
-            playlistViewModel.Tracks = await GetTrackByPlaylistIdIdAsync(playlistViewModel.PlaylistId, ct);
+            var playlistViewModel = (await _playlistRepository.GetByIdAsync(id, ct)).Convert;
+            playlistViewModel.Tracks = (await GetTrackByPlaylistIdIdAsync(playlistViewModel.PlaylistId, ct)).ToList();
             return playlistViewModel;
         }
 
-        public async Task<PlaylistViewModel> AddPlaylistAsync(PlaylistViewModel newPlaylistViewModel,
-            CancellationToken ct = default(CancellationToken))
+        public async Task<PlaylistResponse> AddPlaylistAsync(PlaylistResponse newPlaylistViewModel,
+            CancellationToken ct = default)
         {
             var playlist = new Playlist
             {
@@ -37,8 +39,8 @@ namespace Chinook.Domain.Supervisor
             return newPlaylistViewModel;
         }
 
-        public async Task<bool> UpdatePlaylistAsync(PlaylistViewModel playlistViewModel,
-            CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdatePlaylistAsync(PlaylistResponse playlistViewModel,
+            CancellationToken ct = default)
         {
             var playlist = await _playlistRepository.GetByIdAsync(playlistViewModel.PlaylistId, ct);
 
@@ -49,9 +51,7 @@ namespace Chinook.Domain.Supervisor
             return await _playlistRepository.UpdateAsync(playlist, ct);
         }
 
-        public async Task<bool> DeletePlaylistAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _playlistRepository.DeleteAsync(id, ct);
-        }
+        public Task<bool> DeletePlaylistAsync(int id, CancellationToken ct = default) 
+            => _playlistRepository.DeleteAsync(id, ct);
     }
 }

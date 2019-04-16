@@ -13,53 +13,29 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            IList<Customer> list = new List<Customer>();
-
-            var customer = new Customer
+        public Task<List<Customer>> GetAllAsync(CancellationToken ct = default)
+            => new Customer
             {
                 CustomerId = 1
-            };
-            list.Add(customer);
+            }.AsListTask();
 
-            return list.ToList();
-        }
-
-        public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            var customer = new Customer
+        public Task<Customer> GetByIdAsync(int id, CancellationToken ct = default)
+            => new Customer
             {
                 CustomerId = id
-            };
-            return customer;
-        }
+            }.AsTask();
 
-        public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default(CancellationToken))
-        {
-            return newCustomer;
-        }
+        public Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default) => newCustomer.AsTask();
 
-        public async Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default) => true.AsTask();
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true.AsTask();
 
-        public async Task<List<Customer>> GetBySupportRepIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
-        {
-            IList<Customer> list = new List<Customer>();
-            var customer = new Customer
+        public Task<List<Customer>> GetBySupportRepIdAsync(int id,
+            CancellationToken ct = default)
+            => new Customer
             {
                 CustomerId = id
-            };
-            list.Add(customer);
-            return list.ToList();
-        }
+            }.AsListTask();
     }
 }

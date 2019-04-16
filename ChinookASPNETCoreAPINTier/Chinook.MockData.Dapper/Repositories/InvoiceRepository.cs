@@ -13,7 +13,7 @@ namespace Chinook.MockData.Dapper.Repositories
         {
         }
 
-        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default)
         {
             IList<Invoice> list = new List<Invoice>();
             var invoice = new Invoice
@@ -24,7 +24,7 @@ namespace Chinook.MockData.Dapper.Repositories
             return list.ToList();
         }
 
-        public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var invoice = new Invoice
             {
@@ -33,22 +33,13 @@ namespace Chinook.MockData.Dapper.Repositories
             return invoice;
         }
 
-        public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default(CancellationToken))
-        {
-            return newInvoice;
-        }
+        public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default) => newInvoice;
 
-        public async Task<bool> UpdateAsync(Invoice invoice, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> UpdateAsync(Invoice invoice, CancellationToken ct = default) => true;
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true;
 
-        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default)
         {
             IList<Invoice> list = new List<Invoice>();
             var invoice = new Invoice

@@ -1,6 +1,6 @@
-﻿namespace Chinook.Domain.ViewModels
+﻿namespace Chinook.Domain.Responses
 {
-    public class InvoiceLineViewModel
+    public class InvoiceLineResponse
     {
         public int InvoiceLineId { get; set; }
         public int InvoiceId { get; set; }
@@ -9,7 +9,7 @@
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
 
-        public InvoiceViewModel Invoice { get; set; }
-        public TrackViewModel Track { get; set; }
+        public InvoiceResponse Invoice { get; set; }
+        public TrackResponse Track { get; set; }
     }
 }

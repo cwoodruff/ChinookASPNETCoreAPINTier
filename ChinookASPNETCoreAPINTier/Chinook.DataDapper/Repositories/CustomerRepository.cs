@@ -28,13 +28,10 @@ namespace Chinook.DataDapper.Repositories
         {
             
         }
-        
-        private async Task<bool> CustomerExists(int id, CancellationToken ct = default)
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
 
-        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        private async Task<bool> CustomerExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+
+        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default)
         {
             using (IDbConnection cn = Connection)
             {
@@ -44,7 +41,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -53,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<List<Customer>> GetBySupportRepIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<List<Customer>> GetBySupportRepIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -63,7 +60,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default(CancellationToken))
+        public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -91,7 +88,7 @@ namespace Chinook.DataDapper.Repositories
             return newCustomer;
         }
 
-        public async Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Customer customer, CancellationToken ct = default)
         {
             if (!await CustomerExists(customer.CustomerId, ct))
                 return false;
@@ -110,7 +107,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             try
             {

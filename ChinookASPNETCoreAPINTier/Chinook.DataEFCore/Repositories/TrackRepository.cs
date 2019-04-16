@@ -17,34 +17,22 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private async Task<bool> TrackExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> TrackExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Track.ToListAsync(ct);
-        }
+        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default) => await _context.Track.ToListAsync(ct);
 
-        public async Task<Track> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Track.FindAsync(id);
-        }
+        public async Task<Track> GetByIdAsync(int id, CancellationToken ct = default) => await _context.Track.FindAsync(id);
 
-        public async Task<Track> AddAsync(Track newTrack, CancellationToken ct = default(CancellationToken))
+        public async Task<Track> AddAsync(Track newTrack, CancellationToken ct = default)
         {
             _context.Track.Add(newTrack);
             await _context.SaveChangesAsync(ct);
             return newTrack;
         }
 
-        public async Task<bool> UpdateAsync(Track track, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Track track, CancellationToken ct = default)
         {
             if (!await TrackExists(track.TrackId, ct))
                 return false;
@@ -53,7 +41,7 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await TrackExists(id, ct))
                 return false;
@@ -63,19 +51,10 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Track.Where(a => a.AlbumId == id).ToListAsync(ct);
-        }
+        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default) => await _context.Track.Where(a => a.AlbumId == id).ToListAsync(ct);
 
-        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Track.Where(a => a.GenreId == id).ToListAsync(ct);
-        }
+        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default) => await _context.Track.Where(a => a.GenreId == id).ToListAsync(ct);
 
-        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.Track.Where(a => a.MediaTypeId == id).ToListAsync(ct);
-        }
+        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default) => await _context.Track.Where(a => a.MediaTypeId == id).ToListAsync(ct);
     }
 }

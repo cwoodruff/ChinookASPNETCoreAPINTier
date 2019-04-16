@@ -10,44 +10,35 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class InvoiceLineRepository : IInvoiceLineRepository
     {
         private readonly ChinookContext _context;
-        
-        
 
         public InvoiceLineRepository(ChinookContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> InvoiceLineExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> InvoiceLineExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetAllInvoiceLinesAsync();
-        }
+        public async Task<List<InvoiceLine>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllInvoiceLinesAsync();
 
-        public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<InvoiceLine> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var invoiceLine = await _context.GetInvoiceLineAsync(id);
             return invoiceLine.First();
         }
 
         public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             _context.InvoiceLine.Add(newInvoiceLine);
             await _context.SaveChangesAsync(ct);
             return newInvoiceLine;
         }
 
-        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(InvoiceLine invoiceLine, CancellationToken ct = default)
         {
             if (!await InvoiceLineExists(invoiceLine.InvoiceLineId, ct))
                 return false;
@@ -56,7 +47,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await InvoiceLineExists(id, ct))
                 return false;
@@ -67,15 +58,9 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
         }
 
         public async Task<List<InvoiceLine>> GetByInvoiceIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetInvoiceLinesByInvoiceIdAsync(id);
-        }
+            CancellationToken ct = default) => await _context.GetInvoiceLinesByInvoiceIdAsync(id);
 
         public async Task<List<InvoiceLine>> GetByTrackIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetInvoiceLinesByTrackIdAsync(id);
-        }
+            CancellationToken ct = default) => await _context.GetInvoiceLinesByTrackIdAsync(id);
     }
 }

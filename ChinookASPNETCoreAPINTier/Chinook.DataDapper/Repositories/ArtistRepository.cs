@@ -28,13 +28,10 @@ namespace Chinook.DataDapper.Repositories
         {
             
         }
-        
-        private async Task<bool> ArtistExists(int id, CancellationToken ct = default)
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
 
-        public async Task<List<Artist>> GetAllAsync(CancellationToken ct = default(CancellationToken))
+        private async Task<bool> ArtistExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+
+        public async Task<List<Artist>> GetAllAsync(CancellationToken ct = default)
         {
             using (IDbConnection cn = Connection)
             {
@@ -44,7 +41,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<Artist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<Artist> GetByIdAsync(int id, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -53,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken))
+        public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default)
         {
             using (var cn = Connection)
             {
@@ -65,7 +62,7 @@ namespace Chinook.DataDapper.Repositories
             return newArtist;
         }
 
-        public async Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Artist artist, CancellationToken ct = default)
         {
             if (!await ArtistExists(artist.ArtistId, ct))
                 return false;
@@ -84,7 +81,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             try
             {

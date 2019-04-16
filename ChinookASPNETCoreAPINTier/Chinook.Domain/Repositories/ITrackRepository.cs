@@ -8,13 +8,13 @@ namespace Chinook.Domain.Repositories
 {
     public interface ITrackRepository : IDisposable
     {
-        Task<List<Track>> GetAllAsync(CancellationToken ct = default(CancellationToken));
-        Task<Track> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken));
-        Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default(CancellationToken));
-        Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default(CancellationToken));
-        Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default(CancellationToken));
-        Task<Track> AddAsync(Track newTrack, CancellationToken ct = default(CancellationToken));
-        Task<bool> UpdateAsync(Track track, CancellationToken ct = default(CancellationToken));
-        Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken));
+        Task<List<Track>> GetAllAsync(CancellationToken ct = default);
+        Task<Track> GetByIdAsync(int id, CancellationToken ct = default);
+        Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default);
+        Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default);
+        Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default);
+        Task<Track> AddAsync(Track newTrack, CancellationToken ct = default);
+        Task<bool> UpdateAsync(Track track, CancellationToken ct = default);
+        Task<bool> DeleteAsync(int id, CancellationToken ct = default);
     }
 }

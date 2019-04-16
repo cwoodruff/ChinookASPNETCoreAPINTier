@@ -12,58 +12,39 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
     public class GenreRepository : IGenreRepository
     {
         private readonly ChinookContext _context;
-        
-        
-        
-        private IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
 
         public GenreRepository(ChinookContext context, IMemoryCache memoryCache)
         {
-            _context = context;
-            
+            _context = context;            
             _cache = memoryCache;
         }
 
-        private async Task<bool> GenreExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> GenreExists(int id, CancellationToken ct = default) 
+            => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.GetAllGenresAsync();
-        }
+        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) 
+            => await _context.GetAllGenresAsync();
 
-        public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            var cachedGenre = _cache.Get<Genre>(id);
+        public Task<Genre> GetByIdAsync(int id, CancellationToken ct = default) 
+            => _cache.GetOrCreateAsync<Genre>(id,
+                async entry =>
+                {
+                    entry.SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                    var genres = await _context.GetGenreAsync(id);
+                    return genres.FirstOrDefault();
+                });
 
-            if (cachedGenre != null)
-            {
-                return cachedGenre;
-            }
-
-            var dbGenre = await _context.GetGenreAsync(id);
-
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-            _cache.Set(dbGenre.FirstOrDefault().GenreId, dbGenre, cacheEntryOptions);
-
-            return dbGenre.FirstOrDefault();
-        }
-
-        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))
+        public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default)
         {
             _context.Genre.Add(newGenre);
             await _context.SaveChangesAsync(ct);
             return newGenre;
         }
 
-        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(Genre genre, CancellationToken ct = default)
         {
             if (!await GenreExists(genre.GenreId, ct))
                 return false;
@@ -72,7 +53,7 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await GenreExists(id, ct))
                 return false;

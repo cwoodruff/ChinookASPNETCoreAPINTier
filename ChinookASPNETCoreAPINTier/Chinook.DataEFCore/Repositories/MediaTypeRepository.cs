@@ -16,34 +16,22 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private async Task<bool> MediaTypeExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
+        private async Task<bool> MediaTypeExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.MediaType.ToListAsync(ct);
-        }
+        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default) => await _context.MediaType.ToListAsync(ct);
 
-        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.MediaType.FindAsync(id);
-        }
+        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default) => await _context.MediaType.FindAsync(id);
 
-        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken))
+        public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default)
         {
             _context.MediaType.Add(newMediaType);
             await _context.SaveChangesAsync(ct);
             return newMediaType;
         }
 
-        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateAsync(MediaType mediaType, CancellationToken ct = default)
         {
             if (!await MediaTypeExists(mediaType.MediaTypeId, ct))
                 return false;
@@ -52,7 +40,7 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await MediaTypeExists(id, ct))
                 return false;

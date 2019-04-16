@@ -18,35 +18,20 @@ namespace Chinook.DataEFCore.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        private async Task<bool> PlaylistTrackExists(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByPlaylistIdAsync(id, ct) != null;
-        }
+        private async Task<bool> PlaylistTrackExists(int id, CancellationToken ct = default) => await GetByPlaylistIdAsync(id, ct) != null;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
 
-        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.PlaylistTrack.ToListAsync(ct);
-        }
+        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default) => await _context.PlaylistTrack.ToListAsync(ct);
 
         public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
-        }
+            CancellationToken ct = default) => await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
 
         public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
-            CancellationToken ct = default(CancellationToken))
-        {
-            return await _context.PlaylistTrack.Where(a => a.TrackId == id).ToListAsync(ct);
-        }
+            CancellationToken ct = default) => await _context.PlaylistTrack.Where(a => a.TrackId == id).ToListAsync(ct);
 
         public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             _context.PlaylistTrack.Add(newPlaylistTrack);
             await _context.SaveChangesAsync(ct);
@@ -54,7 +39,7 @@ namespace Chinook.DataEFCore.Repositories
         }
 
         public async Task<bool> UpdateAsync(PlaylistTrack playlistTrack,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (!await PlaylistTrackExists(playlistTrack.PlaylistId, ct))
                 return false;
@@ -63,7 +48,7 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
             if (!await PlaylistTrackExists(id, ct))
                 return false;

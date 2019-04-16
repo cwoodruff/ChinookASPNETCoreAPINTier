@@ -13,50 +13,28 @@ namespace Chinook.MockData.Repositories
         {
         }
 
-        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default(CancellationToken))
-        {
-            IList<Invoice> list = new List<Invoice>();
-            var invoice = new Invoice
+        public Task<List<Invoice>> GetAllAsync(CancellationToken ct = default)
+            => new Invoice
             {
                 InvoiceId = 1
-            };
-            list.Add(invoice);
-            return list.ToList();
-        }
+            }.AsListTask();
 
-        public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            var invoice = new Invoice
+        public Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default)
+            => new Invoice
             {
                 InvoiceId = id
-            };
-            return invoice;
-        }
+            }.AsTask();
 
-        public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default(CancellationToken))
-        {
-            return newInvoice;
-        }
+        public Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default) => newInvoice.AsTask();
 
-        public async Task<bool> UpdateAsync(Invoice invoice, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public Task<bool> UpdateAsync(Invoice invoice, CancellationToken ct = default) => true.AsTask();
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            return true;
-        }
+        public Task<bool> DeleteAsync(int id, CancellationToken ct = default) => true.AsTask();
 
-        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default(CancellationToken))
-        {
-            IList<Invoice> list = new List<Invoice>();
-            var invoice = new Invoice
+        public Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default)
+            => new Invoice
             {
-                InvoiceId = id
-            };
-            list.Add(invoice);
-            return list.ToList();
-        }
+                InvoiceId = 1
+            }.AsListTask();
     }
 }
