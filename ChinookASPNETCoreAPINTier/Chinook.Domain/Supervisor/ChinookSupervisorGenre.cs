@@ -27,10 +27,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<GenreApiModel> AddGenreAsync(GenreApiModel newGenreApiModel,
             CancellationToken ct = default)
         {
-            var genre = new Genre
-            {
-                Name = newGenreApiModel.Name
-            };
+            var genre = newGenreApiModel.Convert;
 
             genre = await _genreRepository.AddAsync(genre, ct);
             newGenreApiModel.GenreId = genre.GenreId;

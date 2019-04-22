@@ -60,18 +60,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<TrackApiModel> AddTrackAsync(TrackApiModel newTrackViewModel,
             CancellationToken ct = default)
         {
-            var track = new Track
-            {
-                TrackId = newTrackViewModel.TrackId,
-                Name = newTrackViewModel.Name,
-                AlbumId = newTrackViewModel.AlbumId,
-                MediaTypeId = newTrackViewModel.MediaTypeId,
-                GenreId = newTrackViewModel.GenreId,
-                Composer = newTrackViewModel.Composer,
-                Milliseconds = newTrackViewModel.Milliseconds,
-                Bytes = newTrackViewModel.Bytes,
-                UnitPrice = newTrackViewModel.UnitPrice
-            };
+            var track = newTrackViewModel.Convert;
 
             await _trackRepository.AddAsync(track, ct);
             newTrackViewModel.TrackId = track.TrackId;

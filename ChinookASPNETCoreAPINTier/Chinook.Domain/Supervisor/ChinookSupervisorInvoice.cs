@@ -38,17 +38,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<InvoiceApiModel> AddInvoiceAsync(InvoiceApiModel newInvoiceViewModel,
             CancellationToken ct = default)
         {
-            var invoice = new Invoice
-            {
-                CustomerId = newInvoiceViewModel.CustomerId,
-                InvoiceDate = newInvoiceViewModel.InvoiceDate,
-                BillingAddress = newInvoiceViewModel.BillingAddress,
-                BillingCity = newInvoiceViewModel.BillingCity,
-                BillingState = newInvoiceViewModel.BillingState,
-                BillingCountry = newInvoiceViewModel.BillingCountry,
-                BillingPostalCode = newInvoiceViewModel.BillingPostalCode,
-                Total = newInvoiceViewModel.Total
-            };
+            var invoice = newInvoiceViewModel.Convert;
 
             invoice = await _invoiceRepository.AddAsync(invoice, ct);
             newInvoiceViewModel.InvoiceId = invoice.InvoiceId;
