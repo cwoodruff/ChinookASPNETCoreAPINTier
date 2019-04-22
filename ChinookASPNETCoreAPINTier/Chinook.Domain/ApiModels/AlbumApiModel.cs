@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Chinook.Domain.Entities;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -11,5 +12,12 @@ namespace Chinook.Domain.ApiModels
 
         public ArtistApiModel Artist { get; set; }
         public IList<TrackApiModel> Tracks { get; set; }
+
+        public Album Convert => new Album
+        {
+            AlbumId = AlbumId,
+            ArtistId = ArtistId,
+            Title = Title
+        };
     }
 }

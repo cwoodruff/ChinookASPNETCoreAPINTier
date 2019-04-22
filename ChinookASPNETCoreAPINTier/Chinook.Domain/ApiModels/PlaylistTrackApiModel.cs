@@ -1,4 +1,6 @@
-﻿namespace Chinook.Domain.ApiModels
+﻿using Chinook.Domain.Entities;
+
+namespace Chinook.Domain.ApiModels
 {
     public class PlaylistTrackApiModel
     {
@@ -7,5 +9,11 @@
 
         public PlaylistApiModel Playlist { get; set; }
         public TrackApiModel Track { get; set; }
+
+        public PlaylistTrack Convert => new PlaylistTrack
+        {
+            PlaylistId = PlaylistId,
+            TrackId = TrackId
+        };
     }
 }
