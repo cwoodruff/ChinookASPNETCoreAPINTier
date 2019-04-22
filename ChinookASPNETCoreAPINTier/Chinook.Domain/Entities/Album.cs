@@ -21,7 +21,8 @@ namespace Chinook.Domain.Entities
         {
             AlbumId = AlbumId,
             ArtistId = ArtistId,
-            Title = Title
+            Title = Title,
+            ArtistName = this.Artist.Name
         };
     }
 }
