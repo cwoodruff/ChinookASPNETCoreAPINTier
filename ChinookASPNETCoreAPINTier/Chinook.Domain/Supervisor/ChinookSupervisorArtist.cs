@@ -27,7 +27,10 @@ namespace Chinook.Domain.Supervisor
         public async Task<ArtistApiModel> AddArtistAsync(ArtistApiModel newArtistViewModel,
             CancellationToken ct = default)
         {
-            var artist = newArtistViewModel.Convert;
+            var artist = new Artist
+            {
+                Name = newArtistViewModel.Name
+            };
 
             artist = await _artistRepository.AddAsync(artist, ct);
             newArtistViewModel.ArtistId = artist.ArtistId;

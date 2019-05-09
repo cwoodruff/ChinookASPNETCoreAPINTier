@@ -45,7 +45,13 @@ namespace Chinook.Domain.Supervisor
         public async Task<InvoiceLineApiModel> AddInvoiceLineAsync(InvoiceLineApiModel newInvoiceLineViewModel,
             CancellationToken ct = default)
         {
-            var invoiceLine = newInvoiceLineViewModel.Convert;
+            var invoiceLine = new InvoiceLine
+            {
+                InvoiceId = newInvoiceLineViewModel.InvoiceId,
+                TrackId = newInvoiceLineViewModel.TrackId,
+                UnitPrice = newInvoiceLineViewModel.UnitPrice,
+                Quantity = newInvoiceLineViewModel.Quantity
+            };
 
             invoiceLine = await _invoiceLineRepository.AddAsync(invoiceLine, ct);
             newInvoiceLineViewModel.InvoiceLineId = invoiceLine.InvoiceLineId;

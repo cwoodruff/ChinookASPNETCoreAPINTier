@@ -40,7 +40,21 @@ namespace Chinook.Domain.Supervisor
         public async Task<CustomerApiModel> AddCustomerAsync(CustomerApiModel newCustomerApiModel,
             CancellationToken ct = default)
         {
-            var customer = newCustomerApiModel.Convert;
+            var customer = new Customer
+            {
+                FirstName = newCustomerApiModel.FirstName,
+                LastName = newCustomerApiModel.LastName,
+                Company = newCustomerApiModel.Company,
+                Address = newCustomerApiModel.Address,
+                City = newCustomerApiModel.City,
+                State = newCustomerApiModel.State,
+                Country = newCustomerApiModel.Country,
+                PostalCode = newCustomerApiModel.PostalCode,
+                Phone = newCustomerApiModel.Phone,
+                Fax = newCustomerApiModel.Fax,
+                Email = newCustomerApiModel.Email,
+                SupportRepId = newCustomerApiModel.SupportRepId
+            };
 
             customer = await _customerRepository.AddAsync(customer, ct);
             newCustomerApiModel.CustomerId = customer.CustomerId;

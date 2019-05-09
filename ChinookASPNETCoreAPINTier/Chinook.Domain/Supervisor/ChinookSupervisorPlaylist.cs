@@ -29,7 +29,10 @@ namespace Chinook.Domain.Supervisor
         public async Task<PlaylistApiModel> AddPlaylistAsync(PlaylistApiModel newPlaylistViewModel,
             CancellationToken ct = default)
         {
-            var playlist = newPlaylistViewModel.Convert;
+            var playlist = new Playlist
+            {
+                Name = newPlaylistViewModel.Name
+            };
 
             playlist = await _playlistRepository.AddAsync(playlist, ct);
             newPlaylistViewModel.PlaylistId = playlist.PlaylistId;

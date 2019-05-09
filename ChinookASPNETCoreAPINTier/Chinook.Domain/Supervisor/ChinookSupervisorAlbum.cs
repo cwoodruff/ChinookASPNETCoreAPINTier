@@ -33,7 +33,11 @@ namespace Chinook.Domain.Supervisor
         public async Task<AlbumApiModel> AddAlbumAsync(AlbumApiModel newAlbumApiModel,
             CancellationToken ct = default)
         {
-            var album = newAlbumApiModel.Convert;
+            var album = new Album
+            {
+                Title = newAlbumApiModel.Title,
+                ArtistId = newAlbumApiModel.ArtistId
+            };
 
             album = await _albumRepository.AddAsync(album, ct);
             newAlbumApiModel.AlbumId = album.AlbumId;
