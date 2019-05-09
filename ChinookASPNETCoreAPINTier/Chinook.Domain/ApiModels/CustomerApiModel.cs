@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Chinook.Domain.Entities;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -22,22 +21,5 @@ namespace Chinook.Domain.ApiModels
 
         public IList<InvoiceApiModel> Invoices { get; set; }
         public EmployeeApiModel SupportRep { get; set; }
-
-        public Customer Convert => new Customer
-        {
-            CustomerId = CustomerId,
-            FirstName = FirstName,
-            LastName = LastName,
-            Company = Company,
-            Address = Address,
-            City = City,
-            State = State,
-            Country = Country,
-            PostalCode = PostalCode,
-            Phone = Phone,
-            Fax = Fax,
-            Email = Email,
-            SupportRepId = SupportRepId
-        };
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Chinook.Domain.Entities;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -9,11 +8,5 @@ namespace Chinook.Domain.ApiModels
         public string Name { get; set; }
 
         public IList<TrackApiModel> Tracks { get; set; }
-
-        public MediaType Convert => new MediaType
-        {
-            MediaTypeId = MediaTypeId,
-            Name = Name
-        };
     }
 }
