@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Chinook.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -18,5 +20,19 @@ namespace Chinook.Domain.ApiModels
 
         public IList<InvoiceLineApiModel> InvoiceLines { get; set; }
         public CustomerApiModel Customer { get; set; }
+        
+        [JsonIgnore]
+        public Invoice Convert => new Invoice
+        {
+            InvoiceId = InvoiceId,
+            CustomerId = CustomerId,
+            InvoiceDate = InvoiceDate,
+            BillingAddress = BillingAddress,
+            BillingCity = BillingCity,
+            BillingState = BillingState,
+            BillingCountry = BillingCountry,
+            BillingPostalCode = BillingPostalCode,
+            Total = Total
+        };
     }
 }

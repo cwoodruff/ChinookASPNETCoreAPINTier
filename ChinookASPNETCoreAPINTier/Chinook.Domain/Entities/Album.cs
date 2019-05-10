@@ -2,6 +2,7 @@
 using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
@@ -17,6 +18,7 @@ namespace Chinook.Domain.Entities
 
         public Artist Artist { get; set; }
 
+        [JsonIgnore]
         public AlbumApiModel Convert => new AlbumApiModel
         {
             AlbumId = AlbumId,

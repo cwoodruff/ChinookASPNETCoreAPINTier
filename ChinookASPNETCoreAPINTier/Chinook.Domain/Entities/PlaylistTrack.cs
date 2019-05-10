@@ -1,5 +1,6 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
@@ -11,6 +12,7 @@ namespace Chinook.Domain.Entities
         public Playlist Playlist { get; set; }
         public Track Track { get; set; }
 
+        [JsonIgnore]
         public PlaylistTrackApiModel Convert => new PlaylistTrackApiModel
         {
             PlaylistId = PlaylistId,

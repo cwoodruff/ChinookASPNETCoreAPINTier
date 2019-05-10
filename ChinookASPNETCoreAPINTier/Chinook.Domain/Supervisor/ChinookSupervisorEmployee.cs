@@ -43,7 +43,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<EmployeeApiModel> AddEmployeeAsync(EmployeeApiModel newEmployeeApiModel,
             CancellationToken ct = default)
         {
-            var employee = new Employee
+            /*var employee = new Employee
             {
                 LastName = newEmployeeApiModel.LastName,
                 FirstName = newEmployeeApiModel.FirstName,
@@ -59,7 +59,9 @@ namespace Chinook.Domain.Supervisor
                 Phone = newEmployeeApiModel.Phone,
                 Fax = newEmployeeApiModel.Fax,
                 Email = newEmployeeApiModel.Email
-            };
+            };*/
+
+            var employee = newEmployeeApiModel.Convert;
 
             employee = await _employeeRepository.AddAsync(employee, ct);
             newEmployeeApiModel.EmployeeId = employee.EmployeeId;

@@ -1,5 +1,6 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
@@ -14,6 +15,7 @@ namespace Chinook.Domain.Entities
         public Invoice Invoice { get; set; }
         public Track Track { get; set; }
 
+        [JsonIgnore]
         public InvoiceLineApiModel Convert => new InvoiceLineApiModel
         {
             InvoiceLineId = InvoiceLineId,

@@ -2,6 +2,7 @@
 using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
@@ -20,6 +21,7 @@ namespace Chinook.Domain.Entities
         public ICollection<InvoiceLine> InvoiceLines { get; set; } = new HashSet<InvoiceLine>();
         public Customer Customer { get; set; }
 
+        [JsonIgnore]
         public InvoiceApiModel Convert => new InvoiceApiModel
         {
             InvoiceId = InvoiceId,

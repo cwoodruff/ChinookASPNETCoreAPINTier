@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Chinook.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -8,5 +10,12 @@ namespace Chinook.Domain.ApiModels
         public string Name { get; set; }
 
         public IList<AlbumApiModel> Albums { get; set; }
+        
+        [JsonIgnore]
+        public Artist Convert => new Artist
+        {
+            ArtistId = ArtistId,
+            Name = Name
+        };
     }
 }

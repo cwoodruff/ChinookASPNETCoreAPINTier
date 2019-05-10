@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Chinook.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -22,5 +24,19 @@ namespace Chinook.Domain.ApiModels
         public AlbumApiModel Album { get; set; }
         public GenreApiModel Genre { get; set; }
         public MediaTypeApiModel MediaType { get; set; }
+        
+        [JsonIgnore]
+        public Track Convert => new Track
+        {
+            TrackId = TrackId,
+            Name = Name,
+            AlbumId = AlbumId,
+            MediaTypeId = MediaTypeId,
+            GenreId = GenreId,
+            Composer = Composer,
+            Milliseconds = Milliseconds,
+            Bytes = Bytes,
+            UnitPrice = UnitPrice
+        };
     }
 }

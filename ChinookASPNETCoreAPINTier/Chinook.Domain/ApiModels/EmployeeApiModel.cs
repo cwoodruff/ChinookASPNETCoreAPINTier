@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Chinook.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -25,5 +27,25 @@ namespace Chinook.Domain.ApiModels
         public List<CustomerApiModel> Customers { get; set; }
         public EmployeeApiModel Manager { get; set; }
         public ICollection<EmployeeApiModel> DirectReports { get; set; }
+        
+        [JsonIgnore]
+        public Employee Convert => new Employee
+        {
+            EmployeeId = EmployeeId,
+            LastName = LastName,
+            FirstName = FirstName,
+            Title = Title,
+            ReportsTo = ReportsTo,
+            BirthDate = BirthDate,
+            HireDate = HireDate,
+            Address = Address,
+            City = City,
+            State = State,
+            Country = Country,
+            PostalCode = PostalCode,
+            Phone = Phone,
+            Fax = Fax,
+            Email = Email
+        };
     }
 }

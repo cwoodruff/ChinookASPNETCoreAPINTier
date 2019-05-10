@@ -2,6 +2,7 @@
 using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
@@ -27,6 +28,7 @@ namespace Chinook.Domain.Entities
         public Employee Manager { get; set; }
         public ICollection<Employee> DirectReports { get; set; } = new HashSet<Employee>();
 
+        [JsonIgnore]
         public EmployeeApiModel Convert => new EmployeeApiModel
         {
             EmployeeId = EmployeeId,

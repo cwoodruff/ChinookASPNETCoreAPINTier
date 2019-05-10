@@ -1,6 +1,7 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
@@ -11,6 +12,7 @@ namespace Chinook.Domain.Entities
 
         public ICollection<PlaylistTrack> PlaylistTracks { get; set; } = new HashSet<PlaylistTrack>();
 
+        [JsonIgnore]
         public PlaylistApiModel Convert => new PlaylistApiModel
         {
             PlaylistId = PlaylistId,

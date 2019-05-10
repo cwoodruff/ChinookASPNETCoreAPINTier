@@ -1,6 +1,7 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
@@ -22,6 +23,7 @@ namespace Chinook.Domain.Entities
         public Genre Genre { get; set; }
         public MediaType MediaType { get; set; }
 
+        [JsonIgnore]
         public TrackApiModel Convert => new TrackApiModel
         {
             TrackId = TrackId,

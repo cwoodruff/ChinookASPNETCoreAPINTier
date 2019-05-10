@@ -29,10 +29,12 @@ namespace Chinook.Domain.Supervisor
         public async Task<MediaTypeApiModel> AddMediaTypeAsync(MediaTypeApiModel newMediaTypeApiModel,
             CancellationToken ct = default)
         {
-            var mediaType = new MediaType
+            /*var mediaType = new MediaType
             {
                 Name = newMediaTypeApiModel.Name
-            };
+            };*/
+
+            var mediaType = newMediaTypeApiModel.Convert;
 
             mediaType = await _mediaTypeRepository.AddAsync(mediaType, ct);
             newMediaTypeApiModel.MediaTypeId = mediaType.MediaTypeId;
