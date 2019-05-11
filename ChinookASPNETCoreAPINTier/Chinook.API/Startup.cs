@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Chinook.API.Configurations;
+using FluentValidation.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Chinook.API
@@ -22,7 +23,7 @@ namespace Chinook.API
         {
             services.AddMemoryCache();            
             services.AddResponseCaching();            
-            services.AddMvc();
+            services.AddMvc().AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.ConfigureRepositories()
                 .ConfigureSupervisor()

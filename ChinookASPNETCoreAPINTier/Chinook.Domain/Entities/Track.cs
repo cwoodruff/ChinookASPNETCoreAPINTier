@@ -1,12 +1,24 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Track : IConvertModel<Track, TrackApiModel>
     {
+        private readonly ILazyLoader _lazyLoader;
+
+        public Track()
+        {
+        }
+
+        public Track(ILazyLoader lazyLoader)
+        {
+            _lazyLoader = lazyLoader;
+        }
+
         public int TrackId { get; set; }
         public string Name { get; set; }
         public int AlbumId { get; set; }
