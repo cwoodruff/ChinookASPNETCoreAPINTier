@@ -2,12 +2,24 @@
 using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Employee : IConvertModel<Employee, EmployeeApiModel>
     {
+        private readonly ILazyLoader _lazyLoader;
+
+        public Employee()
+        {
+        }
+
+        public Employee(ILazyLoader lazyLoader)
+        {
+            _lazyLoader = lazyLoader;
+        }
+
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }

@@ -13,6 +13,7 @@
     <Compile Remove="Mapping\PlaylistApiModelConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.3" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
@@ -23,7 +24,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chinook.DataDapper\Chinook.DataDapper.csproj" />
     <ProjectReference Include="..\Chinook.DataEFCoreCmpldQry\Chinook.DataEFCoreCmpldQry.csproj" />
     <ProjectReference Include="..\Chinook.DataEFCore\Chinook.DataEFCore.csproj" />
     <ProjectReference Include="..\Chinook.Domain\Chinook.Domain.csproj" />
