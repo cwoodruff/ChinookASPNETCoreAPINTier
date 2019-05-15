@@ -17,7 +17,8 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private async Task<bool> InvoiceLineExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> InvoiceLineExists(int id, CancellationToken ct = default) =>
+            await _context.InvoiceLine.AnyAsync(i => i.InvoiceLineId == id, ct);
 
         public void Dispose() => _context.Dispose();
 

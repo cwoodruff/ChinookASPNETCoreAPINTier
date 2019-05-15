@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCoreCmpldQry.Repositories
 {
@@ -16,8 +17,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             _context = context;
         }
 
-        private async Task<bool> ArtistExists(int id, CancellationToken ct = default) 
-            => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> ArtistExists(int id, CancellationToken ct = default) =>
+            await _context.Artist.AnyAsync(a => a.ArtistId == id, ct);
 
         public void Dispose() => _context.Dispose();
 

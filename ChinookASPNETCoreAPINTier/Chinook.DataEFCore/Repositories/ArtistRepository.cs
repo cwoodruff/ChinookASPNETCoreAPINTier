@@ -16,7 +16,8 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private async Task<bool> ArtistExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> ArtistExists(int id, CancellationToken ct = default) =>
+            await _context.Artist.AnyAsync(a => a.ArtistId == id, ct);
 
         public void Dispose() => _context.Dispose();
 

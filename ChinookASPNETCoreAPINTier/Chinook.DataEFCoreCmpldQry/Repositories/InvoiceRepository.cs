@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCoreCmpldQry.Repositories
 {
@@ -19,8 +20,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             _context = context;
         }
 
-        private async Task<bool> InvoiceExists(int id, CancellationToken ct = default) 
-            => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> InvoiceExists(int id, CancellationToken ct = default) =>
+            await _context.Invoice.AnyAsync(i => i.InvoiceId == id, ct);
 
         public void Dispose() => _context.Dispose();
 

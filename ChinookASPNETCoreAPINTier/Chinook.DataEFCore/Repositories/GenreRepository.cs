@@ -22,7 +22,8 @@ namespace Chinook.DataEFCore.Repositories
             _cache = memoryCache;
         }
 
-        private async Task<bool> GenreExists(int id, CancellationToken ct = default) => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> GenreExists(int id, CancellationToken ct = default) =>
+            await _context.Genre.AnyAsync(g => g.GenreId == id, ct);
 
         public void Dispose() => _context.Dispose();
 
@@ -38,7 +39,6 @@ namespace Chinook.DataEFCore.Repositories
             }
             else
             {
-
                 var dbGenre = await _context.Genre.FindAsync(id);
 
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));

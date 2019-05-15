@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCoreCmpldQry.Repositories
@@ -20,8 +21,8 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
             _cache = memoryCache;
         }
 
-        private async Task<bool> GenreExists(int id, CancellationToken ct = default) 
-            => await GetByIdAsync(id, ct) != null;
+        private async Task<bool> GenreExists(int id, CancellationToken ct = default) =>
+            await _context.Genre.AnyAsync(g => g.GenreId == id, ct);
 
         public void Dispose() => _context.Dispose();
 
