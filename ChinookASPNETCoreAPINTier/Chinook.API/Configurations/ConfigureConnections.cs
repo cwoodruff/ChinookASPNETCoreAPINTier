@@ -12,7 +12,7 @@ namespace Chinook.API.Configurations
         public static IServiceCollection AddConnectionProvider(this IServiceCollection services,
             IConfiguration configuration)
         {
-            string connection = String.Empty;
+            var connection = String.Empty;
             
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
