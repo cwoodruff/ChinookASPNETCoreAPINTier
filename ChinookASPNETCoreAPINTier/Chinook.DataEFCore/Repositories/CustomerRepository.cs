@@ -5,16 +5,21 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCore.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
         private readonly ChinookContext _context;
+        
+        private IMemoryCache _cache;
 
-        public CustomerRepository(ChinookContext context)
+        public CustomerRepository(ChinookContext context, IMemoryCache memoryCache)
         {
             _context = context;
+            
+            _cache = memoryCache;
         }
 
         private async Task<bool> CustomerExists(int id, CancellationToken ct = default) =>

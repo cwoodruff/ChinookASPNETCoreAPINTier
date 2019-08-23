@@ -1,20 +1,26 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCore.Repositories
 {
     public class AlbumRepository : IAlbumRepository
     {
         private readonly ChinookContext _context;
+        
+        private IMemoryCache _cache;
 
-        public AlbumRepository(ChinookContext context)
+        public AlbumRepository(ChinookContext context, IMemoryCache memoryCache)
         {
             _context = context;
+            
+            _cache = memoryCache;
         }
 
         private async Task<bool> AlbumExists(int id, CancellationToken ct = default) =>
@@ -24,7 +30,24 @@ namespace Chinook.DataEFCore.Repositories
 
         public async Task<List<Album>> GetAllAsync(CancellationToken ct = default) => await _context.Album.ToListAsync(ct);
 
-        public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default) => await _context.Album.FindAsync(id);
+        public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default)
+        {
+            var cachedAlbum = _cache.Get<Album>(id);
+
+            if (cachedAlbum != null)
+            {
+                return cachedAlbum;
+            }
+            else
+            {
+                var dbAlbum = await _context.Album.FindAsync(id);
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(dbAlbum.AlbumId, dbAlbum, cacheEntryOptions);
+
+                return dbAlbum;
+            }
+        }
 
         public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default)
         {
