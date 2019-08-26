@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
 using Chinook.Domain.ApiModels;
-using Chinook.Domain.Converters;
-using Chinook.Domain.Entities;
 using System.Linq;
+using Chinook.Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
 {
@@ -14,24 +15,41 @@ namespace Chinook.Domain.Supervisor
         public async Task<IEnumerable<GenreApiModel>> GetAllGenreAsync(CancellationToken ct = default)
         {
             var genres = await _genreRepository.GetAllAsync(ct);
+
+            foreach (var genre in genres)
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(genre.GenreId, genre, cacheEntryOptions);
+            }
+            
             return genres.ConvertAll();
         }
 
         public async Task<GenreApiModel> GetGenreByIdAsync(int id, CancellationToken ct = default)
         {
-            var genreApiModel = (await _genreRepository.GetByIdAsync(id, ct)).Convert;
-            genreApiModel.Tracks = (await GetTrackByGenreIdAsync(genreApiModel.GenreId, ct)).ToList();
-            return genreApiModel;
+            var genre = _cache.Get<Genre>(id);
+
+            if (genre != null)
+            {
+                var genreApiModel = genre.Convert;
+                genreApiModel.Tracks = (await GetTrackByGenreIdAsync(genreApiModel.GenreId, ct)).ToList();
+                return genreApiModel;
+            }
+            else
+            {
+                var genreApiModel = (await _genreRepository.GetByIdAsync(id, ct)).Convert;
+                genreApiModel.Tracks = (await GetTrackByGenreIdAsync(genreApiModel.GenreId, ct)).ToList();
+                
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(genreApiModel.GenreId, genreApiModel, cacheEntryOptions);
+                
+                return genreApiModel;
+            }
         }
 
         public async Task<GenreApiModel> AddGenreAsync(GenreApiModel newGenreApiModel,
             CancellationToken ct = default)
         {
-            /*var genre = new Genre
-            {
-                Name = newGenreApiModel.Name
-            };*/
-
             var genre = newGenreApiModel.Convert;
 
             genre = await _genreRepository.AddAsync(genre, ct);

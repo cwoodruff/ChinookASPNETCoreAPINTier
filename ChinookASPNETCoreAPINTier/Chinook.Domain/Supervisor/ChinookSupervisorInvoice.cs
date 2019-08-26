@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
 using Chinook.Domain.ApiModels;
-using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
 {
@@ -14,18 +15,42 @@ namespace Chinook.Domain.Supervisor
         public async Task<IEnumerable<InvoiceApiModel>> GetAllInvoiceAsync(CancellationToken ct = default)
         {
             var invoices = await _invoiceRepository.GetAllAsync(ct);
+            foreach (var invoice in invoices)
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(invoice.InvoiceId, invoice, cacheEntryOptions);
+            }
             return invoices.ConvertAll();
         }
         
         public async Task<InvoiceApiModel> GetInvoiceByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var invoiceViewModel = (await _invoiceRepository.GetByIdAsync(id, ct)).Convert;
-            invoiceViewModel.Customer = await GetCustomerByIdAsync(invoiceViewModel.CustomerId, ct);
-            invoiceViewModel.InvoiceLines = (await GetInvoiceLineByInvoiceIdAsync(invoiceViewModel.InvoiceId, ct)).ToList();
-            invoiceViewModel.CustomerName =
-                $"{invoiceViewModel.Customer.LastName}, {invoiceViewModel.Customer.FirstName}";
-            return invoiceViewModel;
+            var invoice = _cache.Get<Invoice>(id);
+
+            if (invoice != null)
+            {
+                var invoiceApiModel = invoice.Convert;
+                invoiceApiModel.Customer = await GetCustomerByIdAsync(invoiceApiModel.CustomerId, ct);
+                invoiceApiModel.InvoiceLines = (await GetInvoiceLineByInvoiceIdAsync(invoiceApiModel.InvoiceId, ct)).ToList();
+                invoiceApiModel.CustomerName =
+                    $"{invoiceApiModel.Customer.LastName}, {invoiceApiModel.Customer.FirstName}";
+                return invoiceApiModel;
+            }
+            else
+            {
+                var invoiceApiModel = (await _invoiceRepository.GetByIdAsync(id, ct)).Convert;
+                invoiceApiModel.Customer = await GetCustomerByIdAsync(invoiceApiModel.CustomerId, ct);
+                invoiceApiModel.InvoiceLines = (await GetInvoiceLineByInvoiceIdAsync(invoiceApiModel.InvoiceId, ct)).ToList();
+                invoiceApiModel.CustomerName =
+                    $"{invoiceApiModel.Customer.LastName}, {invoiceApiModel.Customer.FirstName}";
+
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(invoiceApiModel.InvoiceId, invoiceApiModel, cacheEntryOptions);
+
+                return invoiceApiModel;
+            }
         }
 
         public async Task<IEnumerable<InvoiceApiModel>> GetInvoiceByCustomerIdAsync(int id,
@@ -35,43 +60,43 @@ namespace Chinook.Domain.Supervisor
             return invoices.ConvertAll();
         }
 
-        public async Task<InvoiceApiModel> AddInvoiceAsync(InvoiceApiModel newInvoiceViewModel,
+        public async Task<InvoiceApiModel> AddInvoiceAsync(InvoiceApiModel newInvoiceApiModel,
             CancellationToken ct = default)
         {
             /*var invoice = new Invoice
             {
-                CustomerId = newInvoiceViewModel.CustomerId,
-                InvoiceDate = newInvoiceViewModel.InvoiceDate,
-                BillingAddress = newInvoiceViewModel.BillingAddress,
-                BillingCity = newInvoiceViewModel.BillingCity,
-                BillingState = newInvoiceViewModel.BillingState,
-                BillingCountry = newInvoiceViewModel.BillingCountry,
-                BillingPostalCode = newInvoiceViewModel.BillingPostalCode,
-                Total = newInvoiceViewModel.Total
+                CustomerId = newInvoiceApiModel.CustomerId,
+                InvoiceDate = newInvoiceApiModel.InvoiceDate,
+                BillingAddress = newInvoiceApiModel.BillingAddress,
+                BillingCity = newInvoiceApiModel.BillingCity,
+                BillingState = newInvoiceApiModel.BillingState,
+                BillingCountry = newInvoiceApiModel.BillingCountry,
+                BillingPostalCode = newInvoiceApiModel.BillingPostalCode,
+                Total = newInvoiceApiModel.Total
             };*/
 
-            var invoice = newInvoiceViewModel.Convert;
+            var invoice = newInvoiceApiModel.Convert;
 
             invoice = await _invoiceRepository.AddAsync(invoice, ct);
-            newInvoiceViewModel.InvoiceId = invoice.InvoiceId;
-            return newInvoiceViewModel;
+            newInvoiceApiModel.InvoiceId = invoice.InvoiceId;
+            return newInvoiceApiModel;
         }
 
-        public async Task<bool> UpdateInvoiceAsync(InvoiceApiModel invoiceViewModel,
+        public async Task<bool> UpdateInvoiceAsync(InvoiceApiModel invoiceApiModel,
             CancellationToken ct = default)
         {
-            var invoice = await _invoiceRepository.GetByIdAsync(invoiceViewModel.InvoiceId, ct);
+            var invoice = await _invoiceRepository.GetByIdAsync(invoiceApiModel.InvoiceId, ct);
 
             if (invoice == null) return false;
-            invoice.InvoiceId = invoiceViewModel.InvoiceId;
-            invoice.CustomerId = invoiceViewModel.CustomerId;
-            invoice.InvoiceDate = invoiceViewModel.InvoiceDate;
-            invoice.BillingAddress = invoiceViewModel.BillingAddress;
-            invoice.BillingCity = invoiceViewModel.BillingCity;
-            invoice.BillingState = invoiceViewModel.BillingState;
-            invoice.BillingCountry = invoiceViewModel.BillingCountry;
-            invoice.BillingPostalCode = invoiceViewModel.BillingPostalCode;
-            invoice.Total = invoiceViewModel.Total;
+            invoice.InvoiceId = invoiceApiModel.InvoiceId;
+            invoice.CustomerId = invoiceApiModel.CustomerId;
+            invoice.InvoiceDate = invoiceApiModel.InvoiceDate;
+            invoice.BillingAddress = invoiceApiModel.BillingAddress;
+            invoice.BillingCity = invoiceApiModel.BillingCity;
+            invoice.BillingState = invoiceApiModel.BillingState;
+            invoice.BillingCountry = invoiceApiModel.BillingCountry;
+            invoice.BillingPostalCode = invoiceApiModel.BillingPostalCode;
+            invoice.Total = invoiceApiModel.Total;
 
             return await _invoiceRepository.UpdateAsync(invoice, ct);
         }

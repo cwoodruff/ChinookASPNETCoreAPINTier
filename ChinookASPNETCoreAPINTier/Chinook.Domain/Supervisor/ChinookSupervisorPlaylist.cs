@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
 using Chinook.Domain.ApiModels;
-using Chinook.Domain.Converters;
-using Chinook.Domain.Entities;
 using System.Linq;
+using Chinook.Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
 {
@@ -15,40 +16,61 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default)
         {
             var playlists = await _playlistRepository.GetAllAsync(ct);
+            foreach (var playlist in playlists)
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(playlist.PlaylistId, playlist, cacheEntryOptions);
+            }
             return playlists.ConvertAll();
         }
 
         public async Task<PlaylistApiModel> GetPlaylistByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var playlistViewModel = (await _playlistRepository.GetByIdAsync(id, ct)).Convert;
-            playlistViewModel.Tracks = (await GetTrackByPlaylistIdIdAsync(playlistViewModel.PlaylistId, ct)).ToList();
-            return playlistViewModel;
+            var playlist = _cache.Get<Playlist>(id);
+
+            if (playlist != null)
+            {
+                var playlistApiModel = playlist.Convert;
+                playlistApiModel.Tracks = (await GetTrackByPlaylistIdIdAsync(playlistApiModel.PlaylistId, ct)).ToList();
+                return playlistApiModel;
+            }
+            else
+            {
+                var playlistApiModel = (await _playlistRepository.GetByIdAsync(id, ct)).Convert;
+                playlistApiModel.Tracks = (await GetTrackByPlaylistIdIdAsync(playlistApiModel.PlaylistId, ct)).ToList();
+
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(playlistApiModel.PlaylistId, playlistApiModel, cacheEntryOptions);
+
+                return playlistApiModel;
+            }
         }
 
-        public async Task<PlaylistApiModel> AddPlaylistAsync(PlaylistApiModel newPlaylistViewModel,
+        public async Task<PlaylistApiModel> AddPlaylistAsync(PlaylistApiModel newPlaylistApiModel,
             CancellationToken ct = default)
         {
             /*var playlist = new Playlist
             {
-                Name = newPlaylistViewModel.Name
+                Name = newPlaylistApiModel.Name
             };*/
 
-            var playlist = newPlaylistViewModel.Convert;
+            var playlist = newPlaylistApiModel.Convert;
 
             playlist = await _playlistRepository.AddAsync(playlist, ct);
-            newPlaylistViewModel.PlaylistId = playlist.PlaylistId;
-            return newPlaylistViewModel;
+            newPlaylistApiModel.PlaylistId = playlist.PlaylistId;
+            return newPlaylistApiModel;
         }
 
-        public async Task<bool> UpdatePlaylistAsync(PlaylistApiModel playlistViewModel,
+        public async Task<bool> UpdatePlaylistAsync(PlaylistApiModel playlistApiModel,
             CancellationToken ct = default)
         {
-            var playlist = await _playlistRepository.GetByIdAsync(playlistViewModel.PlaylistId, ct);
+            var playlist = await _playlistRepository.GetByIdAsync(playlistApiModel.PlaylistId, ct);
 
             if (playlist == null) return false;
-            playlist.PlaylistId = playlistViewModel.PlaylistId;
-            playlist.Name = playlistViewModel.Name;
+            playlist.PlaylistId = playlistApiModel.PlaylistId;
+            playlist.Name = playlistApiModel.Name;
 
             return await _playlistRepository.UpdateAsync(playlist, ct);
         }

@@ -4,21 +4,16 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCore.Repositories
 {
     public class MediaTypeRepository : IMediaTypeRepository
     {
         private readonly ChinookContext _context;
-        
-        private IMemoryCache _cache;
 
-        public MediaTypeRepository(ChinookContext context, IMemoryCache memoryCache)
+        public MediaTypeRepository(ChinookContext context)
         {
             _context = context;
-            
-            _cache = memoryCache;
         }
 
         private async Task<bool> MediaTypeExists(int id, CancellationToken ct = default) =>

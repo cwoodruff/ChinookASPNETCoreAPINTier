@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -18,14 +17,10 @@ namespace Chinook.DataEFCore.Repositories
         /// The _context.
         /// </summary>
         private readonly ChinookContext _context;
-        
-        private IMemoryCache _cache;
 
-        public InvoiceRepository(ChinookContext context, IMemoryCache memoryCache)
+        public InvoiceRepository(ChinookContext context)
         {
             _context = context;
-            
-            _cache = memoryCache;
         }
 
         private async Task<bool> InvoiceExists(int id, CancellationToken ct = default) =>

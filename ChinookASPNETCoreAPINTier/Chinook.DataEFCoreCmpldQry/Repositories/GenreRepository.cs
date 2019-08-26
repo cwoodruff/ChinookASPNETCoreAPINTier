@@ -1,24 +1,20 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCoreCmpldQry.Repositories
 {
     public class GenreRepository : IGenreRepository
     {
         private readonly ChinookContext _context;
-        private readonly IMemoryCache _cache;
 
-        public GenreRepository(ChinookContext context, IMemoryCache memoryCache)
+        public GenreRepository(ChinookContext context)
         {
-            _context = context;            
-            _cache = memoryCache;
+            _context = context;
         }
 
         private async Task<bool> GenreExists(int id, CancellationToken ct = default) =>
@@ -29,14 +25,11 @@ namespace Chinook.DataEFCoreCmpldQry.Repositories
         public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) 
             => await _context.GetAllGenresAsync();
 
-        public Task<Genre> GetByIdAsync(int id, CancellationToken ct = default) 
-            => _cache.GetOrCreateAsync<Genre>(id,
-                async entry =>
-                {
-                    entry.SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                    var genres = await _context.GetGenreAsync(id);
-                    return genres.FirstOrDefault();
-                });
+        public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default)
+        {
+            var genres = await _context.GetGenreAsync(id);
+            return genres.FirstOrDefault();
+        }
 
         public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default)
         {

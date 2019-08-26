@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Chinook.API.Configurations;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Chinook.API
@@ -22,8 +23,10 @@ namespace Chinook.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();            
-            services.AddResponseCaching();            
-            services.AddMvc().AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddResponseCaching();
+            services.AddMvc()
+                .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.ConfigureRepositories()
                 .ConfigureSupervisor()
@@ -46,9 +49,15 @@ namespace Chinook.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
             app.UseCors("AllowAll");
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
             app.UseMvc(
                 routes => routes.MapRoute(
                     "default",

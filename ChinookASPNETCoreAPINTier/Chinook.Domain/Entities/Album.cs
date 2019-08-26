@@ -1,6 +1,5 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
-using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json;

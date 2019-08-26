@@ -12,6 +12,7 @@ using Chinook.Domain.ApiModels;
 namespace Chinook.API.Controllers
 {
     [Route("api/[controller]")]
+    [ResponseCache(Duration = 604800)]
     public class GenreController : Controller
     {
         private readonly IChinookSupervisor _chinookSupervisor;

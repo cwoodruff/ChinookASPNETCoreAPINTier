@@ -5,21 +5,16 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCore.Repositories
 {
     public class TrackRepository : ITrackRepository
     {
         private readonly ChinookContext _context;
-        
-        private IMemoryCache _cache;
 
-        public TrackRepository(ChinookContext context, IMemoryCache memoryCache)
+        public TrackRepository(ChinookContext context)
         {
             _context = context;
-            
-            _cache = memoryCache;
         }
 
         private async Task<bool> TrackExists(int id, CancellationToken ct = default) =>

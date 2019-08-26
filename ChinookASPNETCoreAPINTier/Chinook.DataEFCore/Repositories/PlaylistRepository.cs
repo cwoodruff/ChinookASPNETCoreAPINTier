@@ -5,21 +5,16 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.DataEFCore.Repositories
 {
     public class PlaylistRepository : IPlaylistRepository
     {
         private readonly ChinookContext _context;
-        
-        private IMemoryCache _cache;
 
-        public PlaylistRepository(ChinookContext context, IMemoryCache memoryCache)
+        public PlaylistRepository(ChinookContext context)
         {
             _context = context;
-            
-            _cache = memoryCache;
         }
 
         private async Task<bool> PlaylistExists(int id, CancellationToken ct = default) =>

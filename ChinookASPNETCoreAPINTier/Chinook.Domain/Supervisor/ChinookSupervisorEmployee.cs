@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
 using Chinook.Domain.ApiModels;
-using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
 {
@@ -15,22 +16,52 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default)
         {
             var employees = await _employeeRepository.GetAllAsync(ct);
+            foreach (var employee in employees)
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(employee.EmployeeId, employee, cacheEntryOptions);
+            }
             return employees.ConvertAll();
         }
 
         public async Task<EmployeeApiModel> GetEmployeeByIdAsync(int id,
             CancellationToken ct = default)
         {
-            var employeeApiModel = (await _employeeRepository.GetByIdAsync(id, ct)).Convert;
-            employeeApiModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeApiModel.EmployeeId, ct)).ToList();
-            employeeApiModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeApiModel.EmployeeId, ct)).ToList();
-            employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
-                ? await GetEmployeeReportsToAsync(employeeApiModel.ReportsTo.GetValueOrDefault(), ct)
-                : null;
-            employeeApiModel.ReportsToName = employeeApiModel.ReportsTo.HasValue
-                ? $"{employeeApiModel.Manager.LastName}, {employeeApiModel.Manager.FirstName}"
-                : string.Empty;
-            return employeeApiModel;
+            var employee = _cache.Get<Employee>(id);
+
+            if (employee != null)
+            {
+                var employeeApiModel = employee.Convert;
+                employeeApiModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeApiModel.EmployeeId, ct)).ToList();
+                employeeApiModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeApiModel.EmployeeId, ct)).ToList();
+                employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
+                    ? await GetEmployeeReportsToAsync(employeeApiModel.ReportsTo.GetValueOrDefault(), ct)
+                    : null;
+                if (employeeApiModel.Manager != null)
+                    employeeApiModel.ReportsToName = employeeApiModel.ReportsTo.HasValue
+                        ? $"{employeeApiModel.Manager.LastName}, {employeeApiModel.Manager.FirstName}"
+                        : string.Empty;
+                return employeeApiModel;
+            }
+            else
+            {
+                var employeeApiModel = (await _employeeRepository.GetByIdAsync(id, ct)).Convert;
+                employeeApiModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeApiModel.EmployeeId, ct)).ToList();
+                employeeApiModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeApiModel.EmployeeId, ct)).ToList();
+                employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
+                    ? await GetEmployeeReportsToAsync(employeeApiModel.ReportsTo.GetValueOrDefault(), ct)
+                    : null;
+                if (employeeApiModel.Manager != null)
+                    employeeApiModel.ReportsToName = employeeApiModel.ReportsTo.HasValue
+                        ? $"{employeeApiModel.Manager.LastName}, {employeeApiModel.Manager.FirstName}"
+                        : string.Empty;
+
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(employeeApiModel.EmployeeId, employeeApiModel, cacheEntryOptions);
+
+                return employeeApiModel;
+            }
         }
 
         public async Task<EmployeeApiModel> GetEmployeeReportsToAsync(int id,

@@ -1,4 +1,5 @@
 ﻿using Chinook.Domain.Repositories;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
 {
@@ -14,6 +15,7 @@ namespace Chinook.Domain.Supervisor
         private readonly IMediaTypeRepository _mediaTypeRepository;
         private readonly IPlaylistRepository _playlistRepository;
         private readonly ITrackRepository _trackRepository;
+        private readonly IMemoryCache _cache;
 
         public ChinookSupervisor()
         {
@@ -28,7 +30,8 @@ namespace Chinook.Domain.Supervisor
             IInvoiceRepository invoiceRepository,
             IMediaTypeRepository mediaTypeRepository,
             IPlaylistRepository playlistRepository,
-            ITrackRepository trackRepository
+            ITrackRepository trackRepository,
+            IMemoryCache memoryCache
         )
         {
             _albumRepository = albumRepository;
@@ -41,6 +44,7 @@ namespace Chinook.Domain.Supervisor
             _mediaTypeRepository = mediaTypeRepository;
             _playlistRepository = playlistRepository;
             _trackRepository = trackRepository;
+            _cache = memoryCache;
         }
     }
 }

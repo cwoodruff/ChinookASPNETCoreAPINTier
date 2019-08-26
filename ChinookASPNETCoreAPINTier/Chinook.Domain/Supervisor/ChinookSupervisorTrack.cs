@@ -1,11 +1,11 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.Domain.Extensions;
 using Chinook.Domain.ApiModels;
-using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
 {
@@ -14,19 +14,45 @@ namespace Chinook.Domain.Supervisor
         public async Task<IEnumerable<TrackApiModel>> GetAllTrackAsync(CancellationToken ct = default)
         {
             var tracks = await _trackRepository.GetAllAsync(ct);
+            foreach (var track in tracks)
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(track.TrackId, track, cacheEntryOptions);
+            }
             return tracks.ConvertAll();
         }
 
         public async Task<TrackApiModel> GetTrackByIdAsync(int id, CancellationToken ct = default)
         {
-            var trackViewModel = (await _trackRepository.GetByIdAsync(id, ct)).Convert;
-            trackViewModel.Genre = await GetGenreByIdAsync(trackViewModel.GenreId.GetValueOrDefault(), ct);
-            trackViewModel.Album = await GetAlbumByIdAsync(trackViewModel.AlbumId, ct);
-            trackViewModel.MediaType = await GetMediaTypeByIdAsync(trackViewModel.MediaTypeId, ct);
-            trackViewModel.AlbumName = trackViewModel.Album.Title;
-            trackViewModel.MediaTypeName = trackViewModel.MediaType.Name;
-            trackViewModel.GenreName = trackViewModel.Genre.Name;
-            return trackViewModel;
+            var track = _cache.Get<Track>(id);
+
+            if (track != null)
+            {
+                var trackApiModel = track.Convert;
+                trackApiModel.Genre = await GetGenreByIdAsync(trackApiModel.GenreId.GetValueOrDefault(), ct);
+                trackApiModel.Album = await GetAlbumByIdAsync(trackApiModel.TrackId, ct);
+                trackApiModel.MediaType = await GetMediaTypeByIdAsync(trackApiModel.MediaTypeId, ct);
+                trackApiModel.AlbumName = trackApiModel.Album.Title;
+                trackApiModel.MediaTypeName = trackApiModel.MediaType.Name;
+                trackApiModel.GenreName = trackApiModel.Genre.Name;
+                return trackApiModel;
+            }
+            else
+            {
+                var trackApiModel = (await _trackRepository.GetByIdAsync(id, ct)).Convert;
+                trackApiModel.Genre = await GetGenreByIdAsync(trackApiModel.GenreId.GetValueOrDefault(), ct);
+                trackApiModel.Album = await GetAlbumByIdAsync(trackApiModel.TrackId, ct);
+                trackApiModel.MediaType = await GetMediaTypeByIdAsync(trackApiModel.MediaTypeId, ct);
+                trackApiModel.AlbumName = trackApiModel.Album.Title;
+                trackApiModel.MediaTypeName = trackApiModel.MediaType.Name;
+                trackApiModel.GenreName = trackApiModel.Genre.Name;
+
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(trackApiModel.TrackId, trackApiModel, cacheEntryOptions);
+
+                return trackApiModel;
+            }
         }
 
         public async Task<IEnumerable<TrackApiModel>> GetTrackByAlbumIdAsync(int id,
@@ -57,44 +83,44 @@ namespace Chinook.Domain.Supervisor
             return tracks.ConvertAll();
         }
 
-        public async Task<TrackApiModel> AddTrackAsync(TrackApiModel newTrackViewModel,
+        public async Task<TrackApiModel> AddTrackAsync(TrackApiModel newTrackApiModel,
             CancellationToken ct = default)
         {
             /*var track = new Track
             {
-                TrackId = newTrackViewModel.TrackId,
-                Name = newTrackViewModel.Name,
-                AlbumId = newTrackViewModel.AlbumId,
-                MediaTypeId = newTrackViewModel.MediaTypeId,
-                GenreId = newTrackViewModel.GenreId,
-                Composer = newTrackViewModel.Composer,
-                Milliseconds = newTrackViewModel.Milliseconds,
-                Bytes = newTrackViewModel.Bytes,
-                UnitPrice = newTrackViewModel.UnitPrice
+                TrackId = newTrackApiModel.TrackId,
+                Name = newTrackApiModel.Name,
+                AlbumId = newTrackApiModel.AlbumId,
+                MediaTypeId = newTrackApiModel.MediaTypeId,
+                GenreId = newTrackApiModel.GenreId,
+                Composer = newTrackApiModel.Composer,
+                Milliseconds = newTrackApiModel.Milliseconds,
+                Bytes = newTrackApiModel.Bytes,
+                UnitPrice = newTrackApiModel.UnitPrice
             };*/
 
-            var track = newTrackViewModel.Convert;
+            var track = newTrackApiModel.Convert;
 
             await _trackRepository.AddAsync(track, ct);
-            newTrackViewModel.TrackId = track.TrackId;
-            return newTrackViewModel;
+            newTrackApiModel.TrackId = track.TrackId;
+            return newTrackApiModel;
         }
 
-        public async Task<bool> UpdateTrackAsync(TrackApiModel trackViewModel,
+        public async Task<bool> UpdateTrackAsync(TrackApiModel trackApiModel,
             CancellationToken ct = default)
         {
-            var track = await _trackRepository.GetByIdAsync(trackViewModel.TrackId, ct);
+            var track = await _trackRepository.GetByIdAsync(trackApiModel.TrackId, ct);
 
             if (track == null) return false;
-            track.TrackId = trackViewModel.TrackId;
-            track.Name = trackViewModel.Name;
-            track.AlbumId = trackViewModel.AlbumId;
-            track.MediaTypeId = trackViewModel.MediaTypeId;
-            track.GenreId = trackViewModel.GenreId;
-            track.Composer = trackViewModel.Composer;
-            track.Milliseconds = trackViewModel.Milliseconds;
-            track.Bytes = trackViewModel.Bytes;
-            track.UnitPrice = trackViewModel.UnitPrice;
+            track.TrackId = trackApiModel.TrackId;
+            track.Name = trackApiModel.Name;
+            track.AlbumId = trackApiModel.AlbumId;
+            track.MediaTypeId = trackApiModel.MediaTypeId;
+            track.GenreId = trackApiModel.GenreId;
+            track.Composer = trackApiModel.Composer;
+            track.Milliseconds = trackApiModel.Milliseconds;
+            track.Bytes = trackApiModel.Bytes;
+            track.UnitPrice = trackApiModel.UnitPrice;
 
             return await _trackRepository.UpdateAsync(track, ct);
         }
