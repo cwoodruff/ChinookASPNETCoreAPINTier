@@ -1,13 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.ApiModels
 {
-    public class CustomerApiModel
+    public class CustomerApiModel : IConvertModel<CustomerApiModel, Customer>
     {
+
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
         public string Company { get; set; }
         public string Address { get; set; }
@@ -21,9 +29,14 @@ namespace Chinook.Domain.ApiModels
         public int? SupportRepId { get; set; }
         public string SupportRepName { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public IList<InvoiceApiModel> Invoices { get; set; }
+        [NotMapped]
+        [JsonIgnore]
         public EmployeeApiModel SupportRep { get; set; }
         
+        [NotMapped]
         [JsonIgnore]
         public Customer Convert => new Customer
         {

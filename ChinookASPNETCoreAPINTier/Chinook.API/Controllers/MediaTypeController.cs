@@ -8,11 +8,14 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
+using Microsoft.AspNetCore.Cors;
 
 namespace Chinook.API.Controllers
 {
     [Route("api/[controller]")]
     [ResponseCache(Duration = 604800)] // cache for a week
+    [EnableCors("CorsPolicy")]
+    [ApiController]
     public class MediaTypeController : Controller
     {
         private readonly IChinookSupervisor _chinookSupervisor;
@@ -58,7 +61,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(MediaTypeApiModel))]
         public async Task<ActionResult<MediaTypeApiModel>> Post([FromBody] MediaTypeApiModel input,
             CancellationToken ct = default)
         {
@@ -76,7 +78,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(MediaTypeApiModel))]
         public async Task<ActionResult<MediaTypeApiModel>> Put(int id, [FromBody] MediaTypeApiModel input,
             CancellationToken ct = default)
         {
@@ -108,7 +109,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Produces(typeof(void))]
         public async Task<ActionResult> Delete(int id, CancellationToken ct = default)
         {
             try

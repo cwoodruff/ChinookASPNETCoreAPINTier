@@ -1,29 +1,24 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Playlist : IConvertModel<Playlist, PlaylistApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
-
-        public Playlist()
-        {
-        }
-
-        public Playlist(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int PlaylistId { get; set; }
         public string Name { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<PlaylistTrack> PlaylistTracks { get; set; } = new HashSet<PlaylistTrack>();
 
+        [NotMapped]
         [JsonIgnore]
         public PlaylistApiModel Convert => new PlaylistApiModel
         {

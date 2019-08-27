@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.ApiModels
 {
-    public class EmployeeApiModel
+    public class EmployeeApiModel : IConvertModel<EmployeeApiModel, Employee>
     {
+
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int EmployeeId { get; set; }
+
         public string LastName { get; set; }
+
         public string FirstName { get; set; }
         public string Title { get; set; }
         public int? ReportsTo { get; set; }
@@ -24,10 +32,17 @@ namespace Chinook.Domain.ApiModels
         public string Fax { get; set; }
         public string Email { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public List<CustomerApiModel> Customers { get; set; }
+        [NotMapped]
+        [JsonIgnore]
         public EmployeeApiModel Manager { get; set; }
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<EmployeeApiModel> DirectReports { get; set; }
         
+        [NotMapped]
         [JsonIgnore]
         public Employee Convert => new Employee
         {

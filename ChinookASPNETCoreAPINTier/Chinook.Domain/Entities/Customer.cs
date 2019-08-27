@@ -1,26 +1,21 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Customer : IConvertModel<Customer, CustomerApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
 
-        public Customer()
-        {
-        }
-
-        public Customer(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
         public string Company { get; set; }
         public string Address { get; set; }
@@ -33,9 +28,14 @@ namespace Chinook.Domain.Entities
         public string Email { get; set; }
         public int? SupportRepId { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<Invoice> Invoices { get; set; } = new HashSet<Invoice>();
+        [NotMapped]
+        [JsonIgnore]
         public Employee SupportRep { get; set; }
 
+        [NotMapped]
         [JsonIgnore]
         public CustomerApiModel Convert => new CustomerApiModel
         {

@@ -2,43 +2,44 @@
 using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Invoice : IConvertModel<Invoice, InvoiceApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
         private Customer _customer;
-
-        public Invoice()
-        {
-        }
-
-        public Invoice(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int InvoiceId { get; set; }
+
         public int CustomerId { get; set; }
+
         public DateTime InvoiceDate { get; set; }
         public string BillingAddress { get; set; }
         public string BillingCity { get; set; }
         public string BillingState { get; set; }
         public string BillingCountry { get; set; }
         public string BillingPostalCode { get; set; }
+
         public decimal Total { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<InvoiceLine> InvoiceLines { get; set; } = new HashSet<InvoiceLine>();
 
+        [NotMapped]
+        [JsonIgnore]
         public Customer Customer
         {
-            get => _lazyLoader.Load(this, ref _customer);
+            get => _customer;
             set => _customer = value;
         }
 
+        [NotMapped]
         [JsonIgnore]
         public InvoiceApiModel Convert => new InvoiceApiModel
         {
@@ -51,7 +52,7 @@ namespace Chinook.Domain.Entities
             BillingCountry = BillingCountry,
             BillingPostalCode = BillingPostalCode,
             Total = Total,
-            CustomerName = Customer.FirstName + " " + Customer.LastName
+            CustomerName = $"{Customer.FirstName} {Customer.LastName}"
         };
     }
 }

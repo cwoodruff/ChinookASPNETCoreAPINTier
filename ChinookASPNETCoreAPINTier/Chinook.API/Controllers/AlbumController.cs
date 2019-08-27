@@ -8,10 +8,13 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
+using Microsoft.AspNetCore.Cors;
 
 namespace Chinook.API.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
+    [ApiController]
     public class AlbumController : Controller
     {
         private readonly IChinookSupervisor _chinookSupervisor;
@@ -76,7 +79,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(AlbumApiModel))]
         public async Task<ActionResult<AlbumApiModel>> Post([FromBody] AlbumApiModel input,
             CancellationToken ct = default)
         {
@@ -94,7 +96,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(AlbumApiModel))]
         public async Task<ActionResult<AlbumApiModel>> Put(int id, [FromBody] AlbumApiModel input,
             CancellationToken ct = default)
         {
@@ -126,7 +127,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Produces(typeof(void))]
         public async Task<ActionResult> DeleteAsync(int id, CancellationToken ct = default)
         {
             try

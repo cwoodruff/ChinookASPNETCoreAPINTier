@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Chinook.API.Configurations;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -22,10 +21,12 @@ namespace Chinook.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMemoryCache();            
-            services.AddResponseCaching();
+            services.Configure<MvcOptions>(options =>
+            {
+                options.MaxValidationDepth = 2;
+            });
+            
             services.AddMvc()
-                .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.ConfigureRepositories()
@@ -33,7 +34,9 @@ namespace Chinook.API
                 .AddMiddleware()
                 .AddCorsConfiguration()
                 .AddConnectionProvider(Configuration)
-                .AddAppSettings(Configuration);
+                .AddAppSettings(Configuration)
+                .AddCaching()
+                .AddCORS();
 
             services.AddSwaggerGen(s => s.SwaggerDoc("v1", new Info
             {
@@ -55,7 +58,7 @@ namespace Chinook.API
                 app.UseHsts();
             }
 
-            app.UseCors("AllowAll");
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc(

@@ -1,46 +1,45 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public sealed class Album : IConvertModel<Album, AlbumApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
         private Artist _artist;
 
-        public Album()
-        {
-        }
 
-        public Album(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
+
 
         public string Title { get; set; }
 
         public int ArtistId { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<Track> Tracks { get; set; } = new HashSet<Track>();
 
+        [NotMapped]
+        [JsonIgnore]
         public Artist Artist
         {
-            get => _lazyLoader.Load(this, ref _artist);
+            get => _artist;
             set => _artist = value;
         }
 
+        [NotMapped]
         [JsonIgnore]
         public AlbumApiModel Convert => new AlbumApiModel
         {
             AlbumId = AlbumId,
             ArtistId = ArtistId,
-            Title = Title,
-            ArtistName = Artist.Name
+            Title = Title
         };
     }
 }

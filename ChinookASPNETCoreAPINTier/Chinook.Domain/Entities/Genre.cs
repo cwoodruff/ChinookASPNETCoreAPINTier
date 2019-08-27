@@ -1,29 +1,26 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Genre : IConvertModel<Genre, GenreApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
 
-        public Genre()
-        {
-        }
-
-        public Genre(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int GenreId { get; set; }
+
         public string Name { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<Track> Tracks { get; set; } = new HashSet<Track>();
 
+        [NotMapped]
         [JsonIgnore]
         public GenreApiModel Convert => new GenreApiModel
         {

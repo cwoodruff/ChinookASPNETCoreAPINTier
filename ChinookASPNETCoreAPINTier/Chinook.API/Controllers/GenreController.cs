@@ -8,10 +8,13 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
+using Microsoft.AspNetCore.Cors;
 
 namespace Chinook.API.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
+    [ApiController]
     [ResponseCache(Duration = 604800)]
     public class GenreController : Controller
     {
@@ -57,7 +60,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(GenreApiModel))]
         public async Task<ActionResult<GenreApiModel>> Post([FromBody] GenreApiModel input,
             CancellationToken ct = default)
         {
@@ -75,7 +77,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(GenreApiModel))]
         public async Task<ActionResult<GenreApiModel>> Put(int id, [FromBody] GenreApiModel input,
             CancellationToken ct = default)
         {
@@ -107,7 +108,6 @@ namespace Chinook.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Produces(typeof(void))]
         public async Task<ActionResult> Delete(int id, CancellationToken ct = default)
         {
             try

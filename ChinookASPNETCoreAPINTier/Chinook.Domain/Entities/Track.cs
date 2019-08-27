@@ -1,26 +1,20 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Track : IConvertModel<Track, TrackApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
-
-        public Track()
-        {
-        }
-
-        public Track(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int TrackId { get; set; }
+
         public string Name { get; set; }
+
         public int AlbumId { get; set; }
         public int MediaTypeId { get; set; }
         public int? GenreId { get; set; }
@@ -29,12 +23,23 @@ namespace Chinook.Domain.Entities
         public int Bytes { get; set; }
         public decimal UnitPrice { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<InvoiceLine> InvoiceLines { get; set; } = new HashSet<InvoiceLine>();
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<PlaylistTrack> PlaylistTracks { get; set; } = new HashSet<PlaylistTrack>();
+        [NotMapped]
+        [JsonIgnore]
         public Album Album { get; set; }
+        [NotMapped]
+        [JsonIgnore]
         public Genre Genre { get; set; }
+        [NotMapped]
+        [JsonIgnore]
         public MediaType MediaType { get; set; }
 
+        [NotMapped]
         [JsonIgnore]
         public TrackApiModel Convert => new TrackApiModel
         {

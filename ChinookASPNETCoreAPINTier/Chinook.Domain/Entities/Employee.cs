@@ -2,26 +2,20 @@
 using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class Employee : IConvertModel<Employee, EmployeeApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
-
-        public Employee()
-        {
-        }
-
-        public Employee(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int EmployeeId { get; set; }
+
         public string LastName { get; set; }
+
         public string FirstName { get; set; }
         public string Title { get; set; }
         public int? ReportsTo { get; set; }
@@ -36,10 +30,17 @@ namespace Chinook.Domain.Entities
         public string Fax { get; set; }
         public string Email { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<Customer> Customers { get; set; } = new HashSet<Customer>();
+        [NotMapped]
+        [JsonIgnore]
         public Employee Manager { get; set; }
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<Employee> DirectReports { get; set; } = new HashSet<Employee>();
 
+        [NotMapped]
         [JsonIgnore]
         public EmployeeApiModel Convert => new EmployeeApiModel
         {

@@ -63,5 +63,29 @@ namespace Chinook.API.Configurations
 
             return services;
         }
+        
+        public static IServiceCollection AddCaching(this IServiceCollection services)
+        {
+            services.AddMemoryCache();            
+            services.AddResponseCaching();
+
+            return services;
+        }
+        
+        public static IServiceCollection AddCORS(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://example.com")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
+            return services;
+        }
+        
+        
     }
 }

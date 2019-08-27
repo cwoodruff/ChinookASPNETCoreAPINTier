@@ -1,29 +1,25 @@
 ﻿using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Chinook.Domain.Entities
 {
     public class MediaType : IConvertModel<MediaType, MediaTypeApiModel>
     {
-        private readonly ILazyLoader _lazyLoader;
-
-        public MediaType()
-        {
-        }
-
-        public MediaType(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int MediaTypeId { get; set; }
+
         public string Name { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public ICollection<Track> Tracks { get; set; } = new HashSet<Track>();
 
+        [NotMapped]
         [JsonIgnore]
         public MediaTypeApiModel Convert => new MediaTypeApiModel
         {
