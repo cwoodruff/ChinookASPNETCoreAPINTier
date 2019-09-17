@@ -21,9 +21,11 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default) => await _context.MediaType.ToListAsync(ct);
+        public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default) =>
+            await _context.MediaType.AsNoTracking().ToListAsync(ct);
 
-        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default) => await _context.MediaType.FindAsync(id);
+        public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default) =>
+            await _context.MediaType.FindAsync(id);
 
         public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default)
         {

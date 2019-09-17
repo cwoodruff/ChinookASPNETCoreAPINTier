@@ -23,10 +23,12 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default) => await _context.PlaylistTrack.ToListAsync(ct);
+        public async Task<List<PlaylistTrack>> GetAllAsync(CancellationToken ct = default) =>
+            await _context.PlaylistTrack.AsNoTracking().ToListAsync(ct);
 
         public async Task<List<PlaylistTrack>> GetByPlaylistIdAsync(int id,
-            CancellationToken ct = default) => await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
+            CancellationToken ct = default) =>
+            await _context.PlaylistTrack.Where(a => a.PlaylistId == id).ToListAsync(ct);
 
         public async Task<List<PlaylistTrack>> GetByTrackIdAsync(int id,
             CancellationToken ct = default) => await _context.PlaylistTrack.Where(a => a.TrackId == id).ToListAsync(ct);

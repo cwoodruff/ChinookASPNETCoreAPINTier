@@ -22,7 +22,8 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Album>> GetAllAsync(CancellationToken ct = default) => await _context.Album.ToListAsync(ct);
+        public async Task<List<Album>> GetAllAsync(CancellationToken ct = default) =>
+            await _context.Album.AsNoTracking().ToListAsync(ct);
 
         public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default)
         {
@@ -56,6 +57,7 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default) => await _context.Album.Where(a => a.ArtistId == id).ToListAsync(ct);
+        public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Album.Where(a => a.ArtistId == id).ToListAsync(ct);
     }
 }

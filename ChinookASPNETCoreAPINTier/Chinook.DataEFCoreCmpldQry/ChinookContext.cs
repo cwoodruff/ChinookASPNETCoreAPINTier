@@ -15,127 +15,127 @@ namespace Chinook.DataEFCoreCmpldQry
         public static long InstanceCount;
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Album>> _queryGetAllAlbums =
-            EF.CompileAsyncQuery((ChinookContext db) => db.Album);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Album.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Album>> _queryGetAlbum =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Album.Where( a => a.AlbumId == id));
-        
+                db.Album.Where(a => a.AlbumId == id).AsNoTracking());
+
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Album>> _queryGetAlbumsByArtistId =
-            EF.CompileAsyncQuery((ChinookContext db, int id) => db.Album.Where(a => a.ArtistId == id));
+            EF.CompileAsyncQuery((ChinookContext db, int id) => db.Album.Where(a => a.ArtistId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Artist>> _queryGetAllArtists =
-            EF.CompileAsyncQuery((ChinookContext db) => db.Artist);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Artist.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Artist>> _queryGetArtist =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Artist.Where(a => a.ArtistId == id));
+                db.Artist.Where(a => a.ArtistId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Customer>> _queryGetAllCustomers =
-            EF.CompileAsyncQuery((ChinookContext db) => db.Customer);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Customer.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Customer>> _queryGetCustomer =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Customer.Where(c => c.CustomerId == id));
+                db.Customer.Where(c => c.CustomerId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Customer>> _queryGetCustomerBySupportRepId =
-            EF.CompileAsyncQuery((ChinookContext db, int id) => db.Customer.Where(a => a.SupportRepId == id));
+            EF.CompileAsyncQuery((ChinookContext db, int id) =>
+                db.Customer.Where(a => a.SupportRepId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Employee>> _queryGetAllEmployees =
-            EF.CompileAsyncQuery((ChinookContext db) => db.Employee);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Employee.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Employee>> _queryGetEmployee =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Employee.Where(e => e.EmployeeId == id));
+                db.Employee.Where(e => e.EmployeeId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Employee>> _queryGetDirectReports =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Employee.Where(e => e.ReportsTo == id));
+                db.Employee.Where(e => e.ReportsTo == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Employee>> _queryGetReportsTo =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Employee.Where(e => e.ReportsTo == id));
+                db.Employee.Where(e => e.ReportsTo == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Genre>> _queryGetAllGenres =
-            EF.CompileAsyncQuery((ChinookContext db) => db.Genre);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Genre.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Genre>> _queryGetGenre =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Genre.Where( g => g.GenreId == id));
+                db.Genre.Where(g => g.GenreId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<InvoiceLine>> _queryGetAllInvoiceLines =
-            EF.CompileAsyncQuery((ChinookContext db) =>db.InvoiceLine);
+            EF.CompileAsyncQuery((ChinookContext db) => db.InvoiceLine.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<InvoiceLine>> _queryGetInvoiceLine =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.InvoiceLine.Where( i => i.InvoiceLineId == id));
+                db.InvoiceLine.Where(i => i.InvoiceLineId == id).AsNoTracking());
 
-        private static readonly Func<ChinookContext, int, AsyncEnumerable<InvoiceLine>> _queryGetInvoiceLinesByInvoiceId =
+        private static readonly Func<ChinookContext, int, AsyncEnumerable<InvoiceLine>> _queryGetInvoiceLinesByInvoiceId
+            =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.InvoiceLine.Where(a => a.InvoiceId == id));
+                db.InvoiceLine.Where(a => a.InvoiceId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<InvoiceLine>> _queryGetInvoiceLinesByTrackId =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.InvoiceLine.Where(a => a.TrackId == id));
+                db.InvoiceLine.Where(a => a.TrackId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Invoice>> _queryGetAllInvoices =
-            EF.CompileAsyncQuery((ChinookContext db) => db.Invoice);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Invoice.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Invoice>> _queryGetInvoice =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Invoice.Where(i => i.InvoiceId == id));
+                db.Invoice.Where(i => i.InvoiceId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Invoice>> _queryGetInvoicesByCustomerId =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Invoice.Where(a => a.CustomerId == id));
+                db.Invoice.Where(a => a.CustomerId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<MediaType>> _queryGetAllMediaTypes =
-            EF.CompileAsyncQuery((ChinookContext db) =>
-                db.MediaType);
+            EF.CompileAsyncQuery((ChinookContext db) => db.MediaType.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<MediaType>> _queryGetMediaType =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.MediaType.Where( m => m.MediaTypeId == id));
+                db.MediaType.Where(m => m.MediaTypeId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Playlist>> _queryGetAllPlaylists =
-            EF.CompileAsyncQuery((ChinookContext db) =>
-                db.Playlist);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Playlist.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Playlist>> _queryGetPlaylist =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Playlist.Where( p => p.PlaylistId == id));
+                db.Playlist.Where(p => p.PlaylistId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<PlaylistTrack>> _queryGetAllPlaylistTracks =
-                EF.CompileAsyncQuery((ChinookContext db) =>
-                    db.PlaylistTrack);
+            EF.CompileAsyncQuery((ChinookContext db) => db.PlaylistTrack.AsNoTracking());
 
-        private static readonly Func<ChinookContext, int, AsyncEnumerable<PlaylistTrack>> _queryGetPlaylistTrackByPlaylistId =
+        private static readonly Func<ChinookContext, int, AsyncEnumerable<PlaylistTrack>>
+            _queryGetPlaylistTrackByPlaylistId =
                 EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                    db.PlaylistTrack.Where(a => a.PlaylistId == id));
+                    db.PlaylistTrack.Where(a => a.PlaylistId == id).AsNoTracking());
 
-        private static readonly Func<ChinookContext, int, AsyncEnumerable<PlaylistTrack>> _queryGetPlaylistTracksByTrackId =
-            EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.PlaylistTrack.Where(a => a.TrackId == id));
+        private static readonly Func<ChinookContext, int, AsyncEnumerable<PlaylistTrack>>
+            _queryGetPlaylistTracksByTrackId =
+                EF.CompileAsyncQuery((ChinookContext db, int id) =>
+                    db.PlaylistTrack.Where(a => a.TrackId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, AsyncEnumerable<Track>> _queryGetAllTracks =
-            EF.CompileAsyncQuery((ChinookContext db) =>
-                db.Track);
+            EF.CompileAsyncQuery((ChinookContext db) => db.Track.AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Track>> _queryGetTrack =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Track.Where(t=> t.TrackId == id));
+                db.Track.Where(t => t.TrackId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Track>> _queryGetTracksByAlbumId =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Track.Where(a => a.AlbumId == id));
+                db.Track.Where(a => a.AlbumId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Track>> _queryGetTracksByGenreId =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Track.Where(a => a.GenreId == id));
+                db.Track.Where(a => a.GenreId == id).AsNoTracking());
 
         private static readonly Func<ChinookContext, int, AsyncEnumerable<Track>> _queryGetTracksByMediaTypeId =
             EF.CompileAsyncQuery((ChinookContext db, int id) =>
-                db.Track.Where(a => a.MediaTypeId == id));
+                db.Track.Where(a => a.MediaTypeId == id).AsNoTracking());
 
         public ChinookContext(DbContextOptions options) : base(options)
         {
@@ -173,7 +173,8 @@ namespace Chinook.DataEFCoreCmpldQry
 
         public async Task<List<Album>> GetAlbumAsync(int id) => await _queryGetAlbum(this, id).ToListAsync();
 
-        public async Task<List<Album>> GetAlbumsByArtistIdAsync(int id) => await _queryGetAlbumsByArtistId(this, id).ToListAsync();
+        public async Task<List<Album>> GetAlbumsByArtistIdAsync(int id) =>
+            await _queryGetAlbumsByArtistId(this, id).ToListAsync();
 
         public async Task<List<Artist>> GetAllArtistsAsync() => await _queryGetAllArtists(this).ToListAsync();
 
@@ -183,56 +184,71 @@ namespace Chinook.DataEFCoreCmpldQry
 
         public async Task<List<Customer>> GetCustomerAsync(int id) => await _queryGetCustomer(this, id).ToListAsync();
 
-        public async Task<List<Customer>> GetCustomerBySupportRepIdAsync(int id) => await _queryGetCustomerBySupportRepId(this, id).ToListAsync();
+        public async Task<List<Customer>> GetCustomerBySupportRepIdAsync(int id) =>
+            await _queryGetCustomerBySupportRepId(this, id).ToListAsync();
 
         public async Task<List<Employee>> GetAllEmployeesAsync() => await _queryGetAllEmployees(this).ToListAsync();
 
         public async Task<List<Employee>> GetEmployeeAsync(int id) => await _queryGetEmployee(this, id).ToListAsync();
 
-        public async Task<List<Employee>> GetEmployeeDirectReportsAsync(int id) => await _queryGetDirectReports(this, id).ToListAsync();
+        public async Task<List<Employee>> GetEmployeeDirectReportsAsync(int id) =>
+            await _queryGetDirectReports(this, id).ToListAsync();
 
-        public async Task<List<Employee>> GetEmployeeGetReportsToAsync(int id) => await _queryGetReportsTo(this, id).ToListAsync();
+        public async Task<List<Employee>> GetEmployeeGetReportsToAsync(int id) =>
+            await _queryGetReportsTo(this, id).ToListAsync();
 
         public async Task<List<Genre>> GetAllGenresAsync() => await _queryGetAllGenres(this).ToListAsync();
 
         public async Task<List<Genre>> GetGenreAsync(int id) => await _queryGetGenre(this, id).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetAllInvoiceLinesAsync() => await _queryGetAllInvoiceLines(this).ToListAsync();
+        public async Task<List<InvoiceLine>> GetAllInvoiceLinesAsync() =>
+            await _queryGetAllInvoiceLines(this).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetInvoiceLineAsync(int id) => await _queryGetInvoiceLine(this, id).ToListAsync();
+        public async Task<List<InvoiceLine>> GetInvoiceLineAsync(int id) =>
+            await _queryGetInvoiceLine(this, id).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetInvoiceLinesByInvoiceIdAsync(int id) => await _queryGetInvoiceLinesByInvoiceId(this, id).ToListAsync();
+        public async Task<List<InvoiceLine>> GetInvoiceLinesByInvoiceIdAsync(int id) =>
+            await _queryGetInvoiceLinesByInvoiceId(this, id).ToListAsync();
 
-        public async Task<List<InvoiceLine>> GetInvoiceLinesByTrackIdAsync(int id) => await _queryGetInvoiceLinesByTrackId(this, id).ToListAsync();
+        public async Task<List<InvoiceLine>> GetInvoiceLinesByTrackIdAsync(int id) =>
+            await _queryGetInvoiceLinesByTrackId(this, id).ToListAsync();
 
         public async Task<List<Invoice>> GetAllInvoicesAsync() => await _queryGetAllInvoices(this).ToListAsync();
 
         public async Task<List<Invoice>> GetInvoiceAsync(int id) => await _queryGetInvoice(this, id).ToListAsync();
 
-        public async Task<List<Invoice>> GetInvoicesByCustomerIdAsync(int id) => await _queryGetInvoicesByCustomerId(this, id).ToListAsync();
+        public async Task<List<Invoice>> GetInvoicesByCustomerIdAsync(int id) =>
+            await _queryGetInvoicesByCustomerId(this, id).ToListAsync();
 
         public async Task<List<MediaType>> GetAllMediaTypesAsync() => await _queryGetAllMediaTypes(this).ToListAsync();
 
-        public async Task<List<MediaType>> GetMediaTypeAsync(int id) => await _queryGetMediaType(this, id).ToListAsync();
+        public async Task<List<MediaType>> GetMediaTypeAsync(int id) =>
+            await _queryGetMediaType(this, id).ToListAsync();
 
         public async Task<List<Playlist>> GetAllPlaylistsAsync() => await _queryGetAllPlaylists(this).ToListAsync();
 
         public async Task<List<Playlist>> GetPlaylistAsync(int id) => await _queryGetPlaylist(this, id).ToListAsync();
 
-        public async Task<List<PlaylistTrack>> GetAllPlaylistTracksAsync() => await _queryGetAllPlaylistTracks(this).ToListAsync();
+        public async Task<List<PlaylistTrack>> GetAllPlaylistTracksAsync() =>
+            await _queryGetAllPlaylistTracks(this).ToListAsync();
 
-        public async Task<List<PlaylistTrack>> GetPlaylistTrackByPlaylistId(int id) => await _queryGetPlaylistTrackByPlaylistId(this, id).ToListAsync();
+        public async Task<List<PlaylistTrack>> GetPlaylistTrackByPlaylistId(int id) =>
+            await _queryGetPlaylistTrackByPlaylistId(this, id).ToListAsync();
 
-        public async Task<List<PlaylistTrack>> GetPlaylistTracksByTrackIdAsync(int id) => await _queryGetPlaylistTracksByTrackId(this, id).ToListAsync();
+        public async Task<List<PlaylistTrack>> GetPlaylistTracksByTrackIdAsync(int id) =>
+            await _queryGetPlaylistTracksByTrackId(this, id).ToListAsync();
 
         public async Task<List<Track>> GetAllTracksAsync() => await _queryGetAllTracks(this).ToListAsync();
 
         public async Task<List<Track>> GetTrackAsync(int id) => await _queryGetTrack(this, id).ToListAsync();
 
-        public async Task<List<Track>> GetTracksByAlbumIdAsync(int id) => await _queryGetTracksByAlbumId(this, id).ToListAsync();
+        public async Task<List<Track>> GetTracksByAlbumIdAsync(int id) =>
+            await _queryGetTracksByAlbumId(this, id).ToListAsync();
 
-        public async Task<List<Track>> GetTracksByGenreIdAsync(int id) => await _queryGetTracksByGenreId(this, id).ToListAsync();
+        public async Task<List<Track>> GetTracksByGenreIdAsync(int id) =>
+            await _queryGetTracksByGenreId(this, id).ToListAsync();
 
-        public async Task<List<Track>> GetTracksByMediaTypeIdAsync(int id) => await _queryGetTracksByMediaTypeId(this, id).ToListAsync();
+        public async Task<List<Track>> GetTracksByMediaTypeIdAsync(int id) =>
+            await _queryGetTracksByMediaTypeId(this, id).ToListAsync();
     }
 }

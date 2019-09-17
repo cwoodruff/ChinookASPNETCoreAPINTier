@@ -22,9 +22,11 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default) => await _context.Track.ToListAsync(ct);
+        public async Task<List<Track>> GetAllAsync(CancellationToken ct = default) =>
+            await _context.Track.AsNoTracking().ToListAsync(ct);
 
-        public async Task<Track> GetByIdAsync(int id, CancellationToken ct = default) => await _context.Track.FindAsync(id);
+        public async Task<Track> GetByIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Track.FindAsync(id);
 
         public async Task<Track> AddAsync(Track newTrack, CancellationToken ct = default)
         {
@@ -52,10 +54,13 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default) => await _context.Track.Where(a => a.AlbumId == id).ToListAsync(ct);
+        public async Task<List<Track>> GetByAlbumIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Track.Where(a => a.AlbumId == id).ToListAsync(ct);
 
-        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default) => await _context.Track.Where(a => a.GenreId == id).ToListAsync(ct);
+        public async Task<List<Track>> GetByGenreIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Track.Where(a => a.GenreId == id).ToListAsync(ct);
 
-        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default) => await _context.Track.Where(a => a.MediaTypeId == id).ToListAsync(ct);
+        public async Task<List<Track>> GetByMediaTypeIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Track.Where(a => a.MediaTypeId == id).ToListAsync(ct);
     }
 }

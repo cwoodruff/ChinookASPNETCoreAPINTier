@@ -22,9 +22,11 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default) => await _context.Customer.ToListAsync(ct);
+        public async Task<List<Customer>> GetAllAsync(CancellationToken ct = default) =>
+            await _context.Customer.AsNoTracking().ToListAsync(ct);
 
-        public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default) => await _context.Customer.FindAsync(id);
+        public async Task<Customer> GetByIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Customer.FindAsync(id);
 
         public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default)
         {

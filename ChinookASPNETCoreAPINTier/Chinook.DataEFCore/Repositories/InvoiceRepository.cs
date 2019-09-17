@@ -28,9 +28,11 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default) => await _context.Invoice.ToListAsync(ct);
+        public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default) =>
+            await _context.Invoice.AsNoTracking().ToListAsync(ct);
 
-        public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default) => await _context.Invoice.FindAsync(id);
+        public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Invoice.FindAsync(id);
 
         public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default)
         {
@@ -58,6 +60,7 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default) => await _context.Invoice.Where(a => a.InvoiceId == id).ToListAsync(ct);
+        public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default) =>
+            await _context.Invoice.Where(a => a.InvoiceId == id).ToListAsync(ct);
     }
 }

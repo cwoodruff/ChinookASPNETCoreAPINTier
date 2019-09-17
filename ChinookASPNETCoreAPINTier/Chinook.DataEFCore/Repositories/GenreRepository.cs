@@ -21,7 +21,8 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) => await _context.Genre.ToListAsync(ct);
+        public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default) =>
+            await _context.Genre.AsNoTracking().ToListAsync(ct);
 
         public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default)
         {
