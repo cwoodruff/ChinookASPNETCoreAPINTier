@@ -42,18 +42,6 @@ namespace Chinook.API.Configurations
             return services;
         }
 
-        public static IServiceCollection AddCorsConfiguration(this IServiceCollection services) =>        
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin()
-                    .AllowCredentials()
-                    .Build());
-            }
-        );
-        
         public static IServiceCollection AddLogging(this IServiceCollection services)
         {
             services.AddLogging(builder => builder

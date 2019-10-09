@@ -32,7 +32,6 @@ namespace Chinook.API
             services.ConfigureRepositories()
                 .ConfigureSupervisor()
                 .AddMiddleware()
-                .AddCorsConfiguration()
                 .AddConnectionProvider(Configuration)
                 .AddAppSettings(Configuration)
                 .AddCaching()
