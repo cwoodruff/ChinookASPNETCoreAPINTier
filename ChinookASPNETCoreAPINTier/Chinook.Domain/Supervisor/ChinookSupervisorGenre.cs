@@ -31,13 +31,13 @@ namespace Chinook.Domain.Supervisor
 
             if (genre != null)
             {
-                var genreApiModel = genre.Convert;
+                var genreApiModel = genre.Convert();
                 genreApiModel.Tracks = (await GetTrackByGenreIdAsync(genreApiModel.GenreId, ct)).ToList();
                 return genreApiModel;
             }
             else
             {
-                var genreApiModel = (await _genreRepository.GetByIdAsync(id, ct)).Convert;
+                var genreApiModel = (await _genreRepository.GetByIdAsync(id, ct)).Convert();
                 genreApiModel.Tracks = (await GetTrackByGenreIdAsync(genreApiModel.GenreId, ct)).ToList();
                 
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
@@ -50,7 +50,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<GenreApiModel> AddGenreAsync(GenreApiModel newGenreApiModel,
             CancellationToken ct = default)
         {
-            var genre = newGenreApiModel.Convert;
+            var genre = newGenreApiModel.Convert();
 
             genre = await _genreRepository.AddAsync(genre, ct);
             newGenreApiModel.GenreId = genre.GenreId;

@@ -31,13 +31,13 @@ namespace Chinook.Domain.Supervisor
 
             if (playlist != null)
             {
-                var playlistApiModel = playlist.Convert;
+                var playlistApiModel = playlist.Convert();
                 playlistApiModel.Tracks = (await GetTrackByPlaylistIdIdAsync(playlistApiModel.PlaylistId, ct)).ToList();
                 return playlistApiModel;
             }
             else
             {
-                var playlistApiModel = (await _playlistRepository.GetByIdAsync(id, ct)).Convert;
+                var playlistApiModel = (await _playlistRepository.GetByIdAsync(id, ct)).Convert();
                 playlistApiModel.Tracks = (await GetTrackByPlaylistIdIdAsync(playlistApiModel.PlaylistId, ct)).ToList();
 
                 var cacheEntryOptions =
@@ -56,7 +56,7 @@ namespace Chinook.Domain.Supervisor
                 Name = newPlaylistApiModel.Name
             };*/
 
-            var playlist = newPlaylistApiModel.Convert;
+            var playlist = newPlaylistApiModel.Convert();
 
             playlist = await _playlistRepository.AddAsync(playlist, ct);
             newPlaylistApiModel.PlaylistId = playlist.PlaylistId;

@@ -20,9 +20,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public IList<TrackApiModel> Tracks { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public MediaType Convert => new MediaType
+        public MediaType Convert() => new MediaType
         {
             MediaTypeId = MediaTypeId,
             Name = Name

@@ -35,9 +35,7 @@ namespace Chinook.Domain.Entities
         [JsonIgnore]
         public Employee SupportRep { get; set; }
 
-        [NotMapped]
-        [JsonIgnore]
-        public CustomerApiModel Convert => new CustomerApiModel
+        public CustomerApiModel Convert() => new CustomerApiModel
         {
             CustomerId = CustomerId,
             FirstName = FirstName,

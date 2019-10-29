@@ -30,7 +30,7 @@ namespace Chinook.Domain.Supervisor
 
             if (invoice != null)
             {
-                var invoiceApiModel = invoice.Convert;
+                var invoiceApiModel = invoice.Convert();
                 invoiceApiModel.Customer = await GetCustomerByIdAsync(invoiceApiModel.CustomerId, ct);
                 invoiceApiModel.InvoiceLines = (await GetInvoiceLineByInvoiceIdAsync(invoiceApiModel.InvoiceId, ct)).ToList();
                 invoiceApiModel.CustomerName =
@@ -39,7 +39,7 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var invoiceApiModel = (await _invoiceRepository.GetByIdAsync(id, ct)).Convert;
+                var invoiceApiModel = (await _invoiceRepository.GetByIdAsync(id, ct)).Convert();
                 invoiceApiModel.Customer = await GetCustomerByIdAsync(invoiceApiModel.CustomerId, ct);
                 invoiceApiModel.InvoiceLines = (await GetInvoiceLineByInvoiceIdAsync(invoiceApiModel.InvoiceId, ct)).ToList();
                 invoiceApiModel.CustomerName =
@@ -75,7 +75,7 @@ namespace Chinook.Domain.Supervisor
                 Total = newInvoiceApiModel.Total
             };*/
 
-            var invoice = newInvoiceApiModel.Convert;
+            var invoice = newInvoiceApiModel.Convert();
 
             invoice = await _invoiceRepository.AddAsync(invoice, ct);
             newInvoiceApiModel.InvoiceId = invoice.InvoiceId;

@@ -20,9 +20,7 @@ namespace Chinook.Domain.Entities
         [JsonIgnore]
         public ICollection<Album> Albums { get; set; } = new HashSet<Album>();
 
-        [NotMapped]
-        [JsonIgnore]
-        public ArtistApiModel Convert => new ArtistApiModel
+        public ArtistApiModel Convert() => new ArtistApiModel
         {
             ArtistId = ArtistId,
             Name = Name

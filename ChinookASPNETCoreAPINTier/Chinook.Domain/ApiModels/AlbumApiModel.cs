@@ -29,10 +29,8 @@ namespace Chinook.Domain.ApiModels
         [NotMapped]
         [JsonIgnore]
         public IList<TrackApiModel> Tracks { get; set; }
-        
-        [NotMapped]
-        [JsonIgnore]
-        public Album Convert => new Album
+            
+        public Album Convert() => new Album
         {
             AlbumId = AlbumId,
             ArtistId = ArtistId,

@@ -31,13 +31,13 @@ namespace Chinook.Domain.Supervisor
 
             if (mediaType != null)
             {
-                var mediaTypeApiModel = mediaType.Convert;
+                var mediaTypeApiModel = mediaType.Convert();
                 mediaTypeApiModel.Tracks = (await GetTrackByMediaTypeIdAsync(mediaTypeApiModel.MediaTypeId, ct)).ToList();
                 return mediaTypeApiModel;
             }
             else
             {
-                var mediaTypeApiModel = (await _mediaTypeRepository.GetByIdAsync(id, ct)).Convert;
+                var mediaTypeApiModel = (await _mediaTypeRepository.GetByIdAsync(id, ct)).Convert();
                 mediaTypeApiModel.Tracks = (await GetTrackByMediaTypeIdAsync(mediaTypeApiModel.MediaTypeId, ct)).ToList();
 
                 var cacheEntryOptions =
@@ -56,7 +56,7 @@ namespace Chinook.Domain.Supervisor
                 Name = newMediaTypeApiModel.Name
             };*/
 
-            var mediaType = newMediaTypeApiModel.Convert;
+            var mediaType = newMediaTypeApiModel.Convert();
 
             mediaType = await _mediaTypeRepository.AddAsync(mediaType, ct);
             newMediaTypeApiModel.MediaTypeId = mediaType.MediaTypeId;

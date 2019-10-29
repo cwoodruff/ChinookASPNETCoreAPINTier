@@ -47,9 +47,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public MediaTypeApiModel MediaType { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public Track Convert => new Track
+        public Track Convert() => new Track
         {
             TrackId = TrackId,
             Name = Name,

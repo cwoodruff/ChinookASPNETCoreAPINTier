@@ -30,7 +30,7 @@ namespace Chinook.Domain.Supervisor
 
             if (invoiceLine != null)
             {
-                var invoiceLineApiModel = invoiceLine.Convert;
+                var invoiceLineApiModel = invoiceLine.Convert();
                 invoiceLineApiModel.Track = await GetTrackByIdAsync(invoiceLineApiModel.TrackId, ct);
                 invoiceLineApiModel.Invoice = await GetInvoiceByIdAsync(invoiceLineApiModel.InvoiceId, ct);
                 invoiceLineApiModel.TrackName = invoiceLineApiModel.Track.Name;
@@ -38,7 +38,7 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var invoiceLineApiModel = (await _invoiceLineRepository.GetByIdAsync(id, ct)).Convert;
+                var invoiceLineApiModel = (await _invoiceLineRepository.GetByIdAsync(id, ct)).Convert();
                 invoiceLineApiModel.Track = await GetTrackByIdAsync(invoiceLineApiModel.TrackId, ct);
                 invoiceLineApiModel.Invoice = await GetInvoiceByIdAsync(invoiceLineApiModel.InvoiceId, ct);
                 invoiceLineApiModel.TrackName = invoiceLineApiModel.Track.Name;
@@ -76,7 +76,7 @@ namespace Chinook.Domain.Supervisor
                 Quantity = newInvoiceLineApiModel.Quantity
             };*/
 
-            var invoiceLine = newInvoiceLineApiModel.Convert;
+            var invoiceLine = newInvoiceLineApiModel.Convert();
 
             invoiceLine = await _invoiceLineRepository.AddAsync(invoiceLine, ct);
             newInvoiceLineApiModel.InvoiceLineId = invoiceLine.InvoiceLineId;

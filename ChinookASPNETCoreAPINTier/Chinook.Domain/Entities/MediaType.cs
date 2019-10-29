@@ -19,9 +19,7 @@ namespace Chinook.Domain.Entities
         [JsonIgnore]
         public ICollection<Track> Tracks { get; set; } = new HashSet<Track>();
 
-        [NotMapped]
-        [JsonIgnore]
-        public MediaTypeApiModel Convert => new MediaTypeApiModel
+        public MediaTypeApiModel Convert() => new MediaTypeApiModel
         {
             MediaTypeId = MediaTypeId,
             Name = Name

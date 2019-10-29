@@ -2,6 +2,6 @@
 {
     public interface IConvertModel<TSource, TTarget>
     {
-        TTarget Convert { get; }
+        TTarget Convert();
     }
 }
