@@ -20,9 +20,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public IList<TrackApiModel> Tracks { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public Genre Convert => new Genre
+        public Genre Convert() => new Genre
         {
             GenreId = GenreId,
             Name = Name

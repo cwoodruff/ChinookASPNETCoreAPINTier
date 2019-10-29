@@ -22,9 +22,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public IList<PlaylistTrackApiModel> PlaylistTracks { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public Playlist Convert => new Playlist
+        public Playlist Convert() => new Playlist
         {
             PlaylistId = PlaylistId,
             Name = Name

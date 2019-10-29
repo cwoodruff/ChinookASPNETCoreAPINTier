@@ -20,9 +20,7 @@ namespace Chinook.Domain.Entities
         [JsonIgnore]
         public ICollection<Track> Tracks { get; set; } = new HashSet<Track>();
 
-        [NotMapped]
-        [JsonIgnore]
-        public GenreApiModel Convert => new GenreApiModel
+        public GenreApiModel Convert() => new GenreApiModel
         {
             GenreId = GenreId,
             Name = Name

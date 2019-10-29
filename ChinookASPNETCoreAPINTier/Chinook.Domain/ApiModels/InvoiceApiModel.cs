@@ -34,9 +34,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public CustomerApiModel Customer { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public Invoice Convert => new Invoice
+        public Invoice Convert() => new Invoice
         {
             InvoiceId = InvoiceId,
             CustomerId = CustomerId,

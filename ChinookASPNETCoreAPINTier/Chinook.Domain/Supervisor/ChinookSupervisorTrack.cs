@@ -28,7 +28,7 @@ namespace Chinook.Domain.Supervisor
 
             if (track != null)
             {
-                var trackApiModel = track.Convert;
+                var trackApiModel = track.Convert();
                 trackApiModel.Genre = await GetGenreByIdAsync(trackApiModel.GenreId.GetValueOrDefault(), ct);
                 trackApiModel.Album = await GetAlbumByIdAsync(trackApiModel.TrackId, ct);
                 trackApiModel.MediaType = await GetMediaTypeByIdAsync(trackApiModel.MediaTypeId, ct);
@@ -39,7 +39,7 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var trackApiModel = (await _trackRepository.GetByIdAsync(id, ct)).Convert;
+                var trackApiModel = (await _trackRepository.GetByIdAsync(id, ct)).Convert();
                 trackApiModel.Genre = await GetGenreByIdAsync(trackApiModel.GenreId.GetValueOrDefault(), ct);
                 trackApiModel.Album = await GetAlbumByIdAsync(trackApiModel.TrackId, ct);
                 trackApiModel.MediaType = await GetMediaTypeByIdAsync(trackApiModel.MediaTypeId, ct);
@@ -99,7 +99,7 @@ namespace Chinook.Domain.Supervisor
                 UnitPrice = newTrackApiModel.UnitPrice
             };*/
 
-            var track = newTrackApiModel.Convert;
+            var track = newTrackApiModel.Convert();
 
             await _trackRepository.AddAsync(track, ct);
             newTrackApiModel.TrackId = track.TrackId;

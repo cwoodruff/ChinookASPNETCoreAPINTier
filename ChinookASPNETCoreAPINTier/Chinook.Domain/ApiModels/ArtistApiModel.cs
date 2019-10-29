@@ -20,9 +20,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public IList<AlbumApiModel> Albums { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public Artist Convert => new Artist
+        public Artist Convert() => new Artist
         {
             ArtistId = ArtistId,
             Name = Name

@@ -42,9 +42,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public ICollection<EmployeeApiModel> DirectReports { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public Employee Convert => new Employee
+        public Employee Convert() => new Employee
         {
             EmployeeId = EmployeeId,
             LastName = LastName,

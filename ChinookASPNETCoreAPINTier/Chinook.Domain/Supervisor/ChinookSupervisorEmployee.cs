@@ -31,7 +31,7 @@ namespace Chinook.Domain.Supervisor
 
             if (employee != null)
             {
-                var employeeApiModel = employee.Convert;
+                var employeeApiModel = employee.Convert();
                 employeeApiModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeApiModel.EmployeeId, ct)).ToList();
                 employeeApiModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeApiModel.EmployeeId, ct)).ToList();
                 employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
@@ -45,7 +45,7 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var employeeApiModel = (await _employeeRepository.GetByIdAsync(id, ct)).Convert;
+                var employeeApiModel = (await _employeeRepository.GetByIdAsync(id, ct)).Convert();
                 employeeApiModel.Customers = (await GetCustomerBySupportRepIdAsync(employeeApiModel.EmployeeId, ct)).ToList();
                 employeeApiModel.DirectReports = (await GetEmployeeDirectReportsAsync(employeeApiModel.EmployeeId, ct)).ToList();
                 employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
@@ -68,7 +68,7 @@ namespace Chinook.Domain.Supervisor
             CancellationToken ct = default)
         {
             var employee = await _employeeRepository.GetReportsToAsync(id, ct);
-            return employee.Convert;
+            return employee.Convert();
         }
 
         public async Task<EmployeeApiModel> AddEmployeeAsync(EmployeeApiModel newEmployeeApiModel,
@@ -92,7 +92,7 @@ namespace Chinook.Domain.Supervisor
                 Email = newEmployeeApiModel.Email
             };*/
 
-            var employee = newEmployeeApiModel.Convert;
+            var employee = newEmployeeApiModel.Convert();
 
             employee = await _employeeRepository.AddAsync(employee, ct);
             newEmployeeApiModel.EmployeeId = employee.EmployeeId;

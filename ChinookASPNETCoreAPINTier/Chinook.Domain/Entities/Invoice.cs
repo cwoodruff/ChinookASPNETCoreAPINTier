@@ -39,9 +39,7 @@ namespace Chinook.Domain.Entities
             set => _customer = value;
         }
 
-        [NotMapped]
-        [JsonIgnore]
-        public InvoiceApiModel Convert => new InvoiceApiModel
+        public InvoiceApiModel Convert() => new InvoiceApiModel
         {
             InvoiceId = InvoiceId,
             CustomerId = CustomerId,

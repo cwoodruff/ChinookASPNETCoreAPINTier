@@ -40,9 +40,7 @@ namespace Chinook.Domain.Entities
         [JsonIgnore]
         public ICollection<Employee> DirectReports { get; set; } = new HashSet<Employee>();
 
-        [NotMapped]
-        [JsonIgnore]
-        public EmployeeApiModel Convert => new EmployeeApiModel
+        public EmployeeApiModel Convert() => new EmployeeApiModel
         {
             EmployeeId = EmployeeId,
             LastName = LastName,

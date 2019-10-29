@@ -32,7 +32,7 @@
 
                 if (customer != null)
                 {
-                    var customerApiModel = customer.Convert;
+                    var customerApiModel = customer.Convert();
                     customerApiModel.Invoices = (await GetInvoiceByCustomerIdAsync(customerApiModel.CustomerId, ct)).ToList();
                     customerApiModel.SupportRep =
                         await GetEmployeeByIdAsync(customerApiModel.SupportRepId.GetValueOrDefault(), ct);
@@ -42,7 +42,7 @@
                 }
                 else
                 {
-                    var customerApiModel = (await _customerRepository.GetByIdAsync(id, ct)).Convert;
+                    var customerApiModel = (await _customerRepository.GetByIdAsync(id, ct)).Convert();
                     customerApiModel.Invoices = (await GetInvoiceByCustomerIdAsync(customerApiModel.CustomerId, ct)).ToList();
                     customerApiModel.SupportRep =
                         await GetEmployeeByIdAsync(customerApiModel.SupportRepId.GetValueOrDefault(), ct);
@@ -83,7 +83,7 @@
                     SupportRepId = newCustomerApiModel.SupportRepId
                 };*/
 
-                var customer = newCustomerApiModel.Convert;
+                var customer = newCustomerApiModel.Convert();
 
                 customer = await _customerRepository.AddAsync(customer, ct);
                 newCustomerApiModel.CustomerId = customer.CustomerId;

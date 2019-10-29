@@ -29,13 +29,13 @@ namespace Chinook.Domain.Supervisor
 
             if (artist != null)
             {
-                var artistApiModel = artist.Convert;
+                var artistApiModel = artist.Convert();
                 artistApiModel.Albums = (await GetAlbumByArtistIdAsync(artistApiModel.ArtistId, ct)).ToList();
                 return artistApiModel;
             }
             else
             {
-                var artistApiModel = (await _artistRepository.GetByIdAsync(id, ct)).Convert;
+                var artistApiModel = (await _artistRepository.GetByIdAsync(id, ct)).Convert();
                 artistApiModel.Albums = (await GetAlbumByArtistIdAsync(artistApiModel.ArtistId, ct)).ToList();
 
                 var cacheEntryOptions =
@@ -49,7 +49,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<ArtistApiModel> AddArtistAsync(ArtistApiModel newArtistApiModel,
             CancellationToken ct = default)
         {
-            var artist = newArtistApiModel.Convert;
+            var artist = newArtistApiModel.Convert();
 
             artist = await _artistRepository.AddAsync(artist, ct);
             newArtistApiModel.ArtistId = artist.ArtistId;

@@ -29,9 +29,7 @@ namespace Chinook.Domain.ApiModels
         [JsonIgnore]
         public TrackApiModel Track { get; set; }
         
-        [NotMapped]
-        [JsonIgnore]
-        public InvoiceLine Convert => new InvoiceLine
+        public InvoiceLine Convert() => new InvoiceLine
         {
             InvoiceLineId = InvoiceLineId,
             InvoiceId = InvoiceId,

@@ -18,9 +18,7 @@ namespace Chinook.Domain.Entities
         [JsonIgnore]
         public ICollection<PlaylistTrack> PlaylistTracks { get; set; } = new HashSet<PlaylistTrack>();
 
-        [NotMapped]
-        [JsonIgnore]
-        public PlaylistApiModel Convert => new PlaylistApiModel
+        public PlaylistApiModel Convert() => new PlaylistApiModel
         {
             PlaylistId = PlaylistId,
             Name = Name

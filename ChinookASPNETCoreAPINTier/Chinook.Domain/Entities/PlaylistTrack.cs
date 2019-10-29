@@ -18,9 +18,7 @@ namespace Chinook.Domain.Entities
         [JsonIgnore]
         public Track Track { get; set; }
 
-        [NotMapped]
-        [JsonIgnore]
-        public PlaylistTrackApiModel Convert => new PlaylistTrackApiModel
+        public PlaylistTrackApiModel Convert() => new PlaylistTrackApiModel
         {
             PlaylistId = PlaylistId,
             TrackId = TrackId

@@ -33,9 +33,7 @@ namespace Chinook.Domain.Entities
             set => _artist = value;
         }
 
-        [NotMapped]
-        [JsonIgnore]
-        public AlbumApiModel Convert => new AlbumApiModel
+        public AlbumApiModel Convert() => new AlbumApiModel
         {
             AlbumId = AlbumId,
             ArtistId = ArtistId,
